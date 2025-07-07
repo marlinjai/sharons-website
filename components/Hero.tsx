@@ -24,7 +24,7 @@ export default function Hero() {
        <div className="relative flex flex-col lg:flex-row items-end pb-44 justify-center h-full px-8 lg:px-24 z-20 pt-0 gap-24">
          <div className="max-w-2xl text-center lg:text-left space-y-6">
            <h1 className="text-4xl md:text-5xl font-playfair font-bold leading-tight text-white drop-shadow-lg">
-             Past Life Regressions  <br />
+               <br />
  for the  <span className="italic font-semibold">curious, brave </span>
            </h1>
                      <p className="text-lg text-white drop-shadow-md">

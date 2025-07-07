@@ -25,6 +25,7 @@ module.exports = {
       fontFamily: {
         sans: ['Josefin Sans', 'sans-serif'],
         heading: ['Playfair Display', 'serif'],
+        playfair: ['Playfair Display', 'serif'],
       },
     },
   },
