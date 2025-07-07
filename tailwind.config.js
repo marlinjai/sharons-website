@@ -23,7 +23,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Josefin Sans', 'sans-serif'],
         heading: ['Playfair Display', 'serif'],
       },
     },

@@ -1,5 +1,5 @@
 /* app/globals.css - Global styles for yoga studio website */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,4 +34,8 @@ html {
 
 .btn-secondary {
   @apply border-2 border-yoga-earth text-yoga-earth hover:bg-yoga-earth hover:text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300;
+}
+
+body, html {
+  font-family: 'Josefin Sans', sans-serif;
 } 

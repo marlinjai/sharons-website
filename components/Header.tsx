@@ -2,43 +2,45 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import logo from '../public/graphics/logo_return.svg'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
     <header className="fixed top-8 left-0 right-0 z-50 flex justify-center">
-      <nav className="w-[80%] max-w-6xl bg-white/20 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
+      <nav className="w-[100%] max-w-6xl bg-stone-100/50 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="text-lg font-bold text-black" style={{ mixBlendMode: 'difference' }}>
-            Hypnotherapy Berlin
-          </div>
+          <Link href="/" className="flex items-center">
+            {/* Logo SVG - logo_return.svg */}
+            <img src="/graphics/logo_return.svg" alt="Hypnotherapy Berlin Logo" className="h-24 w-auto" />
+          </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex space-x-8 text-black font-medium">
+          <ul className="hidden md:flex space-x-8 text-stone-900 font-semibold text-lg">
             <li>
-              <Link href="#instructors" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'difference' }}>
+              <Link href="#instructors" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
                 Services
               </Link>
             </li>
             <li>
-              <Link href="#reviews" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'difference' }}>
+              <Link href="#reviews" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
                 Reviews
               </Link>
             </li>
             <li>
-              <Link href="#pricing" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'difference' }}>
+              <Link href="#pricing" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
                 About
               </Link>
             </li>
             <li>
-              <Link href="#sessions" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'difference' }}>
+              <Link href="#sessions" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
                 Contact
               </Link>
             </li>
             <li>
-              <Link href="#blog" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'difference' }}>
+              <Link href="#blog" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
                 Blog
               </Link>
             </li>
@@ -56,6 +58,7 @@ export default function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 rounded-full text-white hover:bg-white/10 transition-colors duration-200"
+            title="Toggle navigation menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMenuOpen ? (
@@ -74,7 +77,7 @@ export default function Header() {
               <Link
                 href="#instructors"
                 className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'difference' }}
+                style={{ mixBlendMode: 'normal' }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Services
@@ -82,7 +85,7 @@ export default function Header() {
               <Link
                 href="#reviews"
                 className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'difference' }}
+                style={{ mixBlendMode: 'normal' }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Reviews
@@ -90,7 +93,7 @@ export default function Header() {
               <Link
                 href="#pricing"
                 className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'difference' }}
+                style={{ mixBlendMode: 'normal' }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
@@ -98,7 +101,7 @@ export default function Header() {
               <Link
                 href="#sessions"
                 className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'difference' }}
+                style={{ mixBlendMode: 'normal' }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact
@@ -106,7 +109,7 @@ export default function Header() {
               <Link
                 href="#blog"
                 className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'difference' }}
+                style={{ mixBlendMode: 'normal' }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blog
