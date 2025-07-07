@@ -1,6 +1,9 @@
 # Sharon's Hypnotherapy Website
 
-Welcome! This is the source code for Sharon's Hypnotherapy website. It is built using [Next.js](https://nextjs.org/), a modern website framework. This guide will help you get started, even if you have never used JavaScript or Next.js before.
+Welcome! This is the source code for Sharon's Hypnotherapy website.  
+You are now viewing the project in Cursor, your code editor.
+
+This guide will help you run, view, and edit the website—even if you have never used JavaScript or Next.js before.
 
 ---
 
@@ -17,49 +20,37 @@ The site is designed to be easy to update and maintain.
 
 ---
 
-## How to run the website on your computer (development mode)
+## How to run the website (development mode)
 
-### 1. Prerequisites
-- **Node.js** and **npm** must be installed on your computer.
-  - Download from: https://nodejs.org/
-  - Install the "LTS" version (recommended for beginners).
+### 1. Open a terminal in Cursor
+- In Cursor, open the built-in terminal.  
+  (Look for a "Terminal" or "New Terminal" option, usually at the bottom or in the menu.)
 
-### 2. Download the project files
-- If you received a ZIP file, unzip it to a folder.
-- If you are using GitHub, click "Code" > "Download ZIP" or clone the repository.
-
-### 3. Open a terminal (command prompt)
-- On Mac: Open the "Terminal" app (search for it in Spotlight).
-- On Windows: Open "Command Prompt" or "PowerShell".
-- On Linux: Open your terminal app.
-
-### 4. Go to the project folder
-- Type `cd ` (with a space), then drag the project folder into the terminal and press Enter.
-  - Example: `cd /Users/yourname/Downloads/sharons-website`
-
-### 5. Install the required packages
-- Type this command and press Enter:
+### 2. Install the required packages
+- In the terminal, type this command and press Enter:
   ```
   npm install
   ```
 - This will download everything the website needs to run. It may take a few minutes.
 
-### 6. Start the website in development mode
-- Type this command and press Enter:
+### 3. Start the website
+- In the terminal, type this command and press Enter:
   ```
   npm run dev
   ```
 - You should see a message like:
-  `Local: http://localhost:3000`
+  ```
+  Local: http://localhost:3000
+  ```
 
-### 7. Open the website in your browser
-- Open Google Chrome, Safari, or Firefox.
+### 4. View the website
+- Open your web browser (Google Chrome, Safari, or Firefox).
 - Type `http://localhost:3000` in the address bar and press Enter.
 - You should see Sharon's website!
 
 ---
 
-## How to edit the website (for beginners)
+## How to edit the website
 
 ### Where are the pages?
 - All main pages are in the `app/` folder:
@@ -75,14 +66,13 @@ The site is designed to be easy to update and maintain.
   - ...and more (each file is a different section or feature)
 
 ### How to make changes
-1. Open the project folder in a code editor (for example, [Visual Studio Code](https://code.visualstudio.com/)).
-2. Find the file you want to change (see above for where things are).
-3. Edit the text or content as needed. For example, change the text in `components/About.tsx` to update the "About" section.
-4. Save the file.
-5. The website will automatically reload in your browser. Refresh if you don't see changes.
+1. In Cursor, click on the file you want to change (see above for where things are).
+2. Edit the text or content as needed. For example, change the text in `components/About.tsx` to update the "About" section.
+3. Save the file (press `Ctrl+S` or `Cmd+S`).
+4. The website will automatically reload in your browser. Refresh if you don't see changes.
 
 ### Tips
-- If you make a mistake, you can undo changes in your editor (Ctrl+Z or Cmd+Z).
+- If you make a mistake, you can undo changes in Cursor (Ctrl+Z or Cmd+Z).
 - You do **not** need to restart the server for most changes.
 - If the website crashes, check the terminal for error messages. You can always stop the server with `Ctrl+C` and start again with `npm run dev`.
 
