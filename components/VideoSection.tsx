@@ -1,0 +1,38 @@
+
+export default function VideoSection() {
+  return (
+    <section className="relative h-screen w-screen flex items-center justify-center bg-[#FAF6F1] text-black overflow-hidden">
+      <div className="w-full max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-12 h-full">
+        {/* Left: Text */}
+        <div className="flex-1 flex flex-col items-start justify-center h-full">
+          <p className="font-primary text-xl md:text-2xl text-gray-700 leading-relaxed">
+            A <span className="px-3 md:text-3xl italic text-gray-900 font-secondary">Regression Hypnosis</span> session is truly the adventure of a lifetime, through which you can access earlier moments in this life, or, if it aligns with your belief system, past lives.<br /><br />
+            But no matter where you go, the destination is always the same:<br />
+            <span className="block mt-4 text-2xl md:text-3xl font-secondary font-semibold" style={{ color: '#C93F2F' }}>
+              Clarity. Resolution. Confidence in the Now.
+            </span>
+          </p>
+          <a
+            href="#contact"
+            className="inline-block mt-8 bg-[#C5441E] text-white px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)] hover:text-white"
+          >
+            Let's Talk
+          </a>
+        </div>
+        {/* Right: Pill-shaped image */}
+        <div className="flex-1 flex items-center justify-center h-full">
+          <div className="w-[400px] h-[500px] rounded-full overflow-hidden bg-gray-200 shadow-lg">
+            <video
+              src="/videos/mini video.webm"
+              className="object-cover w-full h-full brightness-110"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+} 

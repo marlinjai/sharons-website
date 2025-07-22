@@ -1,63 +1,82 @@
-// components/Header.tsx - Pill-shaped header component
 'use client'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import logo from '../public/graphics/logo_return.svg'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsSessionDropdownOpen(false)
+      }
+    }
+    if (isSessionDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isSessionDropdownOpen])
 
   return (
     <header className="fixed top-8 left-0 right-0 z-50 flex justify-center">
-      <nav className="w-[100%] max-w-6xl bg-stone-100/50 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
+      <nav className="w-full max-w-6xl bg-stone-100/50 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
         <div className="flex justify-between items-center">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            {/* Logo SVG - logo_return.svg */}
-            <img src="/graphics/logo_return.svg" alt="Hypnotherapy Berlin Logo" className="h-24 w-auto" />
+          {/* Logo with orange circle */}
+          <Link href="/" className="flex items-center bg-white border-[rgb(245,124,0)] border-2 rounded-full p-2">
+            <img src="/graphics/logo_return.svg" alt="Hypnotherapy Berlin Logo" className="h-16 w-auto" />
           </Link>
 
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex space-x-8 text-stone-900 font-semibold text-lg">
-            <li>
-              <Link href="#instructors" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link href="#reviews" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
-                Reviews
-              </Link>
-            </li>
-            <li>
-              <Link href="#pricing" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="#sessions" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link href="#blog" className="hover:opacity-70 transition-opacity duration-200" style={{ mixBlendMode: 'normal' }}>
-                Blog
-              </Link>
-            </li>
-          </ul>
-
-          {/* Contact Button */}
-          <Link 
-            href="#contact" 
-            className="bg-white text-black px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors duration-200 shadow-md"
-          >
-            Book a session
-          </Link>
+          {/* Desktop Navigation + CTA aligned to the right */}
+          <div className="hidden md:flex items-center space-x-6 text-stone-900 text-lg tracking-wider font-primary">
+            <Link href="/" className="hover:text-[#E7E5D8] transition-colors duration-200">home</Link>
+            <div
+              className="relative"
+              ref={dropdownRef}
+              onMouseEnter={() => setIsSessionDropdownOpen(true)}
+              onMouseLeave={() => setIsSessionDropdownOpen(false)}
+            >
+              <div className="flex items-center">
+                <Link
+                  href="#the-session"
+                  className="hover:text-[#E7E5D8] transition-colors duration-200 flex items-center gap-1 focus:outline-none"
+                  aria-haspopup="true"
+                  aria-expanded={isSessionDropdownOpen}
+                  tabIndex={0}
+                  onClick={() => setIsSessionDropdownOpen((open) => !open)}
+                >
+                  the session
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                </Link>
+              </div>
+              {isSessionDropdownOpen && (
+                <div className="absolute left-0 pt-12 w-auto py-2 z-50">
+                  <div className='bg-white  rounded-xl shadow-lg  border border-gray-100'>
+                  <Link href="#reviews" className="block px-4 py-2 text-stone-900 font-primary hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200 rounded-t-xl" onClick={() => setIsSessionDropdownOpen(false)}>reviews</Link>
+                  <Link href="/not-found" className="block px-4 py-2 text-stone-900 font-primary hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200 rounded-b-xl" onClick={() => setIsSessionDropdownOpen(false)}>FAQ</Link>
+                  </div>
+                </div>
+              )}
+            </div>
+            <Link href="#about" className="hover:text-[#E7E5D8] transition-colors duration-200">about</Link>
+            <Link href="#contact" className="hover:text-[#E7E5D8] transition-colors duration-200">contact</Link>
+            <Link href="#blog" className="hover:text-[#E7E5D8] transition-colors duration-200">blog</Link>
+            <Link 
+              href="#contact"
+              className="ml-4 px-6 py-2 rounded-full tracking-normal text-lg bg-white text-black shadow-md transition-colors duration-200 hover:bg-[rgb(245,124,0)] hover:text-white font-primary"
+            >
+              Let's Talk
+            </Link>
+          </div>
 
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-full text-white hover:bg-white/10 transition-colors duration-200"
+            className="text-lg md:hidden p-2 rounded-full text-black hover:bg-white/10 transition-colors duration-200"
             title="Toggle navigation menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,44 +94,46 @@ export default function Header() {
           <div className="md:hidden mt-4 pt-4 border-t border-white/20">
             <nav className="flex flex-col space-y-3">
               <Link
-                href="#instructors"
-                className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'normal' }}
+                href="/"
+                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Services
+                home
+              </Link>
+              <Link
+                href="#the-session"
+                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                the session
+              </Link>
+              <Link
+                href="#about"
+                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                about
+              </Link>
+              <Link
+                href="#contact"
+                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                contact
               </Link>
               <Link
                 href="#reviews"
-                className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'normal' }}
+                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Reviews
+                reviews
               </Link>
               <Link
-                href="#pricing"
-                className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'normal' }}
+                href="#contact"
+                className="text-black font-medium px-4 py-2 rounded-full border border-black text-center hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200 font-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
-                About
-              </Link>
-              <Link
-                href="#sessions"
-                className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'normal' }}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
-                href="#blog"
-                className="text-black hover:opacity-70 transition-opacity duration-200 px-4 py-2 rounded-full hover:bg-white/10"
-                style={{ mixBlendMode: 'normal' }}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Blog
+                Curious? Let's Talk
               </Link>
             </nav>
           </div>
@@ -120,4 +141,4 @@ export default function Header() {
       </nav>
     </header>
   )
-} 
+}

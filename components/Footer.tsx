@@ -6,45 +6,45 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo & Description */}
           <div className="col-span-1 md:col-span-2">
-            <div className="font-heading text-3xl font-bold text-white mb-4">
-              YogaStudio
+            <div className="font-secondary text-3xl font-semibold text-white mb-4">
+              ReTurn
             </div>
-            <p className="text-gray-300 mb-6 max-w-md">
-              Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. 
-              Voluptate exercitation incididunt aliquip deserunt.
+            <p className="text-gray-300 mb-6 max-w-md font-primary leading-relaxed">
+              Regression Hypnosis for the curious, the bold, and the ready. 
+              Transform your life through deep healing and self-discovery.
             </p>
           </div>
 
           {/* Menu Links */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Menu</h3>
+            <h3 className="font-secondary font-semibold text-white mb-4">Menu</h3>
             <ul className="space-y-2">
-              <li><a href="#sessions" className="text-gray-300 hover:text-white transition-colors duration-200">Classes</a></li>
-              <li><a href="#instructors" className="text-gray-300 hover:text-white transition-colors duration-200">Trainers</a></li>
-              <li><a href="#reviews" className="text-gray-300 hover:text-white transition-colors duration-200">Reviews</a></li>
-              <li><a href="#pricing" className="text-gray-300 hover:text-white transition-colors duration-200">Memberships</a></li>
+              <li><a href="#sessions" className="text-gray-300 hover:text-white transition-colors duration-200 font-primary">Sessions</a></li>
+              <li><a href="#about" className="text-gray-300 hover:text-white transition-colors duration-200 font-primary">About</a></li>
+              <li><a href="#reviews" className="text-gray-300 hover:text-white transition-colors duration-200 font-primary">Reviews</a></li>
+              <li><a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-200 font-primary">Contact</a></li>
             </ul>
           </div>
 
           {/* Utility Links */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Utility pages</h3>
+            <h3 className="font-secondary font-semibold text-white mb-4">Resources</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">Licences Page</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">Changelog Page</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">404 Not Found Page</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">Style Guide Page</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200 font-primary">Blog</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200 font-primary">FAQ</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200 font-primary">Privacy Policy</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200 font-primary">Terms of Service</a></li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-          <p className="text-gray-400 mb-2">
-            © Copyright 2023 YogaStudio
+          <p className="text-gray-400 mb-2 font-primary">
+            © Copyright 2024 ReTurn Hypnotherapy
           </p>
-          <p className="text-gray-500 text-sm">
-            Designed by Digital Butlers • Powered by Webflow
+          <p className="text-gray-500 text-sm font-primary">
+            Designed with love • Powered by Next.js
           </p>
         </div>
       </div>

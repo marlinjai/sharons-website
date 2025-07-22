@@ -26,6 +26,8 @@ module.exports = {
         sans: ['Josefin Sans', 'sans-serif'],
         heading: ['Playfair Display', 'serif'],
         playfair: ['Playfair Display', 'serif'],
+        primary: ['Josefin Sans', 'sans-serif'],
+        secondary: ['Playfair Display', 'serif'],
       },
     },
   },

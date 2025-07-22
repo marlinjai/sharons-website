@@ -1,8 +1,8 @@
 // app/page.tsx - Main page for yoga studio website
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
-import YogaSessions from '@/components/YogaSessions'
-import Instructors from '@/components/Instructors'
+import VideoSection from '@/components/VideoSection'
+import TheSession from '@/components/TheSession'
 import Reviews from '@/components/Reviews'
 import Gallery from '@/components/Gallery'
 import Pricing from '@/components/Pricing'
@@ -18,9 +18,10 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <YogaSessions />
+        <VideoSection />
+        <TheSession />
         <About />
-        <Booking />
+        {/* <Booking /> */}
         <Reviews />
         {/* <Pricing /> */}
         {/* <Timetable /> */}

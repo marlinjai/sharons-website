@@ -1,6 +1,7 @@
-// components/Reviews.tsx - Client reviews section with parallax scrolling
+// components/Reviews.tsx - Client reviews section with parallax scrolling and real testimonials
 'use client'
 import { useEffect, useRef } from 'react'
+import Image from 'next/image';
 
 export default function Reviews() {
   const leftColumnRef = useRef<HTMLDivElement>(null)
@@ -11,140 +12,162 @@ export default function Reviews() {
     const handleScroll = () => {
       const scrollY = window.scrollY
       const windowHeight = window.innerHeight
-      
       if (leftColumnRef.current && rightColumnRef.current && centerColumnRef.current) {
-        // Get section position
         const sectionTop = (leftColumnRef.current.offsetParent as HTMLElement)?.offsetTop || 0
         const relativeScroll = scrollY - sectionTop + windowHeight
         
-        // Apply different scroll speeds for parallax effect
-        leftColumnRef.current.style.transform = `translateY(${relativeScroll * 0.1}px)`
-        rightColumnRef.current.style.transform = `translateY(${relativeScroll * 0.1}px)`
-        centerColumnRef.current.style.transform = `translateY(${relativeScroll * 0.05}px)`
+        // Reduce parallax intensity to prevent scrolling issues
+        const leftTransform = relativeScroll * 0.05
+        const rightTransform = relativeScroll * 0.05
+        const centerTransform = relativeScroll * 0.02
+        
+        leftColumnRef.current.style.transform = `translateY(${leftTransform}px)`
+        rightColumnRef.current.style.transform = `translateY(${rightTransform}px)`
+        centerColumnRef.current.style.transform = `translateY(${centerTransform}px)`
       }
     }
-
     window.addEventListener('scroll', handleScroll)
+    handleScroll(); // Set initial transform to prevent jump
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const leftReviews = [
+  // Real reviews data
+  const reviews = [
     {
-      title: "The hypnotherapy sessions are a source of harmony and positive emotions!",
-      content: "The [Studio Name] hypnotherapy studio is a source of harmony and positive emotions! I've been attending sessions for a year and a half now, and the results are astonishing. The therapists are fantastic at what they do and always help find the right level of relaxation. I've found not only mental healing but also friends among like-minded individuals. Thanks to the therapists, I've become more flexible and calm.",
-      name: "John Smith",
-      age: 26,
-      rating: 5
-    }
-  ]
-
-  const centerReviews = [
-    {
-      title: "I've found my sanctuary at this hypnotherapy studio.",
-      content: "I've found my sanctuary at this hypnotherapy studio. The therapists are incredibly knowledgeable and create a welcoming atmosphere that makes each session a rejuvenating experience.",
-      name: "Sophia Brown",
-      age: 20,
-      rating: 5
+      name: 'Francesca Borelli',
+      title: 'Global Head of People',
+      image: '/images/reviews/francesca_I.png',
+      text: `Sharon helped me connect with a deep, inner part of myself through her hypnosis guidance. From the beginning, she showed sensitivity and empathy, which helped me trust her completely.\nShe clearly explained what would happen during the session and encouraged me to experience it without judgment, Which helped me relax and flow with my emotions. I felt fully supported before, during, and after the session.\nSharon radiates a calm, welcoming energy and possesses a natural gift of deep perception and emotional intelligence. I recommend her to anyone who wants to explore deeply but feels afraid - she will be your perfect Virgilio.`
     },
     {
-      title: "This hypnotherapy studio is a hidden gem!",
-      content: "This hypnotherapy studio is a hidden gem! The variety of techniques suits all levels, and the peaceful ambiance instantly puts you in a zen state of mind. The therapists are fantastic at what they do and always help find the right level of challenge. I've found not only mental healing but also friends among like-minded individuals. Thanks to the therapists, I've become more flexible and calm.",
-      name: "Daniel Wilson",
-      age: 31,
-      rating: 5
-    }
-  ]
-
-  const rightReviews = [
-    {
-      title: "The hypnotherapy studio offers a perfect blend.",
-      content: "The hypnotherapy studio offers a perfect blend of traditional and modern healing practices. The serene setting and expert guidance make it an ideal place to escape the daily hustle and find inner balance.",
-      name: "Emma Taylor",
-      age: 22,
-      rating: 5
+      name: 'Katie Barbaro',
+      title: 'Community Director',
+      image: '/images/reviews/kathi.png',
+      text: `My session with Sharon was deeply relaxing and illuminating. I appreciated the invitation to generate questions for my higher self and felt grateful for the safe space she created, which allowed higher guidance to come through. Sharon was very thorough in explaining how to prepare for the session, so I felt able to fully surrender to the experience. It was especially helpful in uncovering subconscious motivations that may be influencing my life decisions. Thank you for such an amazing experience!`
     },
     {
-      title: "Attending sessions at this hypnotherapy studio has truly transformed my life.",
-      content: "Attending sessions at this hypnotherapy studio has truly transformed my life. The skilled therapists encourage personal growth, and I leave each session feeling stronger, both mentally and emotionally. I cannot express how grateful I am for this hypnotherapy studio. The therapists' dedication to their craft is evident in every session, and the sense of harmony and mindfulness they cultivate is truly exceptional.",
-      name: "Benjamin Walker",
-      age: 34,
-      rating: 5
-    }
-  ]
+      name: 'Alessandro Gentile',
+      title: 'Designer at BMW',
+      image: '/images/reviews/alessandro_II.png',
+      text: `I had one hypnosis session with Sharon, and I wholeheartedly recommend it to anyone. The process she guided me through felt natural and yet full of surprises. She helped me identify and explore emotions that were already within me but had remained unclear until that point. Acknowledging and accepting these feelings has made my life better.\nI also want to highlight how gracefully Sharon addressed my initial skepticism about hypnosis. She never judged or pressured me, which allowed me to fully relax and enjoy a session that far exceeded my expectations.`
+    },
+    {
+      name: 'Marco Tidu',
+      title: 'Software Engineer',
+      image: null,
+      text: `From the first moments of our introductory chat, Sharon made me feel completely at ease. She embraced every aspect of who I am with warmth and respect. Even within a short time, the session was incredibly deep and insightful.\nAfter many years of trying different types of sessions, I can confidently say that my session with Sharon ranks among the top three most beautiful and intense experiences of my life. Thank you, thank you, thank you.`
+    },
+    {
+      name: 'Cristina Soler',
+      title: '',
+      image: '/images/reviews/christina.png',
+      text: `I had the pleasure of experiencing my first QHHT session with Sharon, and it was truly positive. I felt a bit nervous at first, but she was incredibly caring and explained everything so clearly that I felt comfortable right from the start. During the session, Sharon guided me into a deep state of relaxation and regression, allowing me to explore the depths of my consciousness. Her intuitive and compassionate approach made me feel safe and supported.\nA few weeks after the session, I noticed a greater sense of peace within myself. It felt like a newfound calm and clarity had emerged. I'm deeply grateful - thank you, Sharon!`
+    },
+    {
+      name: 'Daniela',
+      title: '',
+      image: null,
+      text: `My experience with Sharon was simply outstanding. I usually find it difficult to relax around others, but from the start, she made me feel safe, comfortable, and cared for.\nHer guidance and patience made the session deeply transformative. I accessed new parts of myself that connected me to a wellspring of wisdom and love, as if I had finally met my own heart and the heart of the universe.\nI recommend this to anyone who wants to connect with the depth of their soul or simply receive loving support. I'm forever grateful to Sharon for creating such a nurturing and transformative space.`
+    },
+    {
+      name: 'Carlo Bortolini',
+      title: 'Founder and Lead Coach',
+      image: null,
+      text: `My experience with Sharon in brief: relaxing, deep, and magical - with a touch of laughter, connection, and a healthy detachment from past experiences.`
+    },
+    {
+      name: 'Diana W.',
+      title: 'hypnotherapist',
+      image: null,
+      text: `I recently had the pleasure of working with Sharon for a regression hypnosis session, and it was truly transformative.\nFrom the moment I arrived, I felt welcomed and at ease. Sharon is kind, patient, and made me feel completely comfortable sharing my thoughts and emotions. She was an exceptional listener and guided me with genuine compassion and understanding.\nDuring the session, she offered deep and insightful guidance, making me feel safe and supported throughout. I left feeling relaxed and empowered.\nI would gladly work with her again and wholeheartedly recommend her to anyone seeking healing and transformation through QHHT.`
+    },
+    {
+      name: 'Olivia Meyer',
+      title: 'Designer',
+      image: null,
+      text: `Sharon was a wonderful guide during my quantum healing session. She made me feel safe and truly heard during our initial conversation and asked thoughtful questions that brought new awareness to areas I hadn't previously considered.\nDuring the session, she guided me through a life on another planet as a humanoid bird being, where I experienced feelings of community, telepathy, peace, and organic purpose. I also journeyed through a past life where I learned an important lesson about staying committed to my purpose, regardless of outside circumstances. These insights were exactly what I needed to take the next steps in my life.\nSharon asked clear, direct questions that brought structure to the session, and her genuine care was evident throughout. I highly recommend working with her; she uses every tool she has to help you receive the greatest healing and clarity.`
+    },
+    {
+      name: 'Carola Voss',
+      title: 'Lawyer',
+      image: null,
+      text: `We had our session at the beginning of 2023. At the time, I was dealing with a lot of anxiety due to several life circumstances. Having Sharon as a guide was incredible; she made me feel protected and calm throughout the session.\nIn December, a lot of questions and memories resurfaced, and the session helped me sort through them. It gave me clarity and showed me where I needed to place boundaries and stop justifying certain behaviors. It allowed me to see things in a new light - not as overwhelming as before, but more manageable. I began to recognize the subtle blocks that were hindering my growth. The session helped me filter through everything and see the path to healing more clearly.`
+    },
+  ];
 
-  const VideoCard = ({ name, age }: { name: string; age: number }) => (
-    <div className="bg-gray-900 rounded-2xl overflow-hidden aspect-[4/5] relative group cursor-pointer">
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
-      <div className="absolute inset-0 bg-gray-600 flex items-center justify-center">
-        <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-          <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
+  // Distribute reviews evenly across 3 columns
+  const leftReviews = reviews.filter((_, i) => i % 3 === 0)
+  const centerReviews = reviews.filter((_, i) => i % 3 === 1)
+  const rightReviews = reviews.filter((_, i) => i % 3 === 2)
+
+  // Custom image scaling/positioning logic
+  const getImageClass = (idx: number) => {
+    if (idx === 1) return 'object-cover w-full h-full scale-[135%] -translate-x-[7%]';
+    if (idx === 2) return 'object-cover w-full h-full scale-[129%] -translate-y-[15%]';
+    if (idx === 4) return 'object-cover w-full h-full scale-[118%] translate-x-[3%]';
+    return 'object-cover w-full h-full';
+  }
+
+  const ReviewCard = ({ review, idx }: { review: any, idx: number }) => (
+    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col items-center">
+      {review.image && (
+        <div className="w-28 h-28 mb-4 rounded-full overflow-hidden flex items-center justify-center">
+          <Image src={review.image} alt={review.name} width={112} height={112} className={getImageClass(idx)} />
         </div>
-      </div>
-      <div className="absolute bottom-6 left-6 z-20">
-        <h3 className="text-white font-bold text-xl mb-1">{name}</h3>
-        <p className="text-white/80 text-sm">{age} years</p>
-      </div>
-    </div>
-  )
-
-  const ReviewCard = ({ review }: { review: any }) => (
-    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-      <div className="flex mb-4">
-        {[...Array(review.rating)].map((_, i) => (
+      )}
+      <div className="flex mb-2">
+        {[...Array(5)].map((_, i) => (
           <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>
         ))}
       </div>
-      <h3 className="font-bold text-gray-900 text-xl mb-4 leading-tight">{review.title}</h3>
-      <p className="text-gray-600 leading-relaxed mb-6">{review.content}</p>
-      <div className="text-sm">
-        <p className="font-semibold text-gray-900">{review.name}, {review.age} years</p>
+      <div className="text-center">
+        <h3 className="font-secondary font-semibold text-gray-900 text-xl mb-1 leading-tight">{review.name}</h3>
+        {review.title && <div className="text-sm text-gray-500 mb-2 font-primary">{review.title}</div>}
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line font-primary">{review.text}</p>
       </div>
     </div>
   )
 
   return (
-    <section id="reviews" className="py-32 bg-gray-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+    
+    <section  className="py-16 md:pb-[420px] bg-gray-50 overflow-hidden">
+       <div id="reviews" className='pt-[185px]'></div>
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center -mb-32">
-          <h2 className="font-serif text-5xl md:text-6xl font-normal text-gray-900 mb-6">
-            Celebrating hypnotherapy <em className="italic">success.</em>
-          </h2>
-          <p className="text-2xl text-gray-600">
-            Hear what <em className="italic">our</em> clients have to say
-          </p>
-        </div>
-
+         <div className="text-center -mb-32">
+           <h2 className="font-secondary text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
+             Celebrating Regression Hypnosis <em className="italic">success.</em>
+           </h2>
+           <p className="text-2xl text-gray-600 font-primary">
+             Hear what <em className="italic">clients</em> have to say
+           </p>
+         </div>
         {/* Three Column Layout with Parallax */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Left Column */}
           <div ref={leftColumnRef} className="space-y-8">
             {leftReviews.map((review, index) => (
-              <ReviewCard key={index} review={review} />
+              <ReviewCard key={index} review={review} idx={index * 3} />
             ))}
-            <VideoCard name="Emily Johnson" age={23} />
           </div>
-
           {/* Center Column */}
           <div ref={centerColumnRef} className="space-y-8 lg:mt-16">
             {centerReviews.map((review, index) => (
-              <ReviewCard key={index} review={review} />
+              <ReviewCard key={index} review={review} idx={index * 3 + 1} />
             ))}
           </div>
-
           {/* Right Column */}
           <div ref={rightColumnRef} className="space-y-8 lg:mt-8">
-            <VideoCard name="James Anderson" age={24} />
             {rightReviews.map((review, index) => (
-              <ReviewCard key={index} review={review} />
+              <ReviewCard key={index} review={review} idx={index * 3 + 2} />
             ))}
           </div>
         </div>
       </div>
     </section>
-  )
+    </>
+    )
 } 

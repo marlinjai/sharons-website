@@ -26,14 +26,8 @@ The site is designed to be easy to update and maintain.
 - In Cursor, open the built-in terminal.  
   (Look for a "Terminal" or "New Terminal" option, usually at the bottom or in the menu.)
 
-### 2. Install the required packages
-- In the terminal, type this command and press Enter:
-  ```
-  npm install
-  ```
-- This will download everything the website needs to run. It may take a few minutes.
 
-### 3. Start the website
+### 2. Start the website
 - In the terminal, type this command and press Enter:
   ```
   npm run dev
@@ -43,7 +37,7 @@ The site is designed to be easy to update and maintain.
   Local: http://localhost:3000
   ```
 
-### 4. View the website
+### 3. View the website
 - Open your web browser (Google Chrome, Safari, or Firefox).
 - Type `http://localhost:3000` in the address bar and press Enter.
 - You should see Sharon's website!

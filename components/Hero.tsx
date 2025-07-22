@@ -2,53 +2,64 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { TypingAnimation } from '@/components/ui/typing-animation';
 
 export default function Hero() {
   return (
     <section className="relative h-screen w-screen bg-black text-white overflow-hidden">
-                    {/* Background image */}
-       <div className="absolute inset-0 z-0 w-full h-full">
-         <Image
-           // src="/images/doors.avif"
-            src="/images/6.jpg"
-           //src="/images/bright-doors.png"
-           alt="Yoga pose"
-           fill
-           className="object-cover w-full h-full"
-           priority
-         />
-         <div className="absolute inset-0 bg-black/10" />
-       </div>
+      {/* Background image */}
+      <div className="absolute inset-0 z-0 w-full h-full">
+        <Image
+          // src="/images/doors.avif"
+          src="/images/6.jpg"
+          //src="/images/bright-doors.png"
+          alt="Yoga pose"
+          fill
+          className="object-cover w-full h-full"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/10" />
+      </div>
 
-       {/* Content */}
-       <div className="relative flex flex-col lg:flex-row items-end pb-44 justify-center h-full px-8 lg:px-24 z-20 pt-0 gap-24">
-         <div className="max-w-2xl text-center lg:text-left space-y-6">
-           <h1 className="text-4xl md:text-5xl font-playfair font-bold leading-tight text-white drop-shadow-lg">
-               <br />
- for the  <span className="italic font-semibold">curious, brave </span>
-           </h1>
-                     <p className="text-lg text-white drop-shadow-md">
-             We believe in the transformative power of yoga to nurture not just the body, but also the mind and soul.
-           </p>
-           <Link
-             href="#"
-             className="inline-block bg-white text-black px-6 py-3 rounded-full text-lg font-medium hover:bg-gray-100 transition-colors shadow-lg"
-           >
-             Book a session
-           </Link>
-         </div>
+      {/* Content */}
+      <div className="relative h-full z-20 flex items-end pb-44 pt-0">
+        <div className="w-full max-w-6xl mx-auto px-8 flex flex-col lg:flex-row items-end gap-24">
+          <div className="max-w-2xl text-left space-y-6">
+            <h1 className="text-5xl md:text-6xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
+              Regression Hypnosis
+            </h1>
+            <div className="text-4xl md:text-5xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
+              For the{' '}
+              <TypingAnimation
+                words={['Curious', 'Brave', 'Ready']}
+                className="italic"
+                duration={150}
+              />
+            </div>
+            <p className="text-lg text-white drop-shadow-md font-primary">
+              Irresistibly drawn to the unknown?<br />
+              This is more than a journey - it's the Adventure of a Lifetime.
+            </p>
+            <Link
+              href="#"
+              className="inline-block bg-white text-black px-6 py-3 rounded-full text-lg shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)] hover:text-white"
+            >
+              Book a Session
+            </Link>
+          </div>
 
-         {/* Circular image */}
-         {/* <div className="mt-10 lg:mt-0 relative w-64 h-64 lg:w-[300px] lg:h-[400px] rounded-full overflow-hidden border-0 border-white shadow-xl">
-           <video
-             src="/videos/mini video.webm"
-             className="object-cover w-full h-full"
-             autoPlay
-             muted
-             loop
-             playsInline
-           />
-         </div> */}
+          {/* Circular image */}
+          {/* <div className="mt-10 lg:mt-0 relative w-64 h-64 lg:w-[300px] lg:h-[400px] rounded-full overflow-hidden border-0 border-white shadow-xl">
+            <video
+              src="/videos/mini video.webm"
+              className="object-cover w-full h-full"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          </div> */}
+        </div>
       </div>
     </section>
   );
