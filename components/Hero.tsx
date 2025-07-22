@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { TypingAnimation } from '@/components/ui/typing-animation';
+import BookSession from './BookSession';
 
 export default function Hero() {
   return (
@@ -40,12 +41,7 @@ export default function Hero() {
               Irresistibly drawn to the unknown?<br />
               This is more than a journey - it's the Adventure of a Lifetime.
             </p>
-            <Link
-              href="#"
-              className="inline-block bg-white text-black px-6 py-3 rounded-full text-lg shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)] hover:text-white"
-            >
-              Book a Session
-            </Link>
+            <BookSession />
           </div>
 
           {/* Circular image */}

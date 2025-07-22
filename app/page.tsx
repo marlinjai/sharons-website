@@ -7,10 +7,11 @@ import Reviews from '@/components/Reviews'
 import Gallery from '@/components/Gallery'
 import Pricing from '@/components/Pricing'
 import Timetable from '@/components/Timetable'
-import Contact from '@/components/Contact'
+
 import Footer from '@/components/Footer'
 import About from '@/components/About'
 import Booking from '@/components/Booking'
+import Newsletter from '@/components/Newsletter'
 
 export default function Home() {
   return (
@@ -21,11 +22,11 @@ export default function Home() {
         <VideoSection />
         <TheSession />
         <About />
-        {/* <Booking /> */}
         <Reviews />
+        <Newsletter />
         {/* <Pricing /> */}
         {/* <Timetable /> */}
-        <Contact />
+        {/* <Contact /> */}
       </main>
       <Footer />
     </div>

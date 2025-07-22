@@ -1,4 +1,5 @@
 
+
 export default function VideoSection() {
   return (
     <section className="relative h-screen w-screen flex items-center justify-center bg-[#FAF6F1] text-black overflow-hidden">
@@ -12,12 +13,6 @@ export default function VideoSection() {
               Clarity. Resolution. Confidence in the Now.
             </span>
           </p>
-          <a
-            href="#contact"
-            className="inline-block mt-8 bg-[#C5441E] text-white px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)] hover:text-white"
-          >
-            Let's Talk
-          </a>
         </div>
         {/* Right: Pill-shaped image */}
         <div className="flex-1 flex items-center justify-center h-full">
