@@ -21,10 +21,3 @@ export default function RootLayout({
     </html>
   )
 } 
-{
-  "title": "Aggiorna header del sito yoga",
-  "description": "Modificare l'header nel layout root (`app/layout.tsx` e/o il componente header) come segue:\n\n- Il logo rimane a sinistra, ma va evidenziato con un cerchio bianco/crema attorno.\n- Allineare tutte le voci della navbar a destra, accanto al pulsante CTA.\n- Cambiare le voci della navbar:\n  - 'services' → 'home'\n  - 'reviews' → 'the session'\n  - 'blog' → 'newsletter'\n  - 'about' e 'contact' restano uguali\n- Il bottone CTA (call-to-action) deve cambiare colore al passaggio del mouse (hover): usare `rgb(245, 124, 0)` oppure `hsl(30, 100%, 48%)`.",
-  "component": "Header/Navbar",
-  "priority": "High",
-  "status": "To Do"
-}
