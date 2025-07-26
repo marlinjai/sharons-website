@@ -5,6 +5,7 @@ import Link from 'next/link'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false)
+  const [isOnHero, setIsOnHero] = useState(true)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   // Close dropdown when clicking outside
@@ -22,6 +23,28 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isSessionDropdownOpen])
 
+  // Detect scroll position to determine if we're on Hero
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      const heroHeight = window.innerHeight // Hero is full viewport height
+      // Transition immediately when scrolling past Hero
+      const isOnHeroSection = scrollY < heroHeight
+      console.log('Scroll Y:', scrollY, 'Hero Height:', heroHeight, 'Is on Hero:', isOnHeroSection)
+      setIsOnHero(isOnHeroSection)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Set initial state
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const getHoverColor = () => {
+    const hoverClass = isOnHero ? 'hover:text-[#E7E5D8]' : 'hover:text-[#de640d]'
+    console.log('Is on Hero:', isOnHero, 'Hover class:', hoverClass)
+    return hoverClass
+  }
+
   return (
     <header className="fixed top-8 left-0 right-0 z-50 flex justify-center">
       <nav className="w-full max-w-6xl bg-stone-100/50 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
@@ -33,7 +56,7 @@ export default function Header() {
 
           {/* Desktop Navigation + CTA aligned to the right */}
           <div className="hidden md:flex items-center space-x-6 text-stone-900 text-lg tracking-wider font-primary">
-            <Link href="/" className="hover:text-[#E7E5D8] transition-colors duration-200">home</Link>
+            <Link href="/" className={`transition-colors duration-200 ${getHoverColor()}`}>home</Link>
             <div
               className="relative"
               ref={dropdownRef}
@@ -43,7 +66,7 @@ export default function Header() {
               <div className="flex items-center">
                 <Link
                   href="#the-session"
-                  className="hover:text-[#E7E5D8] transition-colors duration-200 flex items-center gap-1 focus:outline-none"
+                  className={`transition-colors duration-200 flex items-center gap-1 focus:outline-none ${getHoverColor()}`}
                   aria-haspopup="true"
                   aria-expanded={isSessionDropdownOpen}
                   tabIndex={0}
@@ -57,14 +80,14 @@ export default function Header() {
                 <div className="absolute left-0 pt-12 w-auto py-2 z-50">
                   <div className='bg-white  rounded-xl shadow-lg  border border-gray-100'>
                   <Link href="#reviews" className="block px-4 py-2 text-stone-900 font-primary hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200 rounded-t-xl" onClick={() => setIsSessionDropdownOpen(false)}>reviews</Link>
-                  <Link href="/not-found" className="block px-4 py-2 text-stone-900 font-primary hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200 rounded-b-xl" onClick={() => setIsSessionDropdownOpen(false)}>FAQ</Link>
+                  <Link href="#faq" className="block px-4 py-2 text-stone-900 font-primary hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200 rounded-b-xl" onClick={() => setIsSessionDropdownOpen(false)}>FAQ</Link>
                   </div>
                 </div>
               )}
             </div>
-            <Link href="#about" className="hover:text-[#E7E5D8] transition-colors duration-200">about</Link>
-            <Link href="#contact" className="hover:text-[#E7E5D8] transition-colors duration-200">contact</Link>
-            <Link href="#blog" className="hover:text-[#E7E5D8] transition-colors duration-200">blog</Link>
+            <Link href="#about" className={`transition-colors duration-200 ${getHoverColor()}`}>about</Link>
+            <Link href="#contact" className={`transition-colors duration-200 ${getHoverColor()}`}>contact</Link>
+            <Link href="/blog" className={`transition-colors duration-200 ${getHoverColor()}`}>blog</Link>
             <Link 
               href="#contact"
               className="ml-4 px-6 py-2 rounded-full tracking-normal text-lg bg-white text-black shadow-md transition-colors duration-200 hover:bg-[rgb(245,124,0)] hover:text-white font-primary"
@@ -95,35 +118,42 @@ export default function Header() {
             <nav className="flex flex-col space-y-3">
               <Link
                 href="/"
-                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
+                className={`text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary ${getHoverColor()}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 home
               </Link>
               <Link
                 href="#the-session"
-                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
+                className={`text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary ${getHoverColor()}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 the session
               </Link>
               <Link
                 href="#about"
-                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
+                className={`text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary ${getHoverColor()}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 about
               </Link>
               <Link
+                href="/blog"
+                className={`text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary ${getHoverColor()}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                blog
+              </Link>
+              <Link
                 href="#contact"
-                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
+                className={`text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary ${getHoverColor()}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 contact
               </Link>
               <Link
                 href="#reviews"
-                className="text-black hover:text-[#E7E5D8] transition-colors duration-200 px-4 py-2 rounded-full font-primary"
+                className={`text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary ${getHoverColor()}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 reviews

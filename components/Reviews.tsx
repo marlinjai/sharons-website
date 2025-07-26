@@ -115,16 +115,9 @@ export default function Reviews() {
           <Image src={review.image} alt={review.name} width={112} height={112} className={getImageClass(idx)} />
         </div>
       )}
-      <div className="flex mb-2">
-        {[...Array(5)].map((_, i) => (
-          <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-        ))}
-      </div>
       <div className="text-center">
         <h3 className="font-secondary font-semibold text-gray-900 text-xl mb-1 leading-tight">{review.name}</h3>
-        {review.title && <div className="text-sm text-gray-500 mb-2 font-primary">{review.title}</div>}
+        {review.title && <div className="text-sm text-[#c93e2e] mb-2 font-primary">{review.title}</div>}
         <p className="text-gray-700 leading-relaxed whitespace-pre-line font-primary">{review.text}</p>
       </div>
     </div>
@@ -133,11 +126,11 @@ export default function Reviews() {
   return (
     <>
     
-    <section  className="py-16 md:pb-[420px] bg-gray-50 overflow-hidden">
+    <section  className="py-16 md:pb-[420px] overflow-hidden" style={{ backgroundColor: '#f7f6f2' }}>
        <div id="reviews" className='pt-[185px]'></div>
        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-         <div className="text-center -mb-32">
+         <div className="text-center -mb-8">
            <h2 className="font-secondary text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
              Celebrating Regression Hypnosis <em className="italic">success.</em>
            </h2>
