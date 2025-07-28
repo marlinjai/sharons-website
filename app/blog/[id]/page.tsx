@@ -54,7 +54,6 @@ const blogPostsData = {
           </div>
         </div>
       </div>
-
       <div class="mb-8">
         <h2 class="font-secondary text-3xl font-semibold mb-4" style="color: #A32015;">🧭 So why use Hypnosis?</h2>
         <p class="mb-6">Because Theta gives us direct access to your subconscious, which makes up 80 to 90% of the mind.</p>
@@ -180,6 +179,15 @@ export default function BlogPostPage() {
             ← Back to Blog
           </Link>
           
+          {/* ReTurn Logo - Centered */}
+          <div className="flex justify-center mb-12">
+            <Link href="/" className="group">
+              <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-20 w-auto" />
+              </div>
+            </Link>
+          </div>
+          
           <div className="flex items-center gap-3 mb-6">
             <span className="inline-block px-3 py-1 bg-white text-[#A32015] text-xs font-primary font-semibold uppercase tracking-wide rounded-full">
               {post.category}
@@ -194,8 +202,8 @@ export default function BlogPostPage() {
             {post.title}
           </h1>
           
-          {post.subtitle && (
-            <p className="font-primary text-xl text-gray-600 mb-6 italic">
+          {('subtitle' in post && post.subtitle) && (
+            <p className="font-primary text-xl mb-6 italic" style={{ color: '#A32015' }}>
               {post.subtitle}
             </p>
           )}
