@@ -25,9 +25,17 @@ export default function Newsletter() {
           </div>
         </div>
         <p className="font-primary text-xl text-gray-600 mb-8 leading-relaxed">
-          Brain food, breakthrough tips, and the occasional "wait, what?!" moment delivered fresh to your inbox every other week.
+          Brain food, subconscious breakthroughs, and the occasional "wait, what?!" moment
+          <br />
+          delivered fresh to your inbox every other week.
         </p>
         <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto space-y-4">
+          <input
+            type="text"
+            placeholder="Enter your name"
+            className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
+            required
+          />
           <input
             type="email"
             placeholder="Enter your email address"
@@ -40,24 +48,6 @@ export default function Newsletter() {
             Subscribe to Newsletter
           </button>
         </form>
-
-        {/* Blog CTA */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <div className="max-w-md mx-auto">
-            <h3 className="font-secondary text-xl font-semibold text-gray-900 mb-3">
-              Dive Deeper
-            </h3>
-            <p className="font-primary text-gray-600 mb-6 leading-relaxed">
-              Explore in-depth articles about regression hypnosis, client transformations, and the science behind consciousness.
-            </p>
-            <Link
-              href="/blog"
-              className="inline-flex items-center px-6 py-3 rounded-full bg-white text-[#A32015] font-primary text-lg border-2 border-[#A32015] hover:bg-[#A32015] hover:text-white transition-colors duration-200 shadow-md"
-            >
-              Read the Blog
-            </Link>
-          </div>
-        </div>
       </div>
     </section>
   )
