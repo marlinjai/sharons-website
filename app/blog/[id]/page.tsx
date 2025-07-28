@@ -93,6 +93,7 @@ const blogPostsData = {
   },
   2: {
     title: "Client Stories: From Fear to Freedom",
+    subtitle: "",
     category: "Stories",
     readTime: "7 min read",
     date: "March 10, 2024",
@@ -115,6 +116,7 @@ const blogPostsData = {
   },
   3: {
     title: "Preparing for Your First Session",
+    subtitle: "",
     category: "Guide",
     readTime: "4 min read",
     date: "March 5, 2024",
