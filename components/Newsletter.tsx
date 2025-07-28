@@ -4,10 +4,48 @@ import Link from 'next/link'
 
 export default function Newsletter() {
   const [newsletter, setNewsletter] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [statusMessage, setStatusMessage] = useState('')
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Newsletter subscription:', newsletter)
+    
+    if (!newsletter || !newsletter.includes('@')) {
+      setSubmitStatus('error')
+      setStatusMessage('Please enter a valid email address')
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+    setStatusMessage('')
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: newsletter }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setStatusMessage('Successfully subscribed! Check your email for confirmation.')
+        setNewsletter('') // Clear the form
+      } else {
+        setSubmitStatus('error')
+        setStatusMessage(data.error || 'Failed to subscribe. Please try again.')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      setStatusMessage('Network error. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -35,10 +73,32 @@ export default function Newsletter() {
             onChange={(e) => setNewsletter(e.target.value)}
             className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
             required
+            disabled={isSubmitting}
           />
-          <button type="submit" className="w-full bg-[#C5441E] text-white px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)]">
-            Subscribe to Newsletter
+          <button 
+            type="submit" 
+            className={`w-full px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${
+              isSubmitting 
+                ? 'bg-gray-400 cursor-not-allowed' 
+                : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)]'
+            } text-white`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Subscribing...' : 'Subscribe to Newsletter'}
           </button>
+          
+          {/* Status Messages */}
+          {submitStatus === 'success' && (
+            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-green-800 font-primary">{statusMessage}</p>
+            </div>
+          )}
+          
+          {submitStatus === 'error' && (
+            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-800 font-primary">{statusMessage}</p>
+            </div>
+          )}
         </form>
 
         {/* Blog CTA */}
