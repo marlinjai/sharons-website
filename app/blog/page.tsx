@@ -51,6 +51,20 @@ export default function BlogPage() {
             </Link>
           </div>
           
+          {/* ReTurn Logo - Centered */}
+          <div className="flex flex-col items-center mb-12">
+            <Link href="/" className="group">
+              <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-3 shadow-lg mb-4 hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-20 w-auto" />
+              </div>
+            </Link>
+            
+            {/* Iconic Signature */}
+            <p className="font-primary text-2xl md:text-3xl font-semibold tracking-wider" style={{ color: '#A32015' }}>
+              Regression Hypnosis
+            </p>
+          </div>
+          
           <div className="text-center">
             <h1 className="font-secondary text-5xl md:text-6xl font-semibold mb-8" style={{ color: '#A32015' }}>
               Blog
