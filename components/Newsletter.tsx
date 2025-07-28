@@ -15,7 +15,7 @@ export default function Newsletter() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="flex items-center flex-col gap-4 justify-center mb-6">
           <h2 className="font-secondary text-4xl md:text-5xl font-semibold" style={{ color: '#A32015' }}>
-            Subscribe to the Newsletter
+            Subscribe to the ReTurn Newsletter
           </h2>
           <div className="w-20 h-20 rounded-full flex items-center justify-center mr-4" style={{ backgroundColor: '#fcd8b3' }}>
             <svg className="w-12 h-12" style={{ color: '#A32015' }} fill="currentColor" viewBox="0 0 20 20">
