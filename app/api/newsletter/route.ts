@@ -9,10 +9,17 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
-    // Parse the request body to get the email
-    const { email } = await request.json()
+    // Parse the request body to get the name and email
+    const { name, email } = await request.json()
 
-    // Validate email
+    // Validate inputs
+    if (!name || !name.trim()) {
+      return NextResponse.json(
+        { error: 'Name is required' },
+        { status: 400 }
+      )
+    }
+
     if (!email || !email.includes('@')) {
       return NextResponse.json(
         { error: 'Valid email address is required' },
@@ -37,24 +44,25 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.log('Adding email to audience:', email)
+    console.log('Adding contact to audience:', { name: name.trim(), email })
 
-    // Add email to Resend audience (this creates a contact in your audience)
+    // Add contact to Resend audience with name and email
     const contactResult = await resend.contacts.create({
       email: email,
+      firstName: name.trim(),
       unsubscribed: false,
       audienceId: process.env.RESEND_AUDIENCE_ID
     })
 
     console.log('Contact created successfully:', contactResult)
 
-    console.log('Sending welcome email to:', email)
+    console.log('Sending welcome email to:', { name: name.trim(), email })
 
-    // Send a welcome email to the subscriber
+    // Send a personalized welcome email to the subscriber
     const emailResult = await resend.emails.send({
       from: 'Sharon Di Salvo <hello@returnhypnosis.com>',
       to: [email],
-      subject: 'Welcome to Sharon\'s Newsletter - Please Confirm Your Subscription',
+      subject: `Welcome ${name.trim()}! Your ReTurn Newsletter Subscription`,
       // Add reply-to for better deliverability
       replyTo: 'hello@returnhypnosis.com',
       // Add headers for better deliverability
@@ -80,15 +88,15 @@ export async function POST(request: NextRequest) {
               </h1>
             </div>
             
-            <!-- Main Content -->
-            <div style="color: #333333; line-height: 1.8; font-size: 16px;">
-              <p style="margin-bottom: 20px;">
-                Hello and welcome! 👋
-              </p>
-              
-              <p style="margin-bottom: 20px;">
-                Thank you for subscribing to my newsletter. You've just joined a community of people interested in personal transformation through regression hypnosis.
-              </p>
+                         <!-- Main Content -->
+             <div style="color: #333333; line-height: 1.8; font-size: 16px;">
+               <p style="margin-bottom: 20px;">
+                 Hello ${name.trim()}, and welcome! 👋
+               </p>
+               
+               <p style="margin-bottom: 20px;">
+                 Thank you for subscribing to the ReTurn Newsletter. You've just joined a community of people interested in personal transformation through regression hypnosis.
+               </p>
               
               <p style="margin-bottom: 20px;">
                 <strong>What to expect:</strong>
@@ -136,13 +144,13 @@ export async function POST(request: NextRequest) {
         </body>
         </html>
       `,
-      // Add plain text version for better deliverability
-      text: `
-Welcome to Sharon Di Salvo's Newsletter!
+             // Add plain text version for better deliverability
+       text: `
+Welcome to the ReTurn Newsletter!
 
-Hello and welcome!
+Hello ${name.trim()}, and welcome!
 
-Thank you for subscribing to my newsletter. You've just joined a community of people interested in personal transformation through regression hypnosis.
+Thank you for subscribing to the ReTurn Newsletter. You've just joined a community of people interested in personal transformation through regression hypnosis.
 
 What to expect:
 - Brain food and breakthrough insights

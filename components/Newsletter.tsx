@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 export default function Newsletter() {
+  const [name, setName] = useState('')
   const [newsletter, setNewsletter] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -11,6 +12,12 @@ export default function Newsletter() {
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    if (!name.trim()) {
+      setSubmitStatus('error')
+      setStatusMessage('Please enter your name')
+      return
+    }
+
     if (!newsletter || !newsletter.includes('@')) {
       setSubmitStatus('error')
       setStatusMessage('Please enter a valid email address')
@@ -27,7 +34,10 @@ export default function Newsletter() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: newsletter }),
+        body: JSON.stringify({ 
+          name: name.trim(),
+          email: newsletter 
+        }),
       })
 
       const data = await response.json()
@@ -35,7 +45,8 @@ export default function Newsletter() {
       if (response.ok) {
         setSubmitStatus('success')
         setStatusMessage('Successfully subscribed! Check your email for confirmation.')
-        setNewsletter('') // Clear the form
+        setName('') // Clear the name field
+        setNewsletter('') // Clear the email field
       } else {
         setSubmitStatus('error')
         setStatusMessage(data.error || 'Failed to subscribe. Please try again.')
@@ -71,8 +82,11 @@ export default function Newsletter() {
           <input
             type="text"
             placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
             required
+            disabled={isSubmitting}
           />
           <input
             type="email"
