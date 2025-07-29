@@ -4,7 +4,7 @@ version: '3.8'
 services:
   # Blue environment
   app-blue:
-    image: sharons-website:${APP_VERSION:-latest}
+    image: ghcr.io/marlinjai/sharons-website:${APP_VERSION:-latest}
     container_name: sharons-website-blue
     ports:
       - "3001:3000"
@@ -26,7 +26,7 @@ services:
 
   # Green environment
   app-green:
-    image: sharons-website:${APP_VERSION:-latest}
+    image: ghcr.io/marlinjai/sharons-website:${APP_VERSION:-latest}
     container_name: sharons-website-green
     ports:
       - "3002:3000"

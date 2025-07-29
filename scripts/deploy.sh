@@ -6,7 +6,7 @@ set -e
 # Configuration
 COMPOSE_FILE="docker-compose.prod.yml"
 NGINX_CONF="nginx/nginx.conf"
-IMAGE_NAME="sharons-website"
+IMAGE_NAME="ghcr.io/marlinjai/sharons-website"
 APP_VERSION=${1:-latest}
 
 # Colors for output
