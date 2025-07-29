@@ -4,8 +4,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-// Initialize Resend with API key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize Resend only when needed
+function getResend() {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY is not set')
+  }
+  return new Resend(process.env.RESEND_API_KEY)
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,6 +52,7 @@ export async function POST(request: NextRequest) {
     console.log('Adding contact to audience:', { name: name.trim(), email })
 
     // Add contact to Resend audience with name and email
+    const resend = getResend()
     const contactResult = await resend.contacts.create({
       email: email,
       firstName: name.trim(),
