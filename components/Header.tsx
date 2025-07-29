@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -9,6 +10,11 @@ export default function Header() {
   const [isOnHero, setIsOnHero] = useState(true)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const blogDropdownRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  
+  // Determine if we're on the home page
+  const isHomePage = pathname === '/'
+  const homeLink = isHomePage ? '#home' : ''
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -55,13 +61,13 @@ export default function Header() {
       <nav className="w-full max-w-6xl bg-stone-100/50 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
         <div className="flex justify-between items-center">
           {/* Logo with orange circle */}
-          <Link href="/" className="flex items-center bg-white border-[rgb(245,124,0)] border-2 rounded-full p-2">
-            <img src="/graphics/logo_return.svg" alt="Hypnotherapy Berlin Logo" className="h-16 w-auto" />
+          <Link href={homeLink} className="flex items-center bg-white border-[rgb(245,124,0)] border-2 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-16 w-auto" />
           </Link>
 
           {/* Desktop Navigation + CTA aligned to the right */}
           <div className="hidden md:flex items-center space-x-6 text-stone-900 text-lg tracking-wider font-primary">
-            <Link href="/" className={`transition-colors duration-200 ${getHoverColor()}`}>home</Link>
+            <Link href={homeLink} className={`transition-colors duration-200 ${getHoverColor()}`}>home</Link>
             <div
               className="relative"
               ref={dropdownRef}
@@ -148,7 +154,7 @@ export default function Header() {
           <div className="md:hidden mt-4 pt-4 border-t border-white/20">
             <nav className="flex flex-col space-y-3">
               <Link
-                href="/"
+                href={homeLink}
                 className={`text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary ${getHoverColor()}`}
                 onClick={() => setIsMenuOpen(false)}
               >

@@ -7,7 +7,7 @@ import BookSession from './BookSession';
 
 export default function Hero() {
   return (
-    <section className="relative h-screen w-screen bg-black text-white overflow-hidden">
+    <section id="home" className="relative h-screen w-screen bg-black text-white overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 z-0 w-full h-full">
         <Image

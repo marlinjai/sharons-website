@@ -3,6 +3,10 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { render } from '@react-email/render'
+import { WelcomeEmail } from '@/emails/WelcomeEmail'
+// Import blog data directly for better reliability
+import { blogPostsData } from '@/blogPosts/BlogData'
 
 // Initialize Resend with API key from environment variables
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -58,6 +62,16 @@ export async function POST(request: NextRequest) {
 
     console.log('Sending welcome email to:', { name: name.trim(), email })
 
+    // Get the latest blog post for the welcome email
+    const latestBlogPost = getLatestBlogPostForEmail()
+    const welcomeEmailData = {
+      name: name.trim(),
+      latestBlogPost: latestBlogPost || undefined
+    }
+
+    // Render the React Email template to HTML
+    const emailHtml = await render(WelcomeEmail(welcomeEmailData))
+
     // Send a personalized welcome email to the subscriber
     const emailResult = await resend.emails.send({
       from: 'Sharon Di Salvo <hello@returnhypnosis.com>',
@@ -71,107 +85,9 @@ export async function POST(request: NextRequest) {
         'List-Unsubscribe': '<mailto:hello@returnhypnosis.com?subject=unsubscribe>',
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
       },
-      html: `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Welcome to Sharon Di Salvo's Newsletter</title>
-        </head>
-        <body style="margin: 0; padding: 0; background-color: #f7f6f2; font-family: Arial, sans-serif;">
-          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 40px 30px;">
-            <!-- Header -->
-            <div style="text-align: center; margin-bottom: 30px;">
-              <h1 style="color: #A32015; font-size: 28px; margin: 0; font-weight: bold;">
-                Welcome to Sharon Di Salvo's Newsletter!
-              </h1>
-            </div>
-            
-                         <!-- Main Content -->
-             <div style="color: #333333; line-height: 1.8; font-size: 16px;">
-               <p style="margin-bottom: 20px;">
-                 Hello ${name.trim()}, and welcome! 👋
-               </p>
-               
-               <p style="margin-bottom: 20px;">
-                 Thank you for subscribing to the ReTurn Newsletter. You've just joined a community of people interested in personal transformation through regression hypnosis.
-               </p>
-              
-              <p style="margin-bottom: 20px;">
-                <strong>What to expect:</strong>
-              </p>
-              
-              <ul style="margin-bottom: 25px; padding-left: 20px;">
-                <li style="margin-bottom: 8px;">Brain food and breakthrough insights</li>
-                <li style="margin-bottom: 8px;">Client transformation stories</li>
-                <li style="margin-bottom: 8px;">Tips for personal growth and healing</li>
-                <li style="margin-bottom: 8px;">Updates on regression hypnosis techniques</li>
-              </ul>
-              
-              <p style="margin-bottom: 25px;">
-                I'll be sending you valuable content every other week - no spam, just meaningful insights to support your journey.
-              </p>
-              
-              <div style="background-color: #f7f6f2; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-                <p style="margin: 0; font-style: italic; color: #666;">
-                  "The curious paradox is that when I accept myself just as I am, then I can change." - Carl Rogers
-                </p>
-              </div>
-              
-              <p style="margin-bottom: 30px;">
-                If you have any questions or would like to learn more about my services, feel free to reply to this email.
-              </p>
-              
-              <p style="margin-bottom: 0;">
-                With gratitude,<br>
-                <strong>Sharon Di Salvo</strong><br>
-                <span style="color: #A32015;">Certified Regression Hypnotherapist</span>
-              </p>
-            </div>
-            
-            <!-- Footer -->
-            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #666666; text-align: center;">
-              <p style="margin-bottom: 10px;">
-                You received this email because you subscribed to Sharon Di Salvo's newsletter.
-              </p>
-              <p style="margin: 0;">
-                If you no longer wish to receive these emails, you can 
-                <a href="mailto:hello@returnhypnosis.com?subject=unsubscribe" style="color: #A32015;">unsubscribe here</a>.
-              </p>
-            </div>
-          </div>
-        </body>
-        </html>
-      `,
-             // Add plain text version for better deliverability
-       text: `
-Welcome to the ReTurn Newsletter!
-
-Hello ${name.trim()}, and welcome!
-
-Thank you for subscribing to the ReTurn Newsletter. You've just joined a community of people interested in personal transformation through regression hypnosis.
-
-What to expect:
-- Brain food and breakthrough insights
-- Client transformation stories  
-- Tips for personal growth and healing
-- Updates on regression hypnosis techniques
-
-I'll be sending you valuable content every other week - no spam, just meaningful insights to support your journey.
-
-"The curious paradox is that when I accept myself just as I am, then I can change." - Carl Rogers
-
-If you have any questions or would like to learn more about my services, feel free to reply to this email.
-
-With gratitude,
-Sharon Di Salvo
-Certified Regression Hypnotherapist
-
----
-You received this email because you subscribed to Sharon Di Salvo's newsletter.
-If you no longer wish to receive these emails, reply with "unsubscribe" in the subject line.
-      `
+      html: emailHtml,
+      // Add plain text version for better deliverability
+      text: generateWelcomeEmailText(name.trim(), latestBlogPost || undefined)
     })
 
     console.log('Welcome email sent successfully:', emailResult)
@@ -199,4 +115,78 @@ If you no longer wish to receive these emails, reply with "unsubscribe" in the s
       { status: 500 }
     )
   }
+}
+
+// Helper function to get the latest blog post for email
+function getLatestBlogPostForEmail() {
+  try {
+    if (!blogPostsData) {
+      return null
+    }
+    
+    // Get all post IDs and sort them (highest number = latest)
+    const postIds = Object.keys(blogPostsData).map(Number).sort((a, b) => b - a)
+    
+    if (postIds.length === 0) {
+      return null
+    }
+    
+    const latestId = postIds[0]
+    const latestPost = blogPostsData[latestId as keyof typeof blogPostsData]
+    
+    // Format for email template
+    return {
+      id: latestId,
+      title: latestPost.title,
+      excerpt: latestPost.excerpt.length > 120 
+        ? latestPost.excerpt.substring(0, 120).trim() + '...'
+        : latestPost.excerpt,
+      url: `https://returnhypnosis.com/blog/${latestId}`,
+      category: latestPost.category,
+      readTime: latestPost.readTime
+    }
+  } catch (error) {
+    console.error('Error getting latest blog post:', error)
+    return null
+  }
+}
+
+// Helper function to format excerpt for plain text
+function getFormattedExcerpt(post: any, maxLength: number = 150): string {
+  if (post.excerpt.length <= maxLength) {
+    return post.excerpt
+  }
+  
+  // Truncate and add ellipsis
+  return post.excerpt.substring(0, maxLength).trim() + '...'
+}
+
+// Helper function to generate plain text version of welcome email
+function generateWelcomeEmailText(name: string, latestBlogPost?: { id: number; title: string; excerpt: string; url: string; category: string; readTime: string }): string {
+  let text = `Welcome to the ReTurn Newsletter!\n\n`
+  text += `Hello ${name}, and welcome!\n\n`
+  text += `Thank you for subscribing to the ReTurn Newsletter. You've just joined a community of people interested in personal transformation through regression hypnosis.\n\n`
+  text += `What to expect:\n`
+  text += `- Brain food and breakthrough insights\n`
+  text += `- Client transformation stories\n`
+  text += `- Tips for personal growth and healing\n`
+  text += `- Updates on regression hypnosis techniques\n\n`
+  
+  if (latestBlogPost) {
+    text += `Latest from the Blog:\n`
+    text += `${latestBlogPost.title}\n`
+    text += `${latestBlogPost.category} • ${latestBlogPost.readTime}\n`
+    text += `${latestBlogPost.excerpt}\n`
+    text += `Read full article: ${latestBlogPost.url}\n\n`
+  }
+  
+  text += `I'll be sending you valuable content every other week - no spam, just meaningful insights to support your journey.\n\n`
+  text += `"The curious paradox is that when I accept myself just as I am, then I can change." - Carl Rogers\n\n`
+  text += `If you have any questions or would like to learn more about my services, feel free to reply to this email.\n\n`
+  text += `With gratitude,\nSharon Di Salvo\nCertified Regression Hypnotherapist\n\n`
+  text += `---\n`
+  text += `You received this email because you subscribed to Sharon Di Salvo's newsletter.\n`
+  text += `If you no longer wish to receive these emails, reply with "unsubscribe" in the subject line.`
+  
+  return text
 } 
