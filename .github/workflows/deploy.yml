@@ -119,9 +119,9 @@ jobs:
             echo "FROM_EMAIL=${{ secrets.FROM_EMAIL }}" >> .env
             echo "TO_EMAIL=${{ secrets.TO_EMAIL }}" >> .env
             
-            # Run deployment script
+            # Run deployment script with SSL enabled
             chmod +x scripts/deploy.sh
-            APP_VERSION=latest ./scripts/deploy.sh deploy
+            APP_VERSION=latest ./scripts/deploy.sh deploy latest true
           EOF
 
       - name: Verify deployment

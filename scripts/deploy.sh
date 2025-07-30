@@ -6,8 +6,10 @@ set -e
 # Configuration
 COMPOSE_FILE="docker-compose.prod.yml"
 NGINX_CONF="nginx/nginx.conf"
+NGINX_SSL_CONF="nginx/nginx-ssl.conf"
 IMAGE_NAME="ghcr.io/marlinjai/sharons-website"
 APP_VERSION=${1:-latest}
+SSL_ENABLED=${2:-false}
 
 # Colors for output
 RED='\033[0;31m'
@@ -98,9 +100,37 @@ rollback() {
     fi
 }
 
+# Setup SSL if enabled
+setup_ssl() {
+    if [ "$SSL_ENABLED" == "true" ]; then
+        log "Setting up SSL certificates"
+        
+        # Create SSL directory
+        mkdir -p ssl
+        
+        # Generate self-signed certificate if not exists
+        if [ ! -f "ssl/cert.pem" ] || [ ! -f "ssl/key.pem" ]; then
+            log "Generating self-signed SSL certificates"
+            chmod +x scripts/setup-ssl.sh
+            ./scripts/setup-ssl.sh
+        fi
+        
+        # Switch to SSL nginx config
+        if [ -f "$NGINX_SSL_CONF" ]; then
+            cp "$NGINX_SSL_CONF" "$NGINX_CONF"
+            log "Switched to SSL nginx configuration"
+        else
+            warn "SSL nginx configuration not found, using default"
+        fi
+    fi
+}
+
 # Main deployment function
 deploy() {
     log "Starting blue-green deployment for version $APP_VERSION"
+    
+    # Setup SSL if enabled
+    setup_ssl
     
     # Get current active environment
     CURRENT=$(get_active_environment)
@@ -175,7 +205,8 @@ case "${1:-deploy}" in
         health_check green
         ;;
     *)
-        echo "Usage: $0 {deploy|rollback|status|health} [version]"
+        echo "Usage: $0 {deploy|rollback|status|health} [version] [ssl_enabled]"
+        echo "  ssl_enabled: true/false (default: false)"
         exit 1
         ;;
 esac 
