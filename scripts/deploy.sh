@@ -51,16 +51,10 @@ switch_environment() {
     cp $NGINX_CONF "${NGINX_CONF}.backup"
     
     if [ "$to" == "blue" ]; then
-        # Switch to blue
-        sed -i 's/# server app-blue:3000/server app-blue:3000/' $NGINX_CONF
-        sed -i 's/server app-green:3000/# server app-green:3000/' $NGINX_CONF
-        # Update main app_servers upstream to point to blue
+        # Switch to blue (only modify app_servers upstream, not individual upstream blocks)
         sed -i '/upstream app_servers {/,/}/ { s/# server app-blue:3000/server app-blue:3000/; s/server app-green:3000/# server app-green:3000/ }' $NGINX_CONF
     else
-        # Switch to green
-        sed -i 's/# server app-green:3000/server app-green:3000/' $NGINX_CONF
-        sed -i 's/server app-blue:3000/# server app-blue:3000/' $NGINX_CONF
-        # Update main app_servers upstream to point to green
+        # Switch to green (only modify app_servers upstream, not individual upstream blocks)
         sed -i '/upstream app_servers {/,/}/ { s/# server app-green:3000/server app-green:3000/; s/server app-blue:3000/# server app-blue:3000/ }' $NGINX_CONF
     fi
     
