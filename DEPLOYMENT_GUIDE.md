@@ -1,6 +1,6 @@
 # DEPLOYMENT_GUIDE.md - Blue-Green Deployment Setup Guide
 
-# Blue-Green Deployment Setup Guide
+## Blue-Green Deployment Setup Guide
 
 This guide walks you through setting up a complete Dockerized blue-green deployment system for Sharon's website using GitHub Actions and a VPS.
 
@@ -19,6 +19,7 @@ GitHub Repository → GitHub Actions → Docker Images → VPS → Blue/Green En
 ### 1. VPS Setup (One-time)
 
 **SSH into your VPS and run:**
+
 ```bash
 # Upload the setup script
 scp scripts/setup-vps.sh user@your-vps-ip:~/
@@ -36,6 +37,7 @@ ssh user@your-vps-ip
 ### 2. GitHub Repository Configuration
 
 **Add these secrets to your GitHub repository:**
+
 - Go to Settings → Secrets and variables → Actions
 - Add the following secrets:
 
@@ -49,6 +51,7 @@ GITHUB_TOKEN        = Your GitHub personal access token
 ### 3. Deploy
 
 **Push to main branch or trigger manually:**
+
 ```bash
 git add .
 git commit -m "Setup blue-green deployment"
@@ -72,6 +75,7 @@ git push origin main
 ### VPS Configuration
 
 1. **Initial Server Setup:**
+
    ```bash
    # Create deployment user (if not exists)
    sudo useradd -m -s /bin/bash deploy
@@ -97,6 +101,7 @@ git push origin main
 ### GitHub Actions Configuration
 
 The workflow automatically:
+
 1. **Tests** - Runs linting and builds
 2. **Builds** - Creates Docker images and pushes to GitHub Container Registry
 3. **Deploys** - Uses blue-green deployment strategy
@@ -106,12 +111,14 @@ The workflow automatically:
 ### SSL Certificate Setup (Optional but Recommended)
 
 **Install Certbot for Let's Encrypt:**
+
 ```bash
 sudo apt install certbot
 sudo certbot certonly --standalone -d your-domain.com
 ```
 
 **Update nginx configuration for HTTPS:**
+
 ```nginx
 server {
     listen 443 ssl;
@@ -135,6 +142,7 @@ server {
 ### Manual Deployment
 
 **From your VPS:**
+
 ```bash
 cd ~/sharons-website
 ./scripts/deploy.sh deploy [version]
@@ -143,6 +151,7 @@ cd ~/sharons-website
 ### Monitoring
 
 **Check deployment status:**
+
 ```bash
 ./scripts/deploy.sh status
 ./scripts/deploy.sh health
@@ -150,6 +159,7 @@ cd ~/sharons-website
 ```
 
 **View logs:**
+
 ```bash
 docker-compose -f docker-compose.prod.yml logs -f
 tail -f logs/status.log
@@ -158,6 +168,7 @@ tail -f logs/status.log
 ### Rollback
 
 **Emergency rollback:**
+
 ```bash
 ./scripts/deploy.sh rollback
 ```
@@ -191,6 +202,7 @@ The system provides multiple health check endpoints:
 ### Common Issues
 
 1. **Deployment fails at health check:**
+
    ```bash
    # Check container logs
    docker-compose -f docker-compose.prod.yml logs app-blue
@@ -202,6 +214,7 @@ The system provides multiple health check endpoints:
    ```
 
 2. **Nginx can't reach containers:**
+
    ```bash
    # Check network connectivity
    docker network ls
@@ -216,6 +229,7 @@ The system provides multiple health check endpoints:
 ### Manual Recovery
 
 **If deployment gets stuck:**
+
 ```bash
 # Stop all containers
 docker-compose -f docker-compose.prod.yml down
@@ -247,12 +261,14 @@ docker-compose -f docker-compose.prod.yml up -d
 ## Monitoring and Alerts
 
 The setup includes:
+
 - **Health check endpoints** for monitoring services
 - **Status monitoring script** that runs every 5 minutes
 - **Log rotation** to manage disk space
 - **Docker container health checks**
 
 You can extend this with:
+
 - **Uptime monitoring** services (UptimeRobot, Pingdom)
 - **Log aggregation** (ELK stack, Grafana)
 - **Alert notifications** (Slack, email, Discord)
@@ -260,6 +276,7 @@ You can extend this with:
 ## Backup Strategy
 
 **Recommended backup approach:**
+
 ```bash
 # Regular database backups (if applicable)
 # Static file backups
@@ -274,4 +291,4 @@ tar -czf backup-$(date +%Y%m%d).tar.gz ~/sharons-website/
 3. **Monitor resource usage** to optimize container resources
 4. **Clean up old Docker images** regularly
 
-This setup provides a professional, scalable deployment solution with zero-downtime deployments and easy rollback capabilities. 
+This setup provides a professional, scalable deployment solution with zero-downtime deployments and easy rollback capabilities.

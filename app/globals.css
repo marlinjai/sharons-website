@@ -31,9 +31,28 @@
   scrollbar-color: #c5441e #faf6f1;
 }
 
+/* Fluid Typography System - CSS Variables with clamp() */
+:root {
+  /* Fluid font sizes that scale with viewport + zoom - mobile-first approach */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
+  --text-3xl: clamp(1.875rem, 1.5rem + 1.5vw, 2.25rem);
+  --text-4xl: clamp(2rem, 1.6rem + 2vw, 3rem);
+  --text-5xl: clamp(2.25rem, 1.8rem + 2.5vw, 4rem);
+  --text-6xl: clamp(2.75rem, 2.2rem + 3vw, 5rem);
+  --text-7xl: clamp(3.25rem, 2.6rem + 3.5vw, 6rem);
+  --text-8xl: clamp(4rem, 3.2rem + 4vw, 8rem);
+  --text-9xl: clamp(5rem, 4rem + 5vw, 10rem);
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  font-size: 100%; /* Ensures rem units scale with browser zoom */
 }
 
 body, html {
@@ -42,4 +61,54 @@ body, html {
 
 .text-subtle {
   display: none!important;
+}
+
+/* Transforming Hamburger Button - Like CodePen example */
+.hamburger-button {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 3px;
+  background-color: #000000;
+  border-radius: 2px;
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger-line:nth-child(1) {
+  transform: translateY(-8px);
+}
+
+.hamburger-line:nth-child(2) {
+  transform: translateY(0);
+}
+
+.hamburger-line:nth-child(3) {
+  transform: translateY(8px);
+}
+
+/* Transform to X when open */
+.hamburger-line.open:nth-child(1) {
+  transform: translateY(0) rotate(45deg);
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: translateY(0) rotate(-45deg);
 }

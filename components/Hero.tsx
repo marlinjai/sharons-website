@@ -7,7 +7,7 @@ import BookSession from './BookSession';
 
 export default function Hero() {
   return (
-    <section className="relative h-screen w-screen bg-black text-white overflow-hidden">
+    <section className="relative h-[90vh] min-h-[600px] md:h-screen w-screen bg-black text-white overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 z-0 w-full h-full">
         <Image
@@ -23,13 +23,13 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative h-full z-20 flex items-end pb-44 pt-0">
+      <div className="relative h-full z-20 flex items-end md:pb-44 pb-24 pt-0">
         <div className="w-full max-w-6xl mx-auto px-8 flex flex-col lg:flex-row items-end gap-24">
-          <div className="max-w-2xl text-left space-y-6">
-            <h1 className="text-5xl md:text-6xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
+          <div className="max-w-2xl text-left space-y-2 md:space-y-6">
+            <h1 className="text-4xl md:text-6xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
               Regression Hypnosis
             </h1>
-            <div className="text-4xl md:text-5xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
+            <div className="text-3xl md:text-5xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
               For the{' '}
               <TypingAnimation
                 words={['Curious', 'Brave', 'Ready']}

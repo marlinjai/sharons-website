@@ -2,7 +2,7 @@
 
 export default function VideoSection() {
   return (
-    <section className="relative h-screen w-screen flex items-center justify-center bg-white text-black overflow-hidden">
+    <section className="relative min-h-screen h-full w-screen flex items-center justify-center bg-white text-black overflow-hidden">
       <div className="w-full max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-12 h-full">
         {/* Left: Text */}
         <div className="flex-1 flex flex-col items-start justify-center h-full">
