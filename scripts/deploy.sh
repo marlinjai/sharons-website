@@ -1,5 +1,6 @@
 #!/bin/bash
 # scripts/deploy.sh - Blue-green deployment script
+# Fixed: Always pull latest Docker images to prevent using cached/outdated images
 
 set -e
 
@@ -173,11 +174,19 @@ deploy() {
     # Ensure current environment is running (if not already)
     if [ "$CURRENT" != "unknown" ]; then
         log "Ensuring current environment $CURRENT is running"
+        # Pull latest image for current environment too (in case it needs updates)
+        APP_VERSION=$APP_VERSION docker-compose -f $COMPOSE_FILE pull app-$CURRENT
         APP_VERSION=$APP_VERSION docker-compose -f $COMPOSE_FILE up -d app-$CURRENT
     fi
     
     # Deploy to target environment (new version)
     log "Deploying new version to $TARGET environment"
+    
+    # Pull latest image first to ensure we use the newest version
+    log "Pulling latest Docker image for $TARGET environment"
+    APP_VERSION=$APP_VERSION docker-compose -f $COMPOSE_FILE pull app-$TARGET
+    
+    # Start the target environment with the latest image
     APP_VERSION=$APP_VERSION docker-compose -f $COMPOSE_FILE up -d --force-recreate app-$TARGET
     
     # Wait for deployment to be ready
