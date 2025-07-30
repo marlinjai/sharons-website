@@ -228,9 +228,6 @@ export function MobileNavOverlay() {
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <NavLink href="/blog" variant="mobile" className="text-xl mb-2">
-                        all posts
-                      </NavLink>
                       <NavLink href="#newsletter" variant="mobile" className="text-xl">
                         newsletter
                       </NavLink>
