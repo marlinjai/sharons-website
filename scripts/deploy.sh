@@ -8,8 +8,7 @@ COMPOSE_FILE="docker-compose.prod.yml"
 NGINX_CONF="nginx/nginx.conf"
 NGINX_SSL_CONF="nginx/nginx-ssl.conf"
 IMAGE_NAME="ghcr.io/marlinjai/sharons-website"
-APP_VERSION=${1:-latest}
-SSL_ENABLED=${2:-false}
+SSL_ENABLED=${3:-false}
 
 # Colors for output
 RED='\033[0;31m'
@@ -127,6 +126,8 @@ setup_ssl() {
 
 # Main deployment function
 deploy() {
+    # Set APP_VERSION from the second parameter
+    APP_VERSION=${2:-latest}
     log "Starting blue-green deployment for version $APP_VERSION"
     
     # Setup SSL if enabled
@@ -146,16 +147,6 @@ deploy() {
     fi
     
     log "Current environment: $CURRENT, Target environment: $TARGET"
-    
-    # Pull new image - try multiple tags
-    log "Pulling image $IMAGE_NAME:$APP_VERSION"
-    if ! docker pull $IMAGE_NAME:$APP_VERSION; then
-        log "Failed to pull $APP_VERSION, trying 'latest'"
-        if ! docker pull $IMAGE_NAME:latest; then
-            log "Failed to pull 'latest', trying 'main'"
-            docker pull $IMAGE_NAME:main
-        fi
-    fi
     
     # Deploy to target environment
     log "Deploying to $TARGET environment"
@@ -206,6 +197,7 @@ case "${1:-deploy}" in
         ;;
     *)
         echo "Usage: $0 {deploy|rollback|status|health} [version] [ssl_enabled]"
+        echo "  version: Docker image tag (default: latest)"
         echo "  ssl_enabled: true/false (default: false)"
         exit 1
         ;;

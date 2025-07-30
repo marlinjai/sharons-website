@@ -121,7 +121,7 @@ jobs:
             
             # Run deployment script with SSL enabled
             chmod +x scripts/deploy.sh
-            APP_VERSION=latest ./scripts/deploy.sh deploy latest true
+            ./scripts/deploy.sh deploy main true
           EOF
 
       - name: Verify deployment
