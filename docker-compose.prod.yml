@@ -1,5 +1,4 @@
 # docker-compose.prod.yml - Production blue-green deployment setup
-version: '3.8'
 
 services:
   # Blue environment
