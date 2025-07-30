@@ -113,6 +113,9 @@ jobs:
             # Login to GitHub Container Registry
             echo ${{ secrets.PERSONAL_GITHUB_TOKEN }} | docker login ghcr.io -u marlinjai --password-stdin
             
+            # Pull latest image to ensure fresh deployment (belt and suspenders approach)
+            docker pull ghcr.io/marlinjai/sharons-website:latest
+            
             # Create .env file with environment variables
             echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" > .env
             echo "RESEND_AUDIENCE_ID=${{ secrets.RESEND_AUDIENCE_ID }}" >> .env
