@@ -158,9 +158,9 @@ deploy() {
     
     log "Current environment: $CURRENT, Target environment: $TARGET"
     
-    # Deploy to target environment
+    # Deploy to target environment (force recreate to use new image)
     log "Deploying to $TARGET environment"
-    APP_VERSION=$APP_VERSION docker-compose -f $COMPOSE_FILE up -d app-$TARGET
+    APP_VERSION=$APP_VERSION docker-compose -f $COMPOSE_FILE up -d --force-recreate app-$TARGET
     
     # Wait for deployment to be ready
     sleep 30
