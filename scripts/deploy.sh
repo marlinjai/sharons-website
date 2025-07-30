@@ -198,17 +198,33 @@ deploy() {
     log "Switching traffic from $CURRENT to $TARGET (atomic switch)"
     switch_environment $CURRENT $TARGET
     
+    # Force nginx to restart to pick up new container IPs
+    log "Restarting nginx to ensure proper container connectivity"
+    docker-compose -f $COMPOSE_FILE restart nginx
+    
     # Wait for nginx to fully process the switch
     log "Waiting for nginx to stabilize after switch"
     sleep 15
     
     # Final health check through nginx (verify switch worked)
     log "Verifying traffic switch was successful"
-    if curl -f -s -k "https://localhost/health" > /dev/null; then
-        log "✅ Traffic switch successful - $TARGET environment serving traffic"
-    else
-        warn "⚠️  Nginx health check failed, but container is healthy"
-    fi
+    local attempts=0
+    local max_attempts=6
+    
+    while [ $attempts -lt $max_attempts ]; do
+        if curl -f -s -k "https://localhost/health" > /dev/null; then
+            log "✅ Traffic switch successful - $TARGET environment serving traffic"
+            break
+        else
+            attempts=$((attempts + 1))
+            if [ $attempts -lt $max_attempts ]; then
+                warn "Health check attempt $attempts/$max_attempts failed, retrying..."
+                sleep 5
+            else
+                error "❌ Traffic switch failed after $max_attempts attempts - rolling back"
+            fi
+        fi
+    done
     
     # Stop old environment (cleanup)
     log "Stopping old environment: $CURRENT"
