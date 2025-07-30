@@ -130,7 +130,7 @@ jobs:
           sleep 30
           
           # Check if the application is responding
-          if curl -f -s "http://${{ secrets.SERVER_HOST }}/health"; then
+          if curl -f -s -k "https://${{ secrets.SERVER_HOST }}/health"; then
             echo "✅ Deployment successful!"
           else
             echo "❌ Deployment verification failed"

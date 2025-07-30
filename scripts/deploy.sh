@@ -74,7 +74,7 @@ health_check() {
     log "Checking health of $environment environment"
     
     while [ $attempt -le $max_attempts ]; do
-        if curl -f -s "http://localhost/health/$environment" > /dev/null; then
+        if curl -f -s -k "https://localhost/health/$environment" > /dev/null; then
             log "$environment environment is healthy"
             return 0
         fi
