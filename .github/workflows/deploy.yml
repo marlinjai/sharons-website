@@ -114,12 +114,10 @@ jobs:
             echo ${{ secrets.PERSONAL_GITHUB_TOKEN }} | docker login ghcr.io -u marlinjai --password-stdin
             
             # Create .env file with environment variables
-            cat > .env << 'ENVEOF'
-            RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
-            RESEND_AUDIENCE_ID=${{ secrets.RESEND_AUDIENCE_ID }}
-            FROM_EMAIL=${{ secrets.FROM_EMAIL }}
-            TO_EMAIL=${{ secrets.TO_EMAIL }}
-            ENVEOF
+            echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" > .env
+            echo "RESEND_AUDIENCE_ID=${{ secrets.RESEND_AUDIENCE_ID }}" >> .env
+            echo "FROM_EMAIL=${{ secrets.FROM_EMAIL }}" >> .env
+            echo "TO_EMAIL=${{ secrets.TO_EMAIL }}" >> .env
             
             # Run deployment script
             chmod +x scripts/deploy.sh
