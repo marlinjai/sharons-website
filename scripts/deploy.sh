@@ -54,10 +54,14 @@ switch_environment() {
         # Switch to blue
         sed -i 's/# server app-blue:3000/server app-blue:3000/' $NGINX_CONF
         sed -i 's/server app-green:3000/# server app-green:3000/' $NGINX_CONF
+        # Update main app_servers upstream to point to blue
+        sed -i '/upstream app_servers {/,/}/ { s/# server app-blue:3000/server app-blue:3000/; s/server app-green:3000/# server app-green:3000/ }' $NGINX_CONF
     else
         # Switch to green
         sed -i 's/# server app-green:3000/server app-green:3000/' $NGINX_CONF
         sed -i 's/server app-blue:3000/# server app-blue:3000/' $NGINX_CONF
+        # Update main app_servers upstream to point to green
+        sed -i '/upstream app_servers {/,/}/ { s/# server app-green:3000/server app-green:3000/; s/server app-blue:3000/# server app-blue:3000/ }' $NGINX_CONF
     fi
     
     # Reload nginx
@@ -176,7 +180,7 @@ deploy() {
         error "Final health check failed, deployment rolled back"
     fi
     
-    # Stop old environment
+    # Stop old environment (after nginx reload to avoid hostname resolution issues)
     log "Stopping $CURRENT environment"
     docker-compose -f $COMPOSE_FILE stop app-$CURRENT
     
