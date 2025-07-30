@@ -3,12 +3,16 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
+// Animation types for mobile overlay
+export type OverlayAnimationType = 'radial' | 'fade'
+
 // Navigation state interface
 interface NavigationState {
   isMobileMenuOpen: boolean
   isSessionDropdownOpen: boolean
   isBlogDropdownOpen: boolean
   isOnHero: boolean
+  overlayAnimation: OverlayAnimationType
 }
 
 // Navigation actions interface
@@ -29,10 +33,11 @@ const NavigationContext = createContext<NavigationContextType | undefined>(undef
 // Navigation provider props
 interface NavigationProviderProps {
   children: ReactNode
+  overlayAnimation?: OverlayAnimationType
 }
 
 // Navigation provider component
-export function NavigationProvider({ children }: NavigationProviderProps) {
+export function NavigationProvider({ children, overlayAnimation = 'radial' }: NavigationProviderProps) {
   // Navigation state
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false)
@@ -104,8 +109,27 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
   }, [isMobileMenuOpen, isSessionDropdownOpen, isBlogDropdownOpen])
 
   // Navigation actions
-  const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev)
-  const closeMobileMenu = () => setIsMobileMenuOpen(false)
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(prev => {
+      const newState = !prev
+      // Apply scroll lock immediately when opening
+      if (newState) {
+        document.body.style.overflow = 'hidden'
+        document.documentElement.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+        document.documentElement.style.overflow = ''
+      }
+      return newState
+    })
+  }
+  
+  const closeMobileMenu = () => {
+    // Restore scrolling immediately when closing
+    document.body.style.overflow = ''
+    document.documentElement.style.overflow = ''
+    setIsMobileMenuOpen(false)
+  }
   const closeAllDropdowns = () => {
     setIsSessionDropdownOpen(false)
     setIsBlogDropdownOpen(false)
@@ -118,6 +142,7 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     isSessionDropdownOpen,
     isBlogDropdownOpen,
     isOnHero,
+    overlayAnimation,
     // Actions
     toggleMobileMenu,
     closeMobileMenu,

@@ -10,7 +10,7 @@ interface NavLinkProps {
   children: React.ReactNode
   className?: string
   onClick?: () => void
-  variant?: 'default' | 'cta' | 'mobile'
+  variant?: 'default' | 'cta' | 'mobile' | 'mobileCta'
 }
 
 // Reusable navigation link component with context-aware styling
@@ -35,14 +35,15 @@ export function NavLink({
     return isOnHero ? 'hover:text-[#E7E5D8]' : 'hover:text-[#de640d]'
   }
 
-  // Base styles for all variants
-  const baseStyles = 'transition-colors duration-200 font-primary'
+  // Base styles for all variants - includes mobile tap highlight removal
+  const baseStyles = 'transition-colors duration-200 font-primary focus:outline-none -webkit-tap-highlight-color-transparent tap-highlight-transparent'
 
   // Variant-specific styles
   const variantStyles = {
     default: `${getHoverColor()}`,
     cta: 'ml-4 px-6 py-2 rounded-full tracking-normal text-lg bg-white text-black shadow-md hover:bg-[rgb(245,124,0)] hover:text-white',
-    mobile: `text-black px-4 py-2 rounded-full ${getHoverColor()}`
+    mobile: `text-black px-4 py-2 rounded-full`,
+    mobileCta: 'px-6 py-4 rounded-full tracking-normal shadow-md bg-[rgb(245,124,0)] text-white'
   }
 
   // Combine all styles

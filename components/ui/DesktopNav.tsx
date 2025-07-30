@@ -25,8 +25,7 @@ export function DesktopNav() {
       y: -10,
       scale: 0.95,
       transition: {
-        duration: 0.2,
-        ease: 'easeInOut'
+        duration: 0.2
       }
     },
     open: {
@@ -34,8 +33,7 @@ export function DesktopNav() {
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.2,
-        ease: 'easeOut'
+        duration: 0.2
       }
     }
   }

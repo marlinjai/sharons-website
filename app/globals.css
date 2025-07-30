@@ -31,6 +31,45 @@
   scrollbar-color: #c5441e #faf6f1;
 }
 
+/* Remove tap highlights on mobile devices */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection for content areas */
+p, span, div:not([role="button"]), a, input, textarea {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Remove all focus outlines and borders from navigation elements */
+nav a, nav button, [role="navigation"] a, [role="navigation"] button {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Remove blue highlight on mobile Safari */
+nav a:focus, nav button:focus, nav a:active, nav button:active,
+[role="navigation"] a:focus, [role="navigation"] button:focus,
+[role="navigation"] a:active, [role="navigation"] button:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 /* Fluid Typography System - CSS Variables with clamp() */
 :root {
   /* Fluid font sizes that scale with viewport + zoom - mobile-first approach */

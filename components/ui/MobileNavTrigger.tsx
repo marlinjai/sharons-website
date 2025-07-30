@@ -11,7 +11,7 @@ export function MobileNavTrigger() {
   return (
     <button
       onClick={toggleMobileMenu}
-      className="md:hidden p-2 rounded-full text-black hover:bg-white/10 transition-colors duration-200 z-50 relative"
+      className="p-2 rounded-full text-black transition-colors duration-200 relative"
       title={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
       aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
       aria-expanded={isMobileMenuOpen}
@@ -20,6 +20,10 @@ export function MobileNavTrigger() {
         {/* Top line */}
         <motion.span
           className="absolute left-0 h-0.5 w-6 bg-current transform origin-center"
+          initial={{
+            rotate: 0,
+            y: -8,
+          }}
           animate={{
             rotate: isMobileMenuOpen ? 45 : 0,
             y: isMobileMenuOpen ? 0 : -8,
@@ -31,6 +35,10 @@ export function MobileNavTrigger() {
         {/* Middle line */}
         <motion.span
           className="absolute left-0 top-1/2 h-0.5 w-6 bg-current transform -translate-y-1/2"
+          initial={{
+            opacity: 1,
+            x: 0,
+          }}
           animate={{
             opacity: isMobileMenuOpen ? 0 : 1,
             x: isMobileMenuOpen ? 20 : 0,
@@ -41,6 +49,10 @@ export function MobileNavTrigger() {
         {/* Bottom line */}
         <motion.span
           className="absolute left-0 h-0.5 w-6 bg-current transform origin-center"
+          initial={{
+            rotate: 0,
+            y: 8,
+          }}
           animate={{
             rotate: isMobileMenuOpen ? -45 : 0,
             y: isMobileMenuOpen ? 0 : 8,

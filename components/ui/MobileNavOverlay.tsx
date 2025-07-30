@@ -9,7 +9,7 @@ import { NavLink } from './NavLink'
 
 // Mobile navigation overlay with circle expansion animation
 export function MobileNavOverlay() {
-  const { isMobileMenuOpen, isBlogDropdownOpen, setBlogDropdownOpen, closeMobileMenu } = useNavigation()
+  const { isMobileMenuOpen, isBlogDropdownOpen, setBlogDropdownOpen, closeMobileMenu, overlayAnimation } = useNavigation()
   const [mounted, setMounted] = useState(false)
   const overlayRef = useRef<HTMLDivElement>(null)
 
@@ -61,25 +61,27 @@ export function MobileNavOverlay() {
   // Don't render anything on server or before mount
   if (!mounted) return null
 
-  // Circle animation variants
-  const circleVariants = {
-    closed: {
-      scale: 0,
-      opacity: 0,
-      transition: {
-        duration: 0.3,
-        ease: 'easeInOut'
-      }
-    },
-    open: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: 'easeOut'
+  // Get animation variants based on type
+  const getBackgroundAnimation = () => {
+    if (overlayAnimation === 'fade') {
+      return {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
       }
     }
+    
+    // Radial animation (default)
+    return {
+      initial: { clipPath: 'circle(0% at 100% 0%)' },
+      animate: { clipPath: 'circle(150% at 100% 0%)' },
+      exit: { clipPath: 'circle(0% at 100% 0%)' },
+      transition: { duration: 0.6 }
+    }
   }
+
+  const backgroundAnimation = getBackgroundAnimation()
 
   // Content animation variants with stagger
   const contentVariants = {
@@ -137,31 +139,18 @@ export function MobileNavOverlay() {
       {isMobileMenuOpen && (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-40 md:hidden"
+          className="fixed inset-0 z-50 md:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation menu"
         >
-          {/* Circle background with expansion animation */}
+          {/* Background with configurable animation */}
           <motion.div
             className="absolute inset-0 bg-white"
-            variants={circleVariants}
-            initial="closed"
-            animate="open"
-            exit="closed"
-            style={{
-              clipPath: 'circle(0% at 90% 10%)', // Start from upper-right corner
-            }}
-            animate={{
-              clipPath: 'circle(150% at 90% 10%)', // Expand to cover full screen
-            }}
-            exit={{
-              clipPath: 'circle(0% at 90% 10%)', // Contract back to upper-right
-            }}
-            transition={{
-              duration: 0.6,
-              ease: 'easeInOut'
-            }}
+            initial={backgroundAnimation.initial}
+            animate={backgroundAnimation.animate}
+            exit={backgroundAnimation.exit}
+            transition={backgroundAnimation.transition as any}
           />
 
           {/* Backdrop blur overlay */}
@@ -266,10 +255,7 @@ export function MobileNavOverlay() {
 
               {/* CTA Button */}
               <motion.div variants={menuItemVariants} className="mt-8">
-                <NavLink
-                  href="#contact"
-                  className="text-black font-medium px-8 py-4 rounded-full border-2 border-black text-center hover:bg-[rgb(245,124,0)] hover:text-white hover:border-[rgb(245,124,0)] transition-colors duration-200 font-primary text-xl"
-                >
+                <NavLink href="#contact" variant="mobileCta" className="text-xl">
                   Let's Talk
                 </NavLink>
               </motion.div>
