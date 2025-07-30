@@ -176,8 +176,14 @@ deploy() {
     
     log "Current environment: $CURRENT, Target environment: $TARGET"
     
-    # Deploy to target environment (force recreate to use new image)
-    log "Deploying to $TARGET environment"
+    # Ensure current environment is running (if not already)
+    if [ "$CURRENT" != "unknown" ]; then
+        log "Ensuring current environment $CURRENT is running"
+        APP_VERSION=$APP_VERSION docker-compose -f $COMPOSE_FILE up -d app-$CURRENT
+    fi
+    
+    # Deploy to target environment (new version)
+    log "Deploying new version to $TARGET environment"
     APP_VERSION=$APP_VERSION docker-compose -f $COMPOSE_FILE up -d --force-recreate app-$TARGET
     
     # Wait for deployment to be ready
@@ -188,28 +194,26 @@ deploy() {
         error "Health check failed for $TARGET environment"
     fi
     
-    # Now start/restart nginx with SSL configuration
-    log "Starting nginx with SSL configuration and certificates"
-    docker-compose -f $COMPOSE_FILE stop nginx || true
-    docker-compose -f $COMPOSE_FILE rm -f nginx || true
-    docker-compose -f $COMPOSE_FILE up -d nginx
-    
-    # Wait for nginx to start
-    sleep 10
-    
-    # Switch traffic to target environment
+    # Switch traffic to target environment (atomic switch)
+    log "Switching traffic from $CURRENT to $TARGET (atomic switch)"
     switch_environment $CURRENT $TARGET
     
-    # Final health check via nginx
-    sleep 10
-    log "Final verification via nginx"
-    if ! curl -f -s -k "https://localhost/health/$TARGET" > /dev/null; then
-        warn "Nginx health check failed, but container is healthy - this is acceptable"
+    # Wait for nginx to fully process the switch
+    log "Waiting for nginx to stabilize after switch"
+    sleep 15
+    
+    # Final health check through nginx (verify switch worked)
+    log "Verifying traffic switch was successful"
+    if curl -f -s -k "https://localhost/health" > /dev/null; then
+        log "✅ Traffic switch successful - $TARGET environment serving traffic"
+    else
+        warn "⚠️  Nginx health check failed, but container is healthy"
     fi
     
-    # Stop old environment
-    log "Stopping $CURRENT environment"
+    # Stop old environment (cleanup)
+    log "Stopping old environment: $CURRENT"
     docker-compose -f $COMPOSE_FILE stop app-$CURRENT
+    log "✅ Blue-green deployment completed - $TARGET is now active"
     
     # Cleanup old backup
     rm -f "${NGINX_CONF}.backup"
