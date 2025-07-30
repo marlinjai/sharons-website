@@ -121,7 +121,7 @@ jobs:
             
             # Run deployment script
             chmod +x scripts/deploy.sh
-            APP_VERSION=${{ github.sha }} ./scripts/deploy.sh deploy
+            APP_VERSION=latest ./scripts/deploy.sh deploy
           EOF
 
       - name: Verify deployment

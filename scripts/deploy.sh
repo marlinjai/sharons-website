@@ -117,9 +117,15 @@ deploy() {
     
     log "Current environment: $CURRENT, Target environment: $TARGET"
     
-    # Pull new image
+    # Pull new image - try multiple tags
     log "Pulling image $IMAGE_NAME:$APP_VERSION"
-    docker pull $IMAGE_NAME:$APP_VERSION
+    if ! docker pull $IMAGE_NAME:$APP_VERSION; then
+        log "Failed to pull $APP_VERSION, trying 'latest'"
+        if ! docker pull $IMAGE_NAME:latest; then
+            log "Failed to pull 'latest', trying 'main'"
+            docker pull $IMAGE_NAME:main
+        fi
+    fi
     
     # Deploy to target environment
     log "Deploying to $TARGET environment"
