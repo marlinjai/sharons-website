@@ -120,8 +120,10 @@ setup_ssl() {
             log "Switched to SSL nginx configuration"
             
             # Restart nginx to pick up new config and SSL certificates
-            log "Restarting nginx with SSL configuration"
-            docker-compose -f $COMPOSE_FILE restart nginx
+            log "Recreating nginx with SSL configuration and certificates"
+            docker-compose -f $COMPOSE_FILE stop nginx
+            docker-compose -f $COMPOSE_FILE rm -f nginx
+            docker-compose -f $COMPOSE_FILE up -d nginx
         else
             warn "SSL nginx configuration not found, using default"
         fi
