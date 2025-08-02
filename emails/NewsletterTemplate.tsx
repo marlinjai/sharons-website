@@ -32,13 +32,13 @@ interface ContentSection {
 
 interface NewsletterTemplateProps {
   // Basic newsletter info
-  subject: string
-  previewText: string
+  subject?: string
+  previewText?: string
   issueNumber?: number
   date?: string
   
   // Content sections
-  sections: ContentSection[]
+  sections?: ContentSection[]
   
   // Optional featured content
   featuredStory?: {
@@ -64,11 +64,11 @@ interface NewsletterTemplateProps {
 }
 
 export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
-  subject,
-  previewText,
+  subject = "ReTurn Newsletter - Issue #1",
+  previewText = "Discover personal transformation through regression hypnosis",
   issueNumber,
   date,
-  sections,
+  sections = [],
   featuredStory,
   fromName = "Sharon Di Salvo",
   fromEmail = "hello@returnhypnosis.com",
@@ -141,11 +141,28 @@ export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
           )}
           
           {/* Dynamic Content Sections */}
-          {sections.map((section, index) => (
-            <Section key={index} style={getSectionStyle(section)}>
-              {renderContentSection(section)}
+          {sections && sections.length > 0 ? (
+            sections.map((section, index) => (
+              <Section key={index} style={getSectionStyle(section)}>
+                {renderContentSection(section)}
+              </Section>
+            ))
+          ) : (
+            // Default content when no sections are provided (for preview)
+            <Section style={defaultSection}>
+              <Heading style={sectionHeading}>
+                Welcome to Your First Newsletter
+              </Heading>
+              <Text style={paragraph}>
+                This is a preview of your newsletter template. When you create an actual newsletter, 
+                you'll add content sections here that will be dynamically rendered.
+              </Text>
+              <Text style={paragraph}>
+                Each newsletter can include text sections, quotes, stories, tips, call-to-actions, 
+                and images - all styled beautifully to match your brand.
+              </Text>
             </Section>
-          ))}
+          )}
           
           {/* Quote of the Week Section */}
           <Section style={quoteSection}>
@@ -668,6 +685,11 @@ const footerText = {
 const link = {
   color: '#944923',
   textDecoration: 'underline',
+}
+
+const defaultSection = {
+  padding: '0 30px 30px',
+  textAlign: 'center' as const,
 }
 
 export default NewsletterTemplate

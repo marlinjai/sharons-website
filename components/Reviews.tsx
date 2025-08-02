@@ -1,6 +1,6 @@
 // components/Reviews.tsx - Client reviews section with parallax scrolling and real testimonials
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image';
 
 export default function Reviews() {
@@ -108,20 +108,70 @@ export default function Reviews() {
     return 'object-cover w-full h-full';
   }
 
-  const ReviewCard = ({ review, idx }: { review: any, idx: number }) => (
-    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col items-center">
-      {review.image && (
-        <div className="w-28 h-28 mb-4 rounded-full overflow-hidden flex items-center justify-center">
-          <Image src={review.image} alt={review.name} width={112} height={112} className={getImageClass(idx)} />
+  // ReviewCard component with line clamp and read more
+  const ReviewCard = ({ review, idx }: { review: any, idx: number }) => {
+    // Track if this review is expanded
+    const [expanded, setExpanded] = useState(false);
+    // Ref to measure text height
+    const textRef = useRef<HTMLParagraphElement>(null);
+    // Track if review is long (needs 'read more')
+    const [isLong, setIsLong] = useState(false);
+
+    useEffect(() => {
+      // Check if the text overflows 6 lines
+      if (textRef.current) {
+        // 1.2em * 6 lines = 7.2em (approx, adjust if needed)
+        const lineHeight = parseFloat(getComputedStyle(textRef.current).lineHeight);
+        const maxLines = 6;
+        const maxHeight = lineHeight * maxLines;
+        if (textRef.current.scrollHeight > maxHeight + 2) {
+          setIsLong(true);
+        }
+      }
+    }, []);
+
+    return (
+      <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col items-center">
+        {review.image && (
+          <div className="w-28 h-28 mb-4 rounded-full overflow-hidden flex items-center justify-center">
+            <Image src={review.image} alt={review.name} width={112} height={112} className={getImageClass(idx)} />
+          </div>
+        )}
+        <div className="text-center">
+          <h3 className="font-secondary font-semibold text-gray-900 text-xl mb-1 leading-tight">{review.name}</h3>
+          {review.title && <div className="text-sm text-[#c93e2e] mb-2 font-primary">{review.title}</div>}
+          <div className="text-gray-700 leading-relaxed whitespace-pre-line font-primary">
+            {!expanded && isLong ? (
+              <>
+                <span>
+                  {review.text.split(' ').slice(0, 30).join(' ')}...
+                </span>
+                <button
+                  className="text-[#A32015] font-primary text-sm hover:text-[#C5441E] transition-colors duration-200 ml-1"
+                  onClick={() => setExpanded(true)}
+                  aria-label="Read full review"
+                >
+                  read more
+                </button>
+              </>
+            ) : (
+              <span>{review.text}</span>
+            )}
+          </div>
+          {/* Show 'read less' when review is expanded */}
+          {isLong && expanded && (
+            <button
+              className="mt-2 text-[#A32015] font-primary text-sm hover:text-[#C5441E] transition-colors duration-200"
+              onClick={() => setExpanded(false)}
+              aria-label="Show less of review"
+            >
+              read less
+            </button>
+          )}
         </div>
-      )}
-      <div className="text-center">
-        <h3 className="font-secondary font-semibold text-gray-900 text-xl mb-1 leading-tight">{review.name}</h3>
-        {review.title && <div className="text-sm text-[#c93e2e] mb-2 font-primary">{review.title}</div>}
-        <p className="text-gray-700 leading-relaxed whitespace-pre-line font-primary">{review.text}</p>
       </div>
-    </div>
-  )
+    );
+  }
 
   return (
     <>

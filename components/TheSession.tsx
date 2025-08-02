@@ -128,7 +128,7 @@ function SessionInfo() {
             <p className="font-semibold mb-3">Your session includes:</p>
             <ul className="list-disc list-inside space-y-2">
               <li>2h conversation to explore your story</li>
-              <li>2h guided regression (Theta hypnosis)</li>
+              <li>2h guided regression (theta hypnosis)</li>
               <li>1h integration & reflection</li>
               <li>Full session audio recording</li>
               <li>30 min follow-up session</li>

@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     question: "What´s the difference between a Hypnotist and a Hypnotherapist?",
-    answer: "A Hypnotist focuses on inducing the hypnotic state, often for entertainment purposes (like the ones you might see in TV shows or stage performances), but doesn't typically offer therapeutic guidance. A hypnotherapist, on the other hand, uses hypnosis as a tool for emotional healing, behavior change, and personal growth. They're trained to guide clients through deeper inner work using therapeutic techniques."
+    answer: "A Hypnotist focuses on inducing the hypnotic state, mainly for entertainment purposes (like the ones you might see in TV shows or stage performances), but doesn't typically offer therapeutic guidance. A hypnotherapist, on the other hand, uses hypnosis as a tool for emotional healing, behavior change, and personal growth. Want to explore the difference in more depth? there is a dedicated article in the blog section."
   }
 ];
 
@@ -91,6 +91,18 @@ export default function FAQ() {
             <a
               href="#contact"
               className="inline-flex items-center px-8 py-3 rounded-full bg-[#C5441E] text-white font-primary text-lg hover:bg-[rgb(245,124,0)] transition-colors duration-200 shadow-md"
+              onClick={(e) => {
+                e.preventDefault();
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  const offset = 100; // Offset to account for header and spacing
+                  const elementPosition = contactSection.offsetTop - offset;
+                  window.scrollTo({
+                    top: elementPosition,
+                    behavior: 'smooth'
+                  });
+                }
+              }}
             >
               Get in Touch
             </a>

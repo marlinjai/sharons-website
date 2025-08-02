@@ -5,49 +5,20 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { render } from '@react-email/render'
 import { NewsletterTemplate } from '@/emails/NewsletterTemplate'
+import { NewsletterData, validateNewsletterData } from '@/lib/newsletterUtils'
 
 // Initialize Resend with API key from environment variables
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-// Newsletter content interface
-interface NewsletterContent {
-  subject: string
-  previewText: string
-  issueNumber: number
-  date?: string
-  featuredStory?: {
-    title: string
-    excerpt: string
-    imageUrl?: string
-    readMoreUrl?: string
-  }
-  sections: Array<{
-    type: 'text' | 'quote' | 'story' | 'tips' | 'cta' | 'image'
-    title?: string
-    content: string
-    author?: string
-    imageUrl?: string
-    imageAlt?: string
-    ctaText?: string
-    ctaUrl?: string
-    backgroundColor?: string
-  }>
-  socialLinks?: {
-    instagram?: string
-    facebook?: string
-    linkedin?: string
-  }
-}
-
 export async function POST(request: NextRequest) {
   try {
     // Parse the request body to get newsletter content
-    const newsletterData: NewsletterContent = await request.json()
+    const newsletterData: NewsletterData = await request.json()
 
-    // Validate required fields
-    if (!newsletterData.subject || !newsletterData.sections || newsletterData.sections.length === 0) {
+    // Validate newsletter data using our utility function
+    if (!validateNewsletterData(newsletterData)) {
       return NextResponse.json(
-        { error: 'Subject and at least one content section are required' },
+        { error: 'Invalid newsletter data. Please check all required fields.' },
         { status: 400 }
       )
     }
@@ -69,7 +40,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.log('Sending newsletter:', { subject: newsletterData.subject, issueNumber: newsletterData.issueNumber })
+    console.log('Sending newsletter:', { 
+      subject: newsletterData.subject, 
+      issueNumber: newsletterData.issueNumber 
+    })
 
     // Render the React Email template to HTML
     const emailHtml = await render(NewsletterTemplate(newsletterData))
@@ -86,7 +60,7 @@ export async function POST(request: NextRequest) {
       subject: newsletterData.subject,
       replyTo: 'hello@returnhypnosis.com',
       headers: {
-        'X-Entity-Ref-ID': `newsletter-issue-${newsletterData.issueNumber}-${Date.now()}`,
+        'X-Entity-Ref-ID': `newsletter-issue-${newsletterData.issueNumber || 'unknown'}-${Date.now()}`,
         'List-Unsubscribe': '<mailto:hello@returnhypnosis.com?subject=unsubscribe>',
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
       },
@@ -122,7 +96,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Helper function to generate plain text version of newsletter
-function generatePlainTextVersion(data: NewsletterContent): string {
+function generatePlainTextVersion(data: NewsletterData): string {
   let text = `${data.subject}\n\n`
   
   if (data.issueNumber) {
@@ -172,13 +146,13 @@ function generatePlainTextVersion(data: NewsletterContent): string {
   
   text += `\n"The only journey is the one within." — Rainer Maria Rilke\n\n`
   text += `Ready to begin your own transformation journey?\n`
-  text += `Book your session: https://returnhypnosis.com/booking\n\n`
+  text += `Book your session: ${data.bookingUrl || 'https://returnhypnosis.com/booking'}\n\n`
   text += `Or reply to this email with any questions about regression hypnosis.\n\n`
-  text += `With warmth and gratitude,\nSharon Di Salvo\nCertified Regression Hypnotherapist\n\n`
+  text += `With warmth and gratitude,\n${data.fromName || 'Sharon Di Salvo'}\nCertified Regression Hypnotherapist\n\n`
   text += `---\n`
-  text += `Website: https://returnhypnosis.com\n`
-  text += `Book Session: https://returnhypnosis.com/booking\n`
-  text += `Contact: hello@returnhypnosis.com\n\n`
+  text += `Website: ${data.websiteUrl || 'https://returnhypnosis.com'}\n`
+  text += `Book Session: ${data.bookingUrl || 'https://returnhypnosis.com/booking'}\n`
+  text += `Contact: ${data.replyTo || 'hello@returnhypnosis.com'}\n\n`
   text += `You received this email because you subscribed to Sharon Di Salvo's newsletter.\n`
   text += `If you no longer wish to receive these emails, reply with "unsubscribe" in the subject line.`
   

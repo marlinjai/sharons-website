@@ -74,6 +74,16 @@ export default function BlogPostPage() {
       {/* Content */}
       <div className="py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Einstein Quote */}
+          <div className="bg-gradient-to-r from-[#fcd8b3] to-[#f7f6f2] rounded-xl p-8 mb-12 text-center">
+            <blockquote className="font-secondary text-2xl md:text-3xl font-semibold text-gray-900 mb-4 italic">
+              "Creativity is intelligence having fun."
+            </blockquote>
+            <cite className="font-primary text-lg text-[#A32015] font-semibold">
+              — Albert Einstein
+            </cite>
+          </div>
+          
           <div 
             className="prose prose-lg max-w-none"
             dangerouslySetInnerHTML={{ __html: post.content }}
