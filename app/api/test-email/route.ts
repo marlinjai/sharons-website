@@ -4,7 +4,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize Resend only when needed
+function getResend() {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY is not set')
+  }
+  return new Resend(process.env.RESEND_API_KEY)
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,6 +24,7 @@ export async function POST(request: NextRequest) {
     console.log('API Key exists:', !!process.env.RESEND_API_KEY)
     console.log('From domain:', 'hello@regressionhypnosis.com')
 
+    const resend = getResend()
     const result = await resend.emails.send({
       from: 'Sharon Di Salvo <hello@returnhypnosis.com>',
       to: [email],
