@@ -7,23 +7,12 @@ import { render } from '@react-email/render'
 import { NewsletterTemplate } from '@/emails/NewsletterTemplate'
 import { NewsletterData, validateNewsletterData } from '@/lib/newsletterUtils'
 
-// Initialize Resend with API key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize Resend - will be created with API key at runtime
+let resend: Resend
 
 export async function POST(request: NextRequest) {
   try {
-    // Parse the request body to get newsletter content
-    const newsletterData: NewsletterData = await request.json()
-
-    // Validate newsletter data using our utility function
-    if (!validateNewsletterData(newsletterData)) {
-      return NextResponse.json(
-        { error: 'Invalid newsletter data. Please check all required fields.' },
-        { status: 400 }
-      )
-    }
-
-    // Check if required environment variables are set
+    // Check if required environment variables are set (at runtime only)
     if (!process.env.RESEND_API_KEY) {
       console.error('RESEND_API_KEY is not set in environment variables')
       return NextResponse.json(
@@ -37,6 +26,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Server configuration error' },
         { status: 500 }
+      )
+    }
+
+    // Initialize Resend with API key from environment variables (at runtime)
+    resend = new Resend(process.env.RESEND_API_KEY)
+
+    // Parse the request body to get newsletter content
+    const newsletterData: NewsletterData = await request.json()
+
+    // Validate newsletter data using our utility function
+    if (!validateNewsletterData(newsletterData)) {
+      return NextResponse.json(
+        { error: 'Invalid newsletter data. Please check all required fields.' },
+        { status: 400 }
       )
     }
 
