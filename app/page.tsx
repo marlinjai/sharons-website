@@ -1,4 +1,7 @@
-// app/page.tsx - Main page for yoga studio website
+'use client'
+
+import { useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import VideoSection from '@/components/VideoSection'
@@ -16,6 +19,24 @@ import Booking from '@/components/Booking'
 import Newsletter from '@/components/Newsletter'
 
 export default function Home() {
+  const searchParams = useSearchParams()
+  
+  useEffect(() => {
+    // Check if we should scroll to home section (from blog pages)
+    const scrollToHome = searchParams.get('scrollToHome')
+    if (scrollToHome === 'true') {
+      const homeSection = document.getElementById('home')
+      if (homeSection) {
+        setTimeout(() => {
+          homeSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          })
+        }, 100) // Small delay to ensure page is fully loaded
+      }
+    }
+  }, [searchParams])
+
   return (
     <div className="relative">
       <Header />
