@@ -42,7 +42,7 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({ name, latestBlogPost
           <Section style={header}>
             <div style={logoContainer}>
               <img 
-                src="https://raw.githubusercontent.com/marlinjai/sharons-website/61e1bebf272ed90e88954e412c105b6ede1da47c/public/graphics/logo_return.svg?token=BUHXI6KZXXG36XRVGGNKFHLIQ62SO" 
+                src="/graphics/logo_return.svg" 
                 alt="ReTurn Hypnosis Logo" 
                 style={logo}
               />
