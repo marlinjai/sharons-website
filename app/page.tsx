@@ -1,6 +1,7 @@
+// app/page.tsx - Main home page component
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
@@ -18,7 +19,8 @@ import About from '@/components/About'
 import Booking from '@/components/Booking'
 import Newsletter from '@/components/Newsletter'
 
-export default function Home() {
+// Component that handles search params - needs to be wrapped in Suspense
+function ScrollHandler() {
   const searchParams = useSearchParams()
   
   useEffect(() => {
@@ -37,6 +39,11 @@ export default function Home() {
     }
   }, [searchParams])
 
+  return null // This component only handles side effects
+}
+
+// Main page content component
+function PageContent() {
   return (
     <div className="relative">
       <Header />
@@ -54,5 +61,17 @@ export default function Home() {
       </main>
       <Footer />
     </div>
+  )
+}
+
+export default function Home() {
+  return (
+    <>
+      {/* Wrap the search params handler in Suspense */}
+      <Suspense fallback={null}>
+        <ScrollHandler />
+      </Suspense>
+      <PageContent />
+    </>
   )
 } 
