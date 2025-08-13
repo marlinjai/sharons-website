@@ -1,56 +1,34 @@
 // lib/blogUtils.ts
 // Utility functions for blog post management and URL generation
 
-import { blogPostsData } from '../blogPosts/BlogData'
-
-// Interface for blog post data
-export interface BlogPost {
-  title: string
-  subtitle?: string
-  category: string
-  readTime: string
-  date: string
-  excerpt: string
-  content: string
-}
+import { blogPostsData, type BlogPost } from '../blogPosts/BlogData'
 
 // Get the latest blog post (highest ID number)
-export function getLatestBlogPost(): { id: number; post: BlogPost } | null {
-  if (!blogPostsData) {
+export function getLatestBlogPost(): BlogPost | null {
+  if (!blogPostsData || blogPostsData.length === 0) {
     return null
   }
-  
-  const postIds = Object.keys(blogPostsData).map(Number).sort((a, b) => b - a)
-  
-  if (postIds.length === 0) {
-    return null
-  }
-  
-  const latestId = postIds[0]
-  const latestPost = blogPostsData[latestId as keyof typeof blogPostsData]
-  
-  return {
-    id: latestId,
-    post: latestPost as BlogPost
-  }
+
+  // Sort by ID descending and take the first one
+  return [...blogPostsData].sort((a, b) => b.id - a.id)[0]
 }
 
 // Generate the URL for a specific blog post
-export function getBlogPostUrl(postId: number): string {
-  return `/blog/${postId}`
+export function getBlogPostUrl(post: BlogPost): string {
+  return `/blog/${post.slug}`
 }
 
 // Get the latest blog post with its URL
-export function getLatestBlogPostWithUrl(): { id: number; post: BlogPost; url: string } | null {
+export function getLatestBlogPostWithUrl(): { post: BlogPost; url: string } | null {
   const latest = getLatestBlogPost()
-  
+
   if (!latest) {
     return null
   }
-  
+
   return {
-    ...latest,
-    url: getBlogPostUrl(latest.id)
+    post: latest,
+    url: getBlogPostUrl(latest)
   }
 }
 
@@ -59,24 +37,22 @@ export function getFormattedExcerpt(post: BlogPost, maxLength: number = 150): st
   if (post.excerpt.length <= maxLength) {
     return post.excerpt
   }
-  
+
   // Truncate and add ellipsis
   return post.excerpt.substring(0, maxLength).trim() + '...'
 }
 
 // Get all blog posts sorted by date (newest first)
-export function getAllBlogPostsSorted(): Array<{ id: number; post: BlogPost; url: string }> {
-  if (!blogPostsData) {
-    console.error('blogPostsData is null or undefined')
+export function getAllBlogPostsSorted(): Array<{ post: BlogPost; url: string }> {
+  if (!blogPostsData || blogPostsData.length === 0) {
     return []
   }
-  
-  const posts = Object.entries(blogPostsData).map(([id, post]) => ({
-    id: parseInt(id),
-    post: post as BlogPost,
-    url: getBlogPostUrl(parseInt(id))
-  }))
-  
-  // Sort by date (assuming newer posts have higher IDs)
-  return posts.sort((a, b) => b.id - a.id)
-} 
+
+  // Sort by ID descending (assuming newer posts have higher IDs)
+  return [...blogPostsData]
+    .sort((a, b) => b.id - a.id)
+    .map(post => ({
+      post,
+      url: getBlogPostUrl(post)
+    }))
+}

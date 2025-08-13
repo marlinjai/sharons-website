@@ -1,4 +1,15 @@
 # .github/workflows/deploy.yml - Automated blue-green deployment workflow
+# Variables and secrets used in this workflow are documented in ../.github/variables.env.yml
+# yamllint disable rule:line-length
+# The following secrets are used and should be configured in GitHub repository settings:
+# - PERSONAL_GITHUB_TOKEN: GitHub Container Registry access
+# - SSH_PRIVATE_KEY: Server SSH key
+# - SSH_USER: Server username
+# - SERVER_HOST: Server hostname
+# - RESEND_API_KEY: Email service API key
+# - RESEND_AUDIENCE_ID: Newsletter audience ID
+# - FROM_EMAIL: Sender email
+# - TO_EMAIL: Recipient email
 name: Deploy to Production
 
 on:

@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     console.log('Welcome email sent successfully:', emailResult)
 
     return NextResponse.json(
-      { 
+      {
         message: 'Successfully subscribed to newsletter',
         contactId: contactResult.data?.id,
         emailId: emailResult.data?.id
@@ -109,13 +109,13 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Newsletter subscription error:', error)
-    
+
     // More detailed error logging
     if (error instanceof Error) {
       console.error('Error message:', error.message)
       console.error('Error stack:', error.stack)
     }
-    
+
     return NextResponse.json(
       { error: 'Failed to subscribe to newsletter. Please try again.' },
       { status: 500 }
@@ -126,28 +126,25 @@ export async function POST(request: NextRequest) {
 // Helper function to get the latest blog post for email
 function getLatestBlogPostForEmail() {
   try {
-    if (!blogPostsData) {
+    if (!blogPostsData || blogPostsData.length === 0) {
       return null
     }
-    
-    // Get all post IDs and sort them (highest number = latest)
-    const postIds = Object.keys(blogPostsData).map(Number).sort((a, b) => b - a)
-    
-    if (postIds.length === 0) {
+
+    // Sort by ID descending and take the first one (newest post)
+    const latestPost = [...blogPostsData].sort((a, b) => b.id - a.id)[0]
+
+    if (!latestPost) {
       return null
     }
-    
-    const latestId = postIds[0]
-    const latestPost = blogPostsData[latestId as keyof typeof blogPostsData]
-    
+
     // Format for email template
     return {
-      id: latestId,
+      id: latestPost.id,
       title: latestPost.title,
-      excerpt: latestPost.excerpt.length > 120 
+      excerpt: latestPost.excerpt.length > 120
         ? latestPost.excerpt.substring(0, 120).trim() + '...'
         : latestPost.excerpt,
-      url: `https://returnhypnosis.com/blog/${latestId}`,
+      url: `https://returnhypnosis.com/blog/${latestPost.slug}`,
       category: latestPost.category,
       readTime: latestPost.readTime
     }
@@ -162,7 +159,7 @@ function getFormattedExcerpt(post: any, maxLength: number = 150): string {
   if (post.excerpt.length <= maxLength) {
     return post.excerpt
   }
-  
+
   // Truncate and add ellipsis
   return post.excerpt.substring(0, maxLength).trim() + '...'
 }
@@ -177,7 +174,7 @@ function generateWelcomeEmailText(name: string, latestBlogPost?: { id: number; t
   text += `- Client transformation stories\n`
   text += `- Tips for personal growth and healing\n`
   text += `- Updates on regression hypnosis techniques\n\n`
-  
+
   if (latestBlogPost) {
     text += `Latest from the Blog:\n`
     text += `${latestBlogPost.title}\n`
@@ -185,7 +182,7 @@ function generateWelcomeEmailText(name: string, latestBlogPost?: { id: number; t
     text += `${latestBlogPost.excerpt}\n`
     text += `Read full article: ${latestBlogPost.url}\n\n`
   }
-  
+
   text += `I'll be sending you valuable content every other week - no spam, just meaningful insights to support your journey.\n\n`
   text += `"The curious paradox is that when I accept myself just as I am, then I can change." - Carl Rogers\n\n`
   text += `If you have any questions or would like to learn more about my services, feel free to reply to this email.\n\n`
@@ -193,6 +190,6 @@ function generateWelcomeEmailText(name: string, latestBlogPost?: { id: number; t
   text += `---\n`
   text += `You received this email because you subscribed to Sharon Di Salvo's newsletter.\n`
   text += `If you no longer wish to receive these emails, reply with "unsubscribe" in the subject line.`
-  
+
   return text
-} 
+}

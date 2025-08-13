@@ -11,7 +11,9 @@
     "dev:email": "email dev --dir ./emails",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix"
+    "lint": "next lint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
@@ -37,6 +39,7 @@
     "@react-email/preview-server": "^4.2.7",
     "eslint": "^8.51.0",
     "eslint-config-next": "14.0.0",
+    "prettier": "^3.6.2",
     "react-email": "^4.2.7"
   }
 }
