@@ -3,15 +3,12 @@
 
 import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import VideoSection from '@/components/VideoSection'
 import TheSession from '@/components/TheSession'
 import Reviews from '@/components/Reviews'
 import FAQ from '@/components/FAQ'
 import Contact from '@/components/Contact'
-
-import Footer from '@/components/Footer'
 import About from '@/components/About'
 import Newsletter from '@/components/Newsletter'
 
@@ -41,22 +38,18 @@ function ScrollHandler() {
 // Main page content component
 function PageContent() {
   return (
-    <div className="relative overflow-x-hidden">
-      <Header />
-      <main>
-        <Hero />
-        <VideoSection />
-        <TheSession />
-        <About />
-        <Reviews />
-        <FAQ />
-        <Newsletter />
-        <Contact />
-        {/* <Pricing /> */}
-        {/* <Timetable /> */}
-      </main>
-      <Footer />
-    </div>
+    <>
+      <Hero />
+      <VideoSection />
+      <TheSession />
+      <About />
+      <Reviews />
+      <FAQ />
+      <Newsletter />
+      <Contact />
+      {/* <Pricing /> */}
+      {/* <Timetable /> */}
+    </>
   )
 }
 
