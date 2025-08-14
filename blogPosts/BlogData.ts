@@ -1,12 +1,12 @@
-export type BlogPost = {
+export type BlogPostType = {
   id: number;
   slug: string;
+  image: string | null;
   title: string;
-  subtitle?: string;
+  subtitle: string;
   category: string;
   readTime: string;
   date: string;
-  excerpt: string;
   content: string;
 };
 
@@ -17,17 +17,17 @@ function slugify(input: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-export const blogPostsData: BlogPost[] = [
+export const blogPostsData: BlogPostType[] = [
   {
     id: 1,
     slug: slugify("Hypnosis, Explained"),
-      title: "Hypnosis, Explained",
-      subtitle: "Simple. Nerdy. Surprisingly Fun.",
-      category: "Education",
-      readTime: "8 min read",
-      date: "March 20, 2024",
-      excerpt: "Let's start from the top. Hypnosis is a natural state of deep relaxation where your mind focuses, your body softens, and your subconscious - the real boss - becomes open and responsive.",
-      content: `
+    image: "https://images.unsplash.com/photo-1597673814716-4a1e58a1f6af?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Hypnosis, Explained",
+    subtitle: "Simple. Nerdy. Surprisingly Fun.",
+    category: "Education",
+    readTime: "8 min read",
+    date: "March 20, 2024",
+    content: `
         <div class="mb-8">
           <h2 class="font-secondary text-3xl font-semibold mb-4" style="color: #A32015;">What Is Hypnosis, Really?</h2>
           <p class="mb-6">Let's start from the top.</p>
@@ -109,13 +109,13 @@ export const blogPostsData: BlogPost[] = [
   {
     id: 2,
     slug: slugify("Client Stories: From Fear to Freedom"),
-      title: "Client Stories: From Fear to Freedom",
-      subtitle: "",
-      category: "Stories",
-      readTime: "7 min read",
-      date: "March 10, 2024",
-      excerpt: "Real transformations and the healing power of regression therapy through authentic client experiences.",
-      content: `
+    image: "https://images.unsplash.com/photo-1512641406448-6574e777bec6?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Client Stories: From Fear to Freedom",
+    subtitle: "",
+    category: "Stories",
+    readTime: "7 min read",
+    date: "March 10, 2024",
+    content: `
         <p class="mb-6">Every regression session is a unique journey, but the transformations often follow similar patterns - from fear and limitation to freedom and empowerment.</p>
 
         <h3 class="font-secondary text-xl font-semibold mb-4" style="color: #A32015;">Sarah's Story: Breaking Free from Anxiety</h3>
@@ -134,13 +134,13 @@ export const blogPostsData: BlogPost[] = [
   {
     id: 3,
     slug: slugify("Preparing for Your First Session"),
-      title: "Preparing for Your First Session",
-      subtitle: "",
-      category: "Guide",
-      readTime: "4 min read",
-      date: "March 5, 2024",
-      excerpt: "What to expect and how to make the most of your journey into the depths of consciousness.",
-      content: `
+    image: "",
+    title: "Preparing for Your First Session",
+    subtitle: "",
+    category: "Guide",
+    readTime: "4 min read",
+    date: "March 5, 2024",
+    content: `
         <p class="mb-6">Your first regression session is a sacred journey into the depths of your consciousness. Here's how to prepare for this transformative experience.</p>
 
         <h3 class="font-secondary text-xl font-semibold mb-4" style="color: #A32015;">Mental Preparation</h3>
@@ -171,13 +171,13 @@ export const blogPostsData: BlogPost[] = [
   {
     id: 4,
     slug: slugify("Preparing for Your First Session"),
-      title: "Preparing for Your First Session",
-      subtitle: "",
-      category: "Guide",
-      readTime: "4 min read",
-      date: "March 5, 2024",
-      excerpt: "What to expect and how to make the most of your journey into the depths of consciousness.",
-      content: `
+    image: null,
+    title: "Preparing for Your First Session",
+    subtitle: "What to expect and how to make the most of your journey into the depths of consciousness.",
+    category: "Guide",
+    readTime: "4 min read",
+    date: "March 5, 2024",
+    content: `
         <p class="mb-6">Your first regression session is a sacred journey into the depths of your consciousness. Here's how to prepare for this transformative experience.</p>
 
         <h3 class="font-secondary text-xl font-semibold mb-4" style="color: #A32015;">Mental Preparation</h3>

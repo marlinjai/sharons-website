@@ -8,7 +8,7 @@ import Impressum from './Impressum'
 // components/Footer.tsx - Footer component
 export default function Footer() {
   const pathname = usePathname()
-  
+
   // Determine if we're on the home page
   const isHomePage = pathname === '/'
   const homeLink = isHomePage ? '#home' : '/?scrollToHome=true'
@@ -39,10 +39,10 @@ export default function Footer() {
           <div className="flex flex-col">
             <h3 className="font-secondary font-semibold text-gray-900 mb-4">Menu</h3>
             <ul className="space-y-2">
-              <li><a href="#the-session" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">Sessions</a></li>
-              <li><a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">About</a></li>
-              <li><a href="#reviews" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">Reviews</a></li>
-              <li><a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">Contact</a></li>
+              <li><a href="/#the-session" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">Sessions</a></li>
+              <li><a href="/#about" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">About</a></li>
+              <li><a href="/#reviews" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">Reviews</a></li>
+              <li><a href="/#contact" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">Contact</a></li>
             </ul>
           </div>
 
@@ -60,7 +60,7 @@ export default function Footer() {
             <h3 className="font-secondary font-semibold text-gray-900 mb-4">Resources</h3>
             <ul className="space-y-2">
               <li><Link href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">Blog</Link></li>
-              <li><Link href="#faq" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">FAQ</Link></li>
+              <li><Link href="/#faq" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary">FAQ</Link></li>
             </ul>
           </div>
         </div>
@@ -77,4 +77,4 @@ export default function Footer() {
       </div>
     </footer>
   )
-} 
+}

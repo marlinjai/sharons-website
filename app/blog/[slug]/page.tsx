@@ -3,13 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { blogPostsData, type BlogPost } from '@/blogPosts/BlogData';
+import { blogPostsData, type BlogPostType } from '@/blogPosts/BlogData';
 import BlogHeader from '@/components/BlogHeader';
 
 export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;
-  const post: BlogPost | undefined = blogPostsData.find(p => p.slug === slug);
+  const post: BlogPostType | undefined = blogPostsData.find(p => p.slug === slug);
 
   if (!post) {
     return (
@@ -30,9 +30,9 @@ export default function BlogPostPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <BlogHeader
-        backgroundImage="/images/envelope-seal-horizontal.jpg"
+        backgroundImage={post.image ? post.image : "/images/envelope-seal-horizontal.jpg"}
         title={post.title}
         subtitle={post.subtitle}
         backLink={{
@@ -83,7 +83,7 @@ export default function BlogPostPage() {
                     {p.title}
                   </h4>
                   <p className="font-primary text-gray-600 text-sm leading-relaxed">
-                    {p.excerpt}
+                    {p.subtitle}
                   </p>
                 </Link>
               ))}

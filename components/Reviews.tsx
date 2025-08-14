@@ -15,12 +15,12 @@ export default function Reviews() {
       if (leftColumnRef.current && rightColumnRef.current && centerColumnRef.current) {
         const sectionTop = (leftColumnRef.current.offsetParent as HTMLElement)?.offsetTop || 0
         const relativeScroll = scrollY - sectionTop + windowHeight
-        
+
         // Reduce parallax intensity to prevent scrolling issues
         const leftTransform = relativeScroll * 0.05
         const rightTransform = relativeScroll * 0.05
         const centerTransform = relativeScroll * 0.02
-        
+
         leftColumnRef.current.style.transform = `translateY(${leftTransform}px)`
         rightColumnRef.current.style.transform = `translateY(${rightTransform}px)`
         centerColumnRef.current.style.transform = `translateY(${centerTransform}px)`
@@ -175,42 +175,42 @@ export default function Reviews() {
 
   return (
     <>
-    
-    <section  className="py-16 md:pb-[420px] overflow-hidden" style={{ backgroundColor: '#f7f6f2' }}>
-       <div id="reviews" className='pt-[185px]'></div>
-       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-         <div className="text-center -mb-8">
-           <h2 className="font-secondary text-5xl md:text-6xl font-semibold text-gray-900 mb-6">
-             Celebrating Regression Hypnosis <em className="italic">success.</em>
-           </h2>
-           <p className="text-2xl text-gray-600 font-primary">
-             Hear what <em className="italic">clients</em> have to say
-           </p>
-         </div>
-        {/* Three Column Layout with Parallax */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-          {/* Left Column */}
-          <div ref={leftColumnRef} className="space-y-8">
-            {leftReviews.map((review, index) => (
-              <ReviewCard key={index} review={review} idx={index * 3} />
-            ))}
+
+      <section className="py-16 md:pb-[420px] overflow-hidden" style={{ backgroundColor: '#f7f6f2' }}>
+        <div id="reviews" className='pt-[185px]'></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center -mb-8">
+            <h2 className="font-secondary text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
+              Celebrating Regression Hypnosis <em className="italic">success.</em>
+            </h2>
+            <p className="text-2xl text-gray-600 font-primary">
+              Hear what <em className="italic">clients</em> have to say
+            </p>
           </div>
-          {/* Center Column */}
-          <div ref={centerColumnRef} className="space-y-8 lg:mt-16">
-            {centerReviews.map((review, index) => (
-              <ReviewCard key={index} review={review} idx={index * 3 + 1} />
-            ))}
-          </div>
-          {/* Right Column */}
-          <div ref={rightColumnRef} className="space-y-8 lg:mt-8">
-            {rightReviews.map((review, index) => (
-              <ReviewCard key={index} review={review} idx={index * 3 + 2} />
-            ))}
+          {/* Three Column Layout with Parallax */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 -mt-24">
+            {/* Left Column */}
+            <div ref={leftColumnRef} className="space-y-8">
+              {leftReviews.map((review, index) => (
+                <ReviewCard key={index} review={review} idx={index * 3} />
+              ))}
+            </div>
+            {/* Center Column */}
+            <div ref={centerColumnRef} className="space-y-8 lg:mt-16">
+              {centerReviews.map((review, index) => (
+                <ReviewCard key={index} review={review} idx={index * 3 + 1} />
+              ))}
+            </div>
+            {/* Right Column */}
+            <div ref={rightColumnRef} className="space-y-8 lg:mt-8">
+              {rightReviews.map((review, index) => (
+                <ReviewCard key={index} review={review} idx={index * 3 + 2} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
-    )
-} 
+  )
+}

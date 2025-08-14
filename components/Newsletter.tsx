@@ -11,7 +11,7 @@ export default function Newsletter() {
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!name.trim()) {
       setSubmitStatus('error')
       setStatusMessage('Please enter your name')
@@ -34,9 +34,9 @@ export default function Newsletter() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           name: name.trim(),
-          email: newsletter 
+          email: newsletter
         }),
       })
 
@@ -74,9 +74,9 @@ export default function Newsletter() {
           </div>
         </div>
         <p className="font-primary text-xl text-gray-600 mb-8 leading-relaxed">
-          Brain food, subconscious breakthroughs, and the occasional "wait, what?!" moment
+          Brain food, subconscious breakthroughs, and the occasional "wait, what?!" moment.
           <br />
-          delivered fresh to your inbox every other week.
+          Delivered fresh to your inbox every month.
         </p>
         <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto space-y-4">
           <input
@@ -97,25 +97,24 @@ export default function Newsletter() {
             required
             disabled={isSubmitting}
           />
-          <button 
-            type="submit" 
-            className={`w-full px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${
-              isSubmitting 
-                ? 'bg-gray-400 cursor-not-allowed' 
-                : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)]'
-            } text-white`}
+          <button
+            type="submit"
+            className={`w-full px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${isSubmitting
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)]'
+              } text-white`}
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Subscribing...' : 'Subscribe to Newsletter'}
           </button>
-          
+
           {/* Status Messages */}
           {submitStatus === 'success' && (
             <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
               <p className="text-green-800 font-primary">{statusMessage}</p>
             </div>
           )}
-          
+
           {submitStatus === 'error' && (
             <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-800 font-primary">{statusMessage}</p>
@@ -125,4 +124,4 @@ export default function Newsletter() {
       </div>
     </section>
   )
-} 
+}

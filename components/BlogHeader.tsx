@@ -30,7 +30,7 @@ export default function BlogHeader({
   postMeta
 }: BlogHeaderProps) {
   return (
-    <div className="relative overflow-hidden min-h-[520px]">
+    <div className="relative overflow-hidden lg:min-h-[520px]">
       {/* Background image and overlay */}
       <div className="absolute inset-0">
         {isPostHeader ? (
@@ -53,16 +53,16 @@ export default function BlogHeader({
       </div>
 
       {/* Header content */}
-      <div className="relative py-12">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative py-4 lg:py-12">
+        <div className=" px-4 sm:px-6 lg:px-8">
           <div className="relative">
             {/* Decorative blur behind content */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 bg-black/50 w-[69vw] h-[54vh] rounded-xl blur-[216px] z-2"
+              className="pointer-events-none absolute lg:left-1/2 top-0 lg:-translate-x-1/2 bg-black/40 w-[100vw] h-[100vh] lg:w-[69vw] lg:h-[54vh] blur-[160px] md:blur-[216px] z-5"
             />
 
-            <div className="px-10 relative z-10">
+            <div className="px-4 sm:px-6 lg:px-10 relative z-10">
               {/* Back link */}
               <Link
                 href={backLink.href}
@@ -78,7 +78,7 @@ export default function BlogHeader({
                     <img
                       src="/graphics/logo_return.svg"
                       alt="ReTurn Logo"
-                      className="h-20 w-auto"
+                      className="h-12 sm:h-16 lg:h-20 w-auto"
                     />
                   </div>
                 </Link>
@@ -86,22 +86,22 @@ export default function BlogHeader({
                 <div className="flex flex-col items-center gap-0 justify-center">
                   {/* Post meta (only for individual posts) */}
                   {isPostHeader && postMeta && (
-                    <div className="flex items-center gap-3 mb-6 justify-center">
-                      <span className="flex items-center justify-center px-3 py-[6px] bg-white text-[#2F2F2F] text-sm md:text-base font-primary font-semibold uppercase tracking-wide rounded-full leading-none">
+                    <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 mb-6 justify-center text-xs sm:text-sm md:text-base">
+                      <span className="flex items-center justify-center px-3 py-[6px] bg-white text-[#2F2F2F] font-primary font-semibold uppercase tracking-wide rounded-full leading-none">
                         <p className='translate-y-[0.09rem]'>{postMeta.category}</p>
                       </span>
-                      <span className="text-sm md:text-base font-primary text-gray-100 leading-none">|</span>
-                      <span className="text-sm md:text-base font-primary text-gray-100 leading-none">
+                      <span className=" font-primary text-gray-100 leading-none">|</span>
+                      <span className=" font-primary text-gray-100 leading-none">
                         {postMeta.readTime}
                       </span>
-                      <span className="text-sm md:text-base font-primary text-gray-100 leading-none">|</span>
-                      <span className="text-sm md:text-base font-primary text-gray-100 leading-none">
+                      <span className=" font-primary text-gray-100 leading-none">|</span>
+                      <span className=" font-primary text-gray-100 leading-none">
                         {postMeta.date}
                       </span>
                     </div>
                   )}
 
-                  <h1 className="font-secondary text-2xl md:text-5xl font-semibold text-white mb-5 md:mb-12 leading-tight">
+                  <h1 className="font-secondary text-xl sm:text-3xl md:text-5xl font-semibold text-white mb-5 md:mb-12 leading-tight">
                     {title}
                   </h1>
 

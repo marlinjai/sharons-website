@@ -27,8 +27,8 @@ export default function Contact() {
   }
 
   return (
-    <section className="pt-2 pb-16 bg-white">
-      <div id="contact" className="-mt-[160px] mb-[160px] h-16"></div>
+    <section className="pt-2 md:py-16 bg-white">
+      <div id="contact" className="-mt-[140px] mb-[140px] h-16"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-10">
@@ -36,16 +36,7 @@ export default function Contact() {
             Get in Touch
           </h2>
           <p className="font-primary text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Curious? Stuck? Ready for something to shift?<br />
-            <br />
-            <span className="italic">Reach out.</span><br />
-            I'm here to answer, clarify, or help you take the next step.<br />
-            <br />
-            You can also email me directly at:   
-            <br />
-            <a href="mailto:hello@returnhypnosis.com" className="font-semibold text-[#A32015] hover:text-[#C5441E] transition-colors duration-200">
-              hello@returnhypnosis.com
-            </a>
+            Curious? Stuck? Ready for something to shift?
           </p>
         </div>
 
@@ -54,7 +45,8 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
             <h3 className="font-secondary text-2xl font-semibold mb-6" style={{ color: '#A32015' }}>
-              Send me a Message
+              Reach out.<br />
+              I'm here to answer, clarify, or help you take the next step.<br />
             </h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>

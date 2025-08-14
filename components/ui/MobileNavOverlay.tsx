@@ -71,7 +71,7 @@ export function MobileNavOverlay() {
         transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
       }
     }
-    
+
     // Radial animation (default)
     return {
       initial: { clipPath: 'circle(0% at 100% 0%)' },
@@ -218,7 +218,7 @@ export function MobileNavOverlay() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                   </motion.svg>
                 </button>
-                
+
                 <AnimatePresence>
                   {isBlogDropdownOpen && (
                     <motion.div
@@ -230,6 +230,22 @@ export function MobileNavOverlay() {
                     >
                       <NavLink href="#newsletter" variant="mobile" className="text-xl">
                         newsletter
+                      </NavLink>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <AnimatePresence>
+                  {isBlogDropdownOpen && (
+                    <motion.div
+                      className="mt-4 flex flex-col items-center"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <NavLink href="/blog" variant="mobile" className="text-xl">
+                        All Posts
                       </NavLink>
                     </motion.div>
                   )}

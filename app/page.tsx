@@ -9,20 +9,16 @@ import VideoSection from '@/components/VideoSection'
 import TheSession from '@/components/TheSession'
 import Reviews from '@/components/Reviews'
 import FAQ from '@/components/FAQ'
-import Gallery from '@/components/Gallery'
-import Pricing from '@/components/Pricing'
-import Timetable from '@/components/Timetable'
 import Contact from '@/components/Contact'
 
 import Footer from '@/components/Footer'
 import About from '@/components/About'
-import Booking from '@/components/Booking'
 import Newsletter from '@/components/Newsletter'
 
 // Component that handles search params - needs to be wrapped in Suspense
 function ScrollHandler() {
   const searchParams = useSearchParams()
-  
+
   useEffect(() => {
     // Check if we should scroll to home section (from blog pages)
     const scrollToHome = searchParams.get('scrollToHome')
@@ -30,7 +26,7 @@ function ScrollHandler() {
       const homeSection = document.getElementById('home')
       if (homeSection) {
         setTimeout(() => {
-          homeSection.scrollIntoView({ 
+          homeSection.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
           })
@@ -74,4 +70,4 @@ export default function Home() {
       <PageContent />
     </>
   )
-} 
+}

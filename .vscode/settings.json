@@ -13,7 +13,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -24,11 +24,13 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
-    "audioCues.lineHasError": "off",
-    "audioCues.lineHasWarning": "off",
-    "audioCues.lineHasInlineSuggestion": "off",
     "accessibility.signals.lineHasError": {
+      "sound": "off"
+    },
+    "accessibility.signals.lineHasWarning": {
+      "sound": "off"
+    },
+    "accessibility.signals.lineHasInlineSuggestion": {
       "sound": "off"
     }
 

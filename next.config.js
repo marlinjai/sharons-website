@@ -2,17 +2,11 @@
 const nextConfig = {
   // Enable standalone output for Docker deployment
   output: 'standalone',
-  
+
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-    ],
+    domains: ['images.unsplash.com', 'i.pinimg.com'],
+    unoptimized: true,
   },
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig
