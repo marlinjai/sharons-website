@@ -1,32 +1,32 @@
-'use client'
-import { useState } from 'react'
-import Link from 'next/link'
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Newsletter() {
-  const [name, setName] = useState('')
-  const [newsletter, setNewsletter] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const [statusMessage, setStatusMessage] = useState('')
+  const [name, setName] = useState('');
+  const [newsletter, setNewsletter] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!name.trim()) {
-      setSubmitStatus('error')
-      setStatusMessage('Please enter your name')
-      return
+      setSubmitStatus('error');
+      setStatusMessage('Please enter your name');
+      return;
     }
 
     if (!newsletter || !newsletter.includes('@')) {
-      setSubmitStatus('error')
-      setStatusMessage('Please enter a valid email address')
-      return
+      setSubmitStatus('error');
+      setStatusMessage('Please enter a valid email address');
+      return;
     }
 
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
-    setStatusMessage('')
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setStatusMessage('');
 
     try {
       const response = await fetch('/api/newsletter', {
@@ -36,28 +36,28 @@ export default function Newsletter() {
         },
         body: JSON.stringify({
           name: name.trim(),
-          email: newsletter
+          email: newsletter,
         }),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (response.ok) {
-        setSubmitStatus('success')
-        setStatusMessage('Successfully subscribed! Check your email for confirmation.')
-        setName('') // Clear the name field
-        setNewsletter('') // Clear the email field
+        setSubmitStatus('success');
+        setStatusMessage('Successfully subscribed! Check your email for confirmation.');
+        setName(''); // Clear the name field
+        setNewsletter(''); // Clear the email field
       } else {
-        setSubmitStatus('error')
-        setStatusMessage(data.error || 'Failed to subscribe. Please try again.')
+        setSubmitStatus('error');
+        setStatusMessage(data.error || 'Failed to subscribe. Please try again.');
       }
     } catch (error) {
-      setSubmitStatus('error')
-      setStatusMessage('Network error. Please try again.')
+      setSubmitStatus('error');
+      setStatusMessage('Network error. Please try again.');
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <section id="newsletter" className="py-20" style={{ backgroundColor: '#f7f6f2' }}>
@@ -66,7 +66,10 @@ export default function Newsletter() {
           <h2 className="font-secondary text-4xl md:text-5xl font-semibold" style={{ color: '#A32015' }}>
             Subscribe to the ReTurn Newsletter
           </h2>
-          <div className="w-20 h-20 rounded-full flex items-center justify-center mr-4" style={{ backgroundColor: '#fcd8b3' }}>
+          <div
+            className="w-20 h-20 rounded-full flex items-center justify-center mr-4"
+            style={{ backgroundColor: '#fcd8b3' }}
+          >
             <svg className="w-12 h-12" style={{ color: '#A32015' }} fill="currentColor" viewBox="0 0 20 20">
               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
               <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
@@ -83,7 +86,7 @@ export default function Newsletter() {
             type="text"
             placeholder="Enter your name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
             required
             disabled={isSubmitting}
@@ -92,17 +95,16 @@ export default function Newsletter() {
             type="email"
             placeholder="Enter your email address"
             value={newsletter}
-            onChange={(e) => setNewsletter(e.target.value)}
+            onChange={e => setNewsletter(e.target.value)}
             className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
             required
             disabled={isSubmitting}
           />
           <button
             type="submit"
-            className={`w-full px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${isSubmitting
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)]'
-              } text-white`}
+            className={`w-full px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${
+              isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)]'
+            } text-white`}
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Subscribing...' : 'Subscribe to Newsletter'}
@@ -123,5 +125,5 @@ export default function Newsletter() {
         </form>
       </div>
     </section>
-  )
+  );
 }

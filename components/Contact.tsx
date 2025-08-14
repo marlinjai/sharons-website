@@ -1,30 +1,30 @@
-'use client'
-import { useState } from 'react'
+'use client';
+import { useState } from 'react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    message: ''
-  })
+    message: '',
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Contact form submitted:', formData)
+    e.preventDefault();
+    console.log('Contact form submitted:', formData);
     // Here you would typically send the form data to your backend
     // For now, we'll just log it to the console
-    alert('Thank you for your message! I\'ll get back to you soon.')
-    setFormData({ name: '', email: '', phone: '', message: '' })
-  }
+    alert("Thank you for your message! I'll get back to you soon.");
+    setFormData({ name: '', email: '', phone: '', message: '' });
+  };
 
   return (
     <section className="pt-2 md:py-16 bg-white">
@@ -45,8 +45,10 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
             <h3 className="font-secondary text-2xl font-semibold mb-6" style={{ color: '#A32015' }}>
-              Reach out.<br />
-              I'm here to answer, clarify, or help you take the next step.<br />
+              Reach out.
+              <br />
+              I'm here to answer, clarify, or help you take the next step.
+              <br />
             </h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -128,26 +130,16 @@ export default function Contact() {
             </h3>
             <div className="space-y-6">
               <div>
-                <label className="block font-primary text-sm font-medium text-gray-700 mb-2">
-                  Location
-                </label>
+                <label className="block font-primary text-sm font-medium text-gray-700 mb-2">Location</label>
                 <div className="px-4 py-3 border border-gray-300 rounded-lg bg-gray-50">
-                  <p className="font-primary text-gray-700 mb-3">
-                    Here is where sessions take place:
-                  </p>
-                  <p className="font-primary text-lg font-semibold text-[#4b5563] mb-2">
-                    Praxis am Zionskirchplatz
-                  </p>
-                  <p className="font-primary text-gray-600">
-                    10-11, 10117 Berlin
-                  </p>
+                  <p className="font-primary text-gray-700 mb-3">Here is where sessions take place:</p>
+                  <p className="font-primary text-lg font-semibold text-[#4b5563] mb-2">Praxis am Zionskirchplatz</p>
+                  <p className="font-primary text-gray-600">10-11, 10117 Berlin</p>
                 </div>
               </div>
 
               <div>
-                <label className="block font-primary text-sm font-medium text-gray-700 mb-2">
-                  Map
-                </label>
+                <label className="block font-primary text-sm font-medium text-gray-700 mb-2">Map</label>
                 <div className="px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 h-[395px]">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4853.770537225342!2d13.401955876629824!3d52.535509972065256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851fb9a297cfd%3A0x5dfea125c03cacd1!2sPraxis%20am%20Zionskirchplatz!5e0!3m2!1sen!2sde!4v1753217975364!5m2!1sen!2sde"
@@ -166,5 +158,5 @@ export default function Contact() {
         </div>
       </div>
     </section>
-  )
+  );
 }

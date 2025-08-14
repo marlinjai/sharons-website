@@ -1,12 +1,12 @@
 // components/ui/MobileNavTrigger.tsx
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { useNavigation } from './NavigationContext'
+import { motion } from 'framer-motion';
+import { useNavigation } from './NavigationContext';
 
 // Mobile navigation trigger button with animated hamburger/close transformation
 export function MobileNavTrigger() {
-  const { isMobileMenuOpen, toggleMobileMenu } = useNavigation()
+  const { isMobileMenuOpen, toggleMobileMenu } = useNavigation();
 
   return (
     <button
@@ -31,7 +31,7 @@ export function MobileNavTrigger() {
           transition={{ duration: 0.3, ease: 'easeInOut' }}
           style={{ top: '50%' }}
         />
-        
+
         {/* Middle line */}
         <motion.span
           className="absolute left-0 top-1/2 h-0.5 w-6 bg-current transform -translate-y-1/2"
@@ -45,7 +45,7 @@ export function MobileNavTrigger() {
           }}
           transition={{ duration: 0.2, ease: 'easeInOut' }}
         />
-        
+
         {/* Bottom line */}
         <motion.span
           className="absolute left-0 h-0.5 w-6 bg-current transform origin-center"
@@ -62,5 +62,5 @@ export function MobileNavTrigger() {
         />
       </div>
     </button>
-  )
+  );
 }

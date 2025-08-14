@@ -30,15 +30,11 @@ export default function Hero() {
               Regression Hypnosis
             </h1>
             <div className="text-3xl md:text-5xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
-              For the{' '}
-              <TypingAnimation
-                words={['Curious', 'Brave', 'Ready']}
-                className="italic"
-                duration={150}
-              />
+              For the <TypingAnimation words={['Curious', 'Brave', 'Ready']} className="italic" duration={150} />
             </div>
             <p className="text-lg text-white drop-shadow-md font-primary">
-              Irresistibly drawn to the unknown?<br />
+              Irresistibly drawn to the unknown?
+              <br />
               This is more than a journey - it's the Adventure of a Lifetime.
             </p>
             <BookSession />

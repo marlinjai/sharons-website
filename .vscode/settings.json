@@ -24,14 +24,13 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-    "accessibility.signals.lineHasError": {
-      "sound": "off"
-    },
-    "accessibility.signals.lineHasWarning": {
-      "sound": "off"
-    },
-    "accessibility.signals.lineHasInlineSuggestion": {
-      "sound": "off"
-    }
-
+  "accessibility.signals.lineHasError": {
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasWarning": {
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasInlineSuggestion": {
+    "sound": "off"
+  }
 }

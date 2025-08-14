@@ -29,7 +29,7 @@ export default function Pricing() {
         'The ability to view recordings of previous classes at your convenience',
       ],
     },
-  ]
+  ];
 
   return (
     <section id="pricing" className="py-20 bg-white">
@@ -45,9 +45,7 @@ export default function Pricing() {
             <div
               key={index}
               className={`bg-gradient-to-br ${
-                plan.popular 
-                  ? 'from-yoga-sage to-yoga-ocean text-white' 
-                  : 'from-yoga-sand to-white'
+                plan.popular ? 'from-yoga-sage to-yoga-ocean text-white' : 'from-yoga-sand to-white'
               } p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 relative`}
             >
               {plan.popular && (
@@ -59,7 +57,9 @@ export default function Pricing() {
               )}
 
               <div className="text-center mb-8">
-                <h3 className={`font-heading text-2xl font-semibold mb-4 ${plan.popular ? 'text-white' : 'text-gray-900'}`}>
+                <h3
+                  className={`font-heading text-2xl font-semibold mb-4 ${plan.popular ? 'text-white' : 'text-gray-900'}`}
+                >
                   {plan.name}
                 </h3>
                 <div className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-yoga-earth'}`}>
@@ -70,7 +70,9 @@ export default function Pricing() {
               <ul className="space-y-4 mb-8">
                 {plan.features.map((feature, idx) => (
                   <li key={idx} className={`flex items-start ${plan.popular ? 'text-white' : 'text-gray-600'}`}>
-                    <span className={`w-2 h-2 ${plan.popular ? 'bg-white' : 'bg-yoga-sage'} rounded-full mr-3 mt-2 flex-shrink-0`}></span>
+                    <span
+                      className={`w-2 h-2 ${plan.popular ? 'bg-white' : 'bg-yoga-sage'} rounded-full mr-3 mt-2 flex-shrink-0`}
+                    ></span>
                     {feature}
                   </li>
                 ))}
@@ -90,5 +92,5 @@ export default function Pricing() {
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

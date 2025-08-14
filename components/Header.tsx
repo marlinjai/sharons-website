@@ -1,12 +1,12 @@
 // components/Header.tsx
-'use client'
+'use client';
 
-import { NavigationProvider, OverlayAnimationType } from './ui/NavigationContext'
-import { Navigation } from './ui/Navigation'
+import { NavigationProvider, OverlayAnimationType } from './ui/NavigationContext';
+import { Navigation } from './ui/Navigation';
 
 // Header component props
 interface HeaderProps {
-  overlayAnimation?: OverlayAnimationType
+  overlayAnimation?: OverlayAnimationType;
 }
 
 // Main header component using the new modular navigation system
@@ -15,5 +15,5 @@ export default function Header({ overlayAnimation = 'fade' }: HeaderProps) {
     <NavigationProvider overlayAnimation={overlayAnimation}>
       <Navigation />
     </NavigationProvider>
-  )
+  );
 }

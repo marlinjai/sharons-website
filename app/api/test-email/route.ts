@@ -1,30 +1,30 @@
 // app/api/test-email/route.ts
 // Test endpoint to verify Resend email functionality
 
-import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
 // Initialize Resend only when needed
 function getResend() {
   if (!process.env.RESEND_API_KEY) {
-    throw new Error('RESEND_API_KEY is not set')
+    throw new Error('RESEND_API_KEY is not set');
   }
-  return new Resend(process.env.RESEND_API_KEY)
+  return new Resend(process.env.RESEND_API_KEY);
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json()
+    const { email } = await request.json();
 
     if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    console.log('Testing email send to:', email)
-    console.log('API Key exists:', !!process.env.RESEND_API_KEY)
-    console.log('From domain:', 'hello@regressionhypnosis.com')
+    console.log('Testing email send to:', email);
+    console.log('API Key exists:', !!process.env.RESEND_API_KEY);
+    console.log('From domain:', 'hello@regressionhypnosis.com');
 
-    const resend = getResend()
+    const resend = getResend();
     const result = await resend.emails.send({
       from: 'Sharon Di Salvo <hello@returnhypnosis.com>',
       to: [email],
@@ -45,30 +45,32 @@ Test Email
 
 This is a test email to verify Resend configuration.
 If you receive this, email sending is working correctly!
-      `
-    })
+      `,
+    });
 
-    console.log('Email sent successfully:', result)
+    console.log('Email sent successfully:', result);
 
     return NextResponse.json({
       success: true,
       emailId: result.data?.id,
-      message: 'Test email sent successfully'
-    })
-
+      message: 'Test email sent successfully',
+    });
   } catch (error) {
-    console.error('Test email error:', error)
-    
+    console.error('Test email error:', error);
+
     if (error instanceof Error) {
       console.error('Error details:', {
         message: error.message,
-        stack: error.stack
-      })
+        stack: error.stack,
+      });
     }
 
-    return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error'
-    }, { status: 500 })
+    return NextResponse.json(
+      {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 500 }
+    );
   }
-} 
+}

@@ -1,22 +1,17 @@
 // components/ui/DesktopNav.tsx
-'use client'
+'use client';
 
-import { useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useNavigation } from './NavigationContext'
-import { NavLink } from './NavLink'
+import { useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigation } from './NavigationContext';
+import { NavLink } from './NavLink';
 
 // Desktop navigation with dropdown menus
 export function DesktopNav() {
-  const {
-    isSessionDropdownOpen,
-    isBlogDropdownOpen,
-    setSessionDropdownOpen,
-    setBlogDropdownOpen,
-  } = useNavigation()
+  const { isSessionDropdownOpen, isBlogDropdownOpen, setSessionDropdownOpen, setBlogDropdownOpen } = useNavigation();
 
-  const sessionDropdownRef = useRef<HTMLDivElement>(null)
-  const blogDropdownRef = useRef<HTMLDivElement>(null)
+  const sessionDropdownRef = useRef<HTMLDivElement>(null);
+  const blogDropdownRef = useRef<HTMLDivElement>(null);
 
   // Dropdown animation variants
   const dropdownVariants = {
@@ -25,18 +20,18 @@ export function DesktopNav() {
       y: -10,
       scale: 0.95,
       transition: {
-        duration: 0.2
-      }
+        duration: 0.2,
+      },
     },
     open: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.2
-      }
-    }
-  }
+        duration: 0.2,
+      },
+    },
+  };
 
   return (
     <div className="hidden md:flex items-center space-x-6 text-stone-900 text-lg tracking-wider font-primary">
@@ -164,5 +159,5 @@ export function DesktopNav() {
         Let's Talk
       </NavLink>
     </div>
-  )
+  );
 }

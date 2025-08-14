@@ -11,7 +11,7 @@ RESEND_AUDIENCE_ID=your_audience_id_here
 
 ## How to Get These Values
 
-1. **RESEND_API_KEY**: 
+1. **RESEND_API_KEY**:
    - Go to your Resend dashboard
    - Navigate to API Keys section
    - Copy your API key
@@ -48,17 +48,21 @@ RESEND_AUDIENCE_ID=your_audience_id_here
 If welcome emails aren't being sent, check these common issues:
 
 ### 1. Domain Verification
+
 - Ensure your domain `regressionhypnosis.com` is verified in Resend dashboard
 - Check DNS records are properly configured
 - Verify the "from" email domain matches your verified domain
 
 ### 2. Environment Variables
+
 - Confirm `.env.local` contains both `RESEND_API_KEY` and `RESEND_AUDIENCE_ID`
 - Restart your development server after adding environment variables
 - Check server logs for configuration errors
 
 ### 3. Test Email Functionality
+
 Use the test endpoint to isolate email sending issues:
+
 ```bash
 curl -X POST http://localhost:3000/api/test-email \
   -H "Content-Type: application/json" \
@@ -66,12 +70,15 @@ curl -X POST http://localhost:3000/api/test-email \
 ```
 
 ### 4. Check Server Logs
+
 Monitor your development server logs for detailed error messages:
+
 - Look for "Newsletter subscription error" messages
 - Check for API key validation errors
 - Verify audience ID is valid
 
 ### 5. Common Fixes
+
 - **Domain not verified**: Verify `regressionhypnosis.com` in Resend dashboard
 - **Invalid API key**: Generate new API key in Resend dashboard
 - **Wrong audience ID**: Copy correct audience ID from Resend dashboard
@@ -83,4 +90,4 @@ Monitor your development server logs for detailed error messages:
 - Set up email templates in Resend dashboard for future newsletters
 - Consider adding unsubscribe functionality
 - Add analytics tracking for newsletter performance
-- Remove test endpoint (`/app/api/test-email/route.ts`) after debugging 
+- Remove test endpoint (`/app/api/test-email/route.ts`) after debugging

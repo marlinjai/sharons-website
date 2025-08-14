@@ -1,65 +1,66 @@
 // components/ui/MobileNavOverlay.tsx
-'use client'
+'use client';
 
-import { motion, AnimatePresence } from 'framer-motion'
-import { createPortal } from 'react-dom'
-import { useEffect, useState, useRef } from 'react'
-import { useNavigation } from './NavigationContext'
-import { NavLink } from './NavLink'
+import { motion, AnimatePresence } from 'framer-motion';
+import { createPortal } from 'react-dom';
+import { useEffect, useState, useRef } from 'react';
+import { useNavigation } from './NavigationContext';
+import { NavLink } from './NavLink';
 
 // Mobile navigation overlay with circle expansion animation
 export function MobileNavOverlay() {
-  const { isMobileMenuOpen, isBlogDropdownOpen, setBlogDropdownOpen, closeMobileMenu, overlayAnimation } = useNavigation()
-  const [mounted, setMounted] = useState(false)
-  const overlayRef = useRef<HTMLDivElement>(null)
+  const { isMobileMenuOpen, isBlogDropdownOpen, setBlogDropdownOpen, closeMobileMenu, overlayAnimation } =
+    useNavigation();
+  const [mounted, setMounted] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   // Ensure component is mounted before creating portal
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   // Focus management - trap focus within overlay when open
   useEffect(() => {
-    if (!isMobileMenuOpen) return
+    if (!isMobileMenuOpen) return;
 
-    const overlay = overlayRef.current
-    if (!overlay) return
+    const overlay = overlayRef.current;
+    if (!overlay) return;
 
     // Get all focusable elements within overlay
     const focusableElements = overlay.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    )
-    const firstElement = focusableElements[0] as HTMLElement
-    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+    );
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
     // Focus first element when overlay opens
-    firstElement?.focus()
+    firstElement?.focus();
 
     // Trap focus within overlay
     const handleTabKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') return
+      if (e.key !== 'Tab') return;
 
       if (e.shiftKey) {
         // Shift + Tab - move focus to last element if currently on first
         if (document.activeElement === firstElement) {
-          lastElement?.focus()
-          e.preventDefault()
+          lastElement?.focus();
+          e.preventDefault();
         }
       } else {
         // Tab - move focus to first element if currently on last
         if (document.activeElement === lastElement) {
-          firstElement?.focus()
-          e.preventDefault()
+          firstElement?.focus();
+          e.preventDefault();
         }
       }
-    }
+    };
 
-    document.addEventListener('keydown', handleTabKey)
-    return () => document.removeEventListener('keydown', handleTabKey)
-  }, [isMobileMenuOpen])
+    document.addEventListener('keydown', handleTabKey);
+    return () => document.removeEventListener('keydown', handleTabKey);
+  }, [isMobileMenuOpen]);
 
   // Don't render anything on server or before mount
-  if (!mounted) return null
+  if (!mounted) return null;
 
   // Get animation variants based on type
   const getBackgroundAnimation = () => {
@@ -68,8 +69,8 @@ export function MobileNavOverlay() {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
         exit: { opacity: 0 },
-        transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
-      }
+        transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+      };
     }
 
     // Radial animation (default)
@@ -77,28 +78,28 @@ export function MobileNavOverlay() {
       initial: { clipPath: 'circle(0% at 100% 0%)' },
       animate: { clipPath: 'circle(150% at 100% 0%)' },
       exit: { clipPath: 'circle(0% at 100% 0%)' },
-      transition: { duration: 0.6 }
-    }
-  }
+      transition: { duration: 0.6 },
+    };
+  };
 
-  const backgroundAnimation = getBackgroundAnimation()
+  const backgroundAnimation = getBackgroundAnimation();
 
   // Content animation variants with stagger
   const contentVariants = {
     closed: {
       opacity: 0,
       transition: {
-        duration: 0.2
-      }
+        duration: 0.2,
+      },
     },
     open: {
       opacity: 1,
       transition: {
         duration: 0.3,
-        delay: 0.2
-      }
-    }
-  }
+        delay: 0.2,
+      },
+    },
+  };
 
   // Menu item animation variants
   const menuItemVariants = {
@@ -106,33 +107,33 @@ export function MobileNavOverlay() {
       opacity: 0,
       y: 20,
       transition: {
-        duration: 0.2
-      }
+        duration: 0.2,
+      },
     },
     open: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.3
-      }
-    }
-  }
+        duration: 0.3,
+      },
+    },
+  };
 
   // Container for staggered animations
   const containerVariants = {
     closed: {
       transition: {
         staggerChildren: 0.05,
-        staggerDirection: -1
-      }
+        staggerDirection: -1,
+      },
     },
     open: {
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.3
-      }
-    }
-  }
+        delayChildren: 0.3,
+      },
+    },
+  };
 
   return createPortal(
     <AnimatePresence>
@@ -278,5 +279,5 @@ export function MobileNavOverlay() {
       )}
     </AnimatePresence>,
     document.body
-  )
+  );
 }

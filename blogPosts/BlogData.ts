@@ -20,13 +20,14 @@ function slugify(input: string): string {
 export const blogPostsData: BlogPostType[] = [
   {
     id: 1,
-    slug: slugify("Hypnosis, Explained"),
-    image: "https://images.unsplash.com/photo-1597673814716-4a1e58a1f6af?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Hypnosis, Explained",
-    subtitle: "Simple. Nerdy. Surprisingly Fun.",
-    category: "Education",
-    readTime: "8 min read",
-    date: "March 20, 2024",
+    slug: slugify('Hypnosis, Explained'),
+    image:
+      'https://images.unsplash.com/photo-1597673814716-4a1e58a1f6af?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    title: 'Hypnosis, Explained',
+    subtitle: 'Simple. Nerdy. Surprisingly Fun.',
+    category: 'Education',
+    readTime: '8 min read',
+    date: 'March 20, 2024',
     content: `
         <div class="mb-8">
           <h2 class="font-secondary text-3xl font-semibold mb-4" style="color: #A32015;">What Is Hypnosis, Really?</h2>
@@ -104,17 +105,18 @@ export const blogPostsData: BlogPostType[] = [
           <p class="font-semibold mb-4">What's the difference between a hypnotist, hypnotherapist, and practitioner?</p>
           <p class="text-gray-700">Titles, training, and intention… not all are created equal. We'll untangle it together.</p>
         </div>
-      `
+      `,
   },
   {
     id: 2,
-    slug: slugify("Client Stories: From Fear to Freedom"),
-    image: "https://images.unsplash.com/photo-1512641406448-6574e777bec6?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Client Stories: From Fear to Freedom",
-    subtitle: "",
-    category: "Stories",
-    readTime: "7 min read",
-    date: "March 10, 2024",
+    slug: slugify('Client Stories: From Fear to Freedom'),
+    image:
+      'https://images.unsplash.com/photo-1512641406448-6574e777bec6?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    title: 'Client Stories: From Fear to Freedom',
+    subtitle: '',
+    category: 'Stories',
+    readTime: '7 min read',
+    date: 'March 10, 2024',
     content: `
         <p class="mb-6">Every regression session is a unique journey, but the transformations often follow similar patterns - from fear and limitation to freedom and empowerment.</p>
 
@@ -129,17 +131,17 @@ export const blogPostsData: BlogPostType[] = [
         <p class="mb-6">Emma carried deep emotional wounds from childhood trauma. In her regression, she accessed memories that helped her understand the root causes of her pain. More importantly, she was able to offer love and forgiveness to her younger self, leading to profound emotional healing.</p>
 
         <p class="italic text-gray-600">These stories remind us that transformation is always possible, no matter how stuck or fearful we may feel. The subconscious mind holds the keys to our freedom.</p>
-      `
+      `,
   },
   {
     id: 3,
-    slug: slugify("Preparing for Your First Session"),
-    image: "",
-    title: "Preparing for Your First Session",
-    subtitle: "",
-    category: "Guide",
-    readTime: "4 min read",
-    date: "March 5, 2024",
+    slug: slugify('Preparing for Your First Session'),
+    image: '',
+    title: 'Preparing for Your First Session',
+    subtitle: '',
+    category: 'Guide',
+    readTime: '4 min read',
+    date: 'March 5, 2024',
     content: `
         <p class="mb-6">Your first regression session is a sacred journey into the depths of your consciousness. Here's how to prepare for this transformative experience.</p>
 
@@ -166,17 +168,17 @@ export const blogPostsData: BlogPostType[] = [
         <p class="mb-6">You'll receive a full audio recording of your session to revisit anytime. Many clients find that insights continue to emerge in the days and weeks following the session. Trust the process and allow the healing to unfold naturally.</p>
 
         <p class="italic text-gray-600">Remember, there's no "right" way to experience regression. Every journey is unique and perfect for the individual taking it.</p>
-      `
+      `,
   },
   {
     id: 4,
-    slug: slugify("Preparing for Your First Session"),
+    slug: slugify('Preparing for Your First Session'),
     image: null,
-    title: "Preparing for Your First Session",
-    subtitle: "What to expect and how to make the most of your journey into the depths of consciousness.",
-    category: "Guide",
-    readTime: "4 min read",
-    date: "March 5, 2024",
+    title: 'Preparing for Your First Session',
+    subtitle: 'What to expect and how to make the most of your journey into the depths of consciousness.',
+    category: 'Guide',
+    readTime: '4 min read',
+    date: 'March 5, 2024',
     content: `
         <p class="mb-6">Your first regression session is a sacred journey into the depths of your consciousness. Here's how to prepare for this transformative experience.</p>
 
@@ -203,6 +205,6 @@ export const blogPostsData: BlogPostType[] = [
         <p class="mb-6">You'll receive a full audio recording of your session to revisit anytime. Many clients find that insights continue to emerge in the days and weeks following the session. Trust the process and allow the healing to unfold naturally.</p>
 
         <p class="italic text-gray-600">Remember, there's no "right" way to experience regression. Every journey is unique and perfect for the individual taking it.</p>
-      `
-  }
+      `,
+  },
 ];

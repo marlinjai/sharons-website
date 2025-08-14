@@ -20,7 +20,7 @@ module.exports = {
           earth: '#8b7355',
           sage: '#9caf88',
           ocean: '#7fb3d3',
-        }
+        },
       },
       fontFamily: {
         sans: ['Josefin Sans', 'sans-serif'],
@@ -31,11 +31,11 @@ module.exports = {
       },
       // Fluid typography - map CSS variables to Tailwind classes
       fontSize: {
-        'xs': 'var(--text-xs)',
-        'sm': 'var(--text-sm)', 
-        'base': 'var(--text-base)',
-        'lg': 'var(--text-lg)',
-        'xl': 'var(--text-xl)',
+        xs: 'var(--text-xs)',
+        sm: 'var(--text-sm)',
+        base: 'var(--text-base)',
+        lg: 'var(--text-lg)',
+        xl: 'var(--text-xl)',
         '2xl': 'var(--text-2xl)',
         '3xl': 'var(--text-3xl)',
         '4xl': 'var(--text-4xl)',
@@ -53,9 +53,9 @@ module.exports = {
         },
       },
       animation: {
-        'fadeIn': 'fadeIn 0.3s ease-out forwards',
+        fadeIn: 'fadeIn 0.3s ease-out forwards',
       },
     },
   },
   plugins: [],
-} 
+};

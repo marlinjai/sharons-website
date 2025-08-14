@@ -116,7 +116,7 @@ jobs:
         run: |
           # Copy deployment files to server
           scp -r nginx scripts docker-compose.prod.yml ${{ secrets.SSH_USER }}@${{ secrets.SERVER_HOST }}:~/sharons-website/
-          
+
           # Execute deployment
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd ~/sharons-website
@@ -142,7 +142,7 @@ jobs:
         run: |
           # Wait for deployment to stabilize
           sleep 30
-          
+
                       # Check if the application is responding through main endpoint
             echo "Waiting for deployment to stabilize..."
             sleep 30
@@ -177,4 +177,4 @@ jobs:
         if: needs.deploy.result == 'failure'
         run: |
           echo "💥 Deployment to production failed!"
-          # Add your notification logic here (Slack, Discord, email, etc.) 
+          # Add your notification logic here (Slack, Discord, email, etc.)

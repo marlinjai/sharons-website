@@ -43,7 +43,7 @@ ssh user@your-vps-ip
 
 ```
 SSH_PRIVATE_KEY     = Your private SSH key content
-SSH_USER            = your-vps-username  
+SSH_USER            = your-vps-username
 SERVER_HOST         = your-vps-ip-address
 GITHUB_TOKEN        = Your GitHub personal access token
 ```
@@ -80,7 +80,7 @@ git push origin main
    # Create deployment user (if not exists)
    sudo useradd -m -s /bin/bash deploy
    sudo usermod -aG sudo deploy
-   
+
    # Setup SSH key authentication
    sudo mkdir -p /home/deploy/.ssh
    sudo cp ~/.ssh/authorized_keys /home/deploy/.ssh/
@@ -123,10 +123,10 @@ sudo certbot certonly --standalone -d your-domain.com
 server {
     listen 443 ssl;
     server_name your-domain.com;
-    
+
     ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
-    
+
     # Rest of your configuration...
 }
 
@@ -178,7 +178,7 @@ tail -f logs/status.log
 The system provides multiple health check endpoints:
 
 - `http://your-domain.com/health` - Main application health
-- `http://your-domain.com/health/blue` - Blue environment health  
+- `http://your-domain.com/health/blue` - Blue environment health
 - `http://your-domain.com/health/green` - Green environment health
 
 ## Environment Management
@@ -207,7 +207,7 @@ The system provides multiple health check endpoints:
    # Check container logs
    docker-compose -f docker-compose.prod.yml logs app-blue
    docker-compose -f docker-compose.prod.yml logs app-green
-   
+
    # Check if ports are accessible
    curl -f http://localhost:3001/api/health  # Blue
    curl -f http://localhost:3002/api/health  # Green

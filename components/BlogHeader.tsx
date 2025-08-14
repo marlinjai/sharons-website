@@ -27,7 +27,7 @@ export default function BlogHeader({
   subtitle,
   backLink,
   isPostHeader = false,
-  postMeta
+  postMeta,
 }: BlogHeaderProps) {
   return (
     <div className="relative overflow-hidden lg:min-h-[520px]">
@@ -48,8 +48,9 @@ export default function BlogHeader({
             fill
             className="object-cover md:translate-x-4 scale-105"
             priority
-          />)}
-        < div className="absolute inset-0 bg-[#2F2F2F]/10" />
+          />
+        )}
+        <div className="absolute inset-0 bg-[#2F2F2F]/10" />
       </div>
 
       {/* Header content */}
@@ -75,11 +76,7 @@ export default function BlogHeader({
               <div className="flex flex-col items-center gap-12 md:gap-16 justify-center -mt-[2%]">
                 <Link href="/" className="group">
                   <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                    <img
-                      src="/graphics/logo_return.svg"
-                      alt="ReTurn Logo"
-                      className="h-12 sm:h-16 lg:h-20 w-auto"
-                    />
+                    <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-12 sm:h-16 lg:h-20 w-auto" />
                   </div>
                 </Link>
 
@@ -88,16 +85,12 @@ export default function BlogHeader({
                   {isPostHeader && postMeta && (
                     <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 mb-6 justify-center text-xs sm:text-sm md:text-base">
                       <span className="flex items-center justify-center px-3 py-[6px] bg-white text-[#2F2F2F] font-primary font-semibold uppercase tracking-wide rounded-full leading-none">
-                        <p className='translate-y-[0.09rem]'>{postMeta.category}</p>
+                        <p className="translate-y-[0.09rem]">{postMeta.category}</p>
                       </span>
                       <span className=" font-primary text-gray-100 leading-none">|</span>
-                      <span className=" font-primary text-gray-100 leading-none">
-                        {postMeta.readTime}
-                      </span>
+                      <span className=" font-primary text-gray-100 leading-none">{postMeta.readTime}</span>
                       <span className=" font-primary text-gray-100 leading-none">|</span>
-                      <span className=" font-primary text-gray-100 leading-none">
-                        {postMeta.date}
-                      </span>
+                      <span className=" font-primary text-gray-100 leading-none">{postMeta.date}</span>
                     </div>
                   )}
 
@@ -106,16 +99,11 @@ export default function BlogHeader({
                   </h1>
 
                   {subtitle && isPostHeader ? (
-                    <p
-                      className="font-primary text-lg md:text-xl mb-6 italic"
-                      style={{ color: '#E9AAA4' }}
-                    >
+                    <p className="font-primary text-lg md:text-xl mb-6 italic" style={{ color: '#E9AAA4' }}>
                       {subtitle}
                     </p>
                   ) : (
-                    <p className="font-primary text-lg md:text-xl mb-6 italic"
-                      style={{ color: '#E9C9C6' }}
-                    >
+                    <p className="font-primary text-lg md:text-xl mb-6 italic" style={{ color: '#E9C9C6' }}>
                       {subtitle}
                     </p>
                   )}

@@ -1,10 +1,10 @@
 // components/ui/Navigation.tsx
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { DesktopNav } from './DesktopNav'
-import { MobileNavTrigger } from './MobileNavTrigger'
-import { MobileNavOverlay } from './MobileNavOverlay'
+import Link from 'next/link';
+import { DesktopNav } from './DesktopNav';
+import { MobileNavTrigger } from './MobileNavTrigger';
+import { MobileNavOverlay } from './MobileNavOverlay';
 
 // Main navigation component that combines desktop and mobile navigation
 export function Navigation() {
@@ -17,11 +17,7 @@ export function Navigation() {
             {/* Logo with orange circle */}
             <Link href="/" className="group">
               <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                <img
-                  src="/graphics/logo_return.svg"
-                  alt="ReTurn Logo"
-                  className="h-10 sm:h-12 lg:h-16 w-auto"
-                />
+                <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-10 sm:h-12 lg:h-16 w-auto" />
               </div>
             </Link>
 
@@ -44,5 +40,5 @@ export function Navigation() {
       {/* Mobile Navigation Overlay */}
       <MobileNavOverlay />
     </>
-  )
+  );
 }

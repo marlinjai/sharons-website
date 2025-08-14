@@ -16,6 +16,7 @@ The `NewsletterTemplate` is a flexible, reusable email template designed for bi-
 ## Content Types
 
 ### 1. Text Sections
+
 Simple text content with optional titles.
 
 ```typescript
@@ -27,6 +28,7 @@ Simple text content with optional titles.
 ```
 
 ### 2. Quote Sections
+
 Inspiring quotes with attribution.
 
 ```typescript
@@ -38,6 +40,7 @@ Inspiring quotes with attribution.
 ```
 
 ### 3. Story Sections
+
 Client stories or case studies with optional images.
 
 ```typescript
@@ -51,6 +54,7 @@ Client stories or case studies with optional images.
 ```
 
 ### 4. Tips Sections
+
 Bullet-pointed tips with icons.
 
 ```typescript
@@ -62,6 +66,7 @@ Bullet-pointed tips with icons.
 ```
 
 ### 5. CTA Sections
+
 Call-to-action sections with buttons.
 
 ```typescript
@@ -74,6 +79,7 @@ Call-to-action sections with buttons.
 ```
 
 ### 6. Image Sections
+
 Images with optional captions.
 
 ```typescript
@@ -90,47 +96,47 @@ Images with optional captions.
 ### Basic Newsletter
 
 ```typescript
-import { NewsletterTemplate } from '@/emails/NewsletterTemplate'
+import { NewsletterTemplate } from '@/emails/NewsletterTemplate';
 
 const newsletterData = {
-  subject: "Weekly Wisdom - Issue #1",
+  subject: 'Weekly Wisdom - Issue #1',
   previewText: "This week's insights on healing and transformation.",
   issueNumber: 1,
   sections: [
     {
       type: 'text',
-      title: "The Healing Power of Acceptance",
-      content: "One of the most profound lessons I've learned through regression hypnosis..."
+      title: 'The Healing Power of Acceptance',
+      content: "One of the most profound lessons I've learned through regression hypnosis...",
     },
     {
       type: 'quote',
       content: "Healing is not about forgetting. It's about remembering without pain.",
-      author: "Anonymous"
-    }
-  ]
-}
+      author: 'Anonymous',
+    },
+  ],
+};
 
 // Render the template
-const emailHtml = await render(NewsletterTemplate(newsletterData))
+const emailHtml = await render(NewsletterTemplate(newsletterData));
 ```
 
 ### Newsletter with Featured Story
 
 ```typescript
 const newsletterData = {
-  subject: "The Power of Past Life Regression - Issue #1",
-  previewText: "Discover how past life regression can unlock deep healing.",
+  subject: 'The Power of Past Life Regression - Issue #1',
+  previewText: 'Discover how past life regression can unlock deep healing.',
   issueNumber: 1,
   featuredStory: {
     title: "Sarah's Journey: From Anxiety to Inner Peace",
-    excerpt: "Sarah came to me struggling with crippling anxiety...",
-    imageUrl: "https://example.com/sarah-story.jpg",
-    readMoreUrl: "https://returnhypnosis.com/blog/sarah-journey"
+    excerpt: 'Sarah came to me struggling with crippling anxiety...',
+    imageUrl: 'https://example.com/sarah-story.jpg',
+    readMoreUrl: 'https://returnhypnosis.com/blog/sarah-journey',
   },
   sections: [
     // Your content sections here
-  ]
-}
+  ],
+};
 ```
 
 ## API Endpoint Usage
@@ -157,24 +163,28 @@ curl -X POST /api/send-newsletter \
 ## Best Practices
 
 ### 1. Content Structure
+
 - Start with a welcoming text section
 - Include at least one quote for inspiration
 - Add practical tips or insights
 - End with a clear call-to-action
 
 ### 2. Image Guidelines
+
 - Use high-quality, relevant images
 - Keep file sizes under 1MB for better deliverability
 - Always include descriptive alt text
 - Use consistent aspect ratios (16:9 or 4:3)
 
 ### 3. Writing Tips
+
 - Keep paragraphs short (2-3 sentences max)
 - Use personal, warm language
 - Include specific examples and stories
 - End with actionable next steps
 
 ### 4. Technical Considerations
+
 - Test emails across different email clients
 - Include plain text versions for better deliverability
 - Use proper unsubscribe headers
@@ -183,18 +193,22 @@ curl -X POST /api/send-newsletter \
 ## Template Customization
 
 ### Colors and Branding
+
 The template uses your existing brand colors:
+
 - Primary: `#944923` (warm brown)
 - Secondary: `#713c1e` (darker brown)
 - Background: `#f7f6f2` (warm cream)
 - Text: `#2f2e2c` (dark gray)
 
 ### Font and Typography
+
 - Primary font: Georgia (serif)
 - Clean, readable typography
 - Proper hierarchy with different font sizes
 
 ### Layout
+
 - Maximum width: 600px (email client friendly)
 - Responsive design
 - Consistent spacing and padding
@@ -202,26 +216,29 @@ The template uses your existing brand colors:
 ## Testing Your Newsletter
 
 ### 1. Preview in Development
+
 ```typescript
 // In your development environment
-import { render } from '@react-email/render'
-import { NewsletterTemplate } from '@/emails/NewsletterTemplate'
+import { render } from '@react-email/render';
+import { NewsletterTemplate } from '@/emails/NewsletterTemplate';
 
-const html = await render(NewsletterTemplate(newsletterData))
-console.log(html) // View the rendered HTML
+const html = await render(NewsletterTemplate(newsletterData));
+console.log(html); // View the rendered HTML
 ```
 
 ### 2. Send Test Email
+
 ```typescript
 // Use the API endpoint with test data
 const response = await fetch('/api/send-newsletter', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(testNewsletterData)
-})
+  body: JSON.stringify(testNewsletterData),
+});
 ```
 
 ### 3. Email Client Testing
+
 - Test in Gmail, Outlook, Apple Mail
 - Check mobile responsiveness
 - Verify images load correctly
@@ -254,9 +271,10 @@ const response = await fetch('/api/send-newsletter', {
 ## Support
 
 For questions about the newsletter template or help with content creation, contact:
+
 - Email: hello@returnhypnosis.com
 - Website: https://returnhypnosis.com
 
 ---
 
-*This template is designed to grow with your business and can be easily customized as your needs evolve.* 
+_This template is designed to grow with your business and can be easily customized as your needs evolve._

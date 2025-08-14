@@ -6,6 +6,28 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Fluid Typography System - CSS Variables with clamp() */
+  /* Major third scale (1.25 ratio) fluid font sizes - mobile-first approach */
+  --text-xs: clamp(0.512rem, 0.6rem + 0.07vw, 0.64rem); /* 8.2px → 10.24px */
+  --text-sm: clamp(0.64rem, 0.62rem + 0.09vw, 0.8rem); /* 10.24px → 12.8px */
+  --text-base: clamp(0.8rem, 0.78rem + 0.11vw, 1rem); /* 12.8px → 16px */
+  --text-lg: clamp(1rem, 0.97rem + 0.14vw, 1.25rem); /* 16px → 20px */
+  --text-xl: clamp(1.25rem, 1.26rem + 0.19vw, 1.763rem); /* 20px → 25px */
+  --text-2xl: clamp(1.563rem, 1.51rem + 0.22vw, 1.953rem); /* 25px → 31.25px */
+  --text-3xl: clamp(1.953rem, 1.89rem + 0.31vw, 2.441rem); /* 31.25px → 39.06px */
+  --text-4xl: clamp(2.441rem, 2.36rem + 0.41vw, 3.052rem); /* 39.06px → 48.83px */
+  --text-5xl: clamp(3.052rem, 2.95rem + 0.51vw, 3.815rem); /* 48.83px → 61.04px */
+  --text-6xl: clamp(3.815rem, 3.69rem + 0.63vw, 4.768rem); /* 61.04px → 76.29px */
+  --text-7xl: clamp(4.768rem, 4.61rem + 0.79vw, 5.96rem); /* 76.29px → 95.37px */
+  --text-8xl: clamp(5.96rem, 5.76rem + 1vw, 7.451rem); /* 95.37px → 119.22px */
+  --text-9xl: clamp(7.451rem, 7.2rem + 1.25vw, 9.313rem); /* 119.22px → 149.01px */
+
+  /* Fluid Spacing System */
+  --content-max-width: clamp(20rem, 90vw, 75rem);
+  --content-padding: clamp(1rem, 4vw, 3rem);
+}
+
 /* Ensure proper body and html structure */
 html,
 body {
@@ -88,48 +110,6 @@ nav button:active,
   box-shadow: none !important;
   background-color: transparent !important;
   -webkit-tap-highlight-color: transparent !important;
-}
-
-/* Fluid Typography System - CSS Variables with clamp() */
-:root {
-  /* Major third scale (1.25 ratio) fluid font sizes - mobile-first approach */
-  --text-xs: clamp(0.512rem, 0.6rem + 0.07vw, 0.64rem); /* 8.2px → 10.24px */
-  --text-sm: clamp(0.64rem, 0.62rem + 0.09vw, 0.8rem); /* 10.24px → 12.8px */
-  --text-base: clamp(0.8rem, 0.78rem + 0.11vw, 1rem); /* 12.8px → 16px */
-  --text-lg: clamp(1rem, 0.97rem + 0.14vw, 1.25rem); /* 16px → 20px */
-  --text-xl: clamp(1.25rem, 1.26rem + 0.19vw, 1.763rem); /* 20px → 25px */
-  --text-2xl: clamp(1.563rem, 1.51rem + 0.22vw, 1.953rem); /* 25px → 31.25px */
-  --text-3xl: clamp(
-    1.953rem,
-    1.89rem + 0.31vw,
-    2.441rem
-  ); /* 31.25px → 39.06px */
-  --text-4xl: clamp(
-    2.441rem,
-    2.36rem + 0.41vw,
-    3.052rem
-  ); /* 39.06px → 48.83px */
-  --text-5xl: clamp(
-    3.052rem,
-    2.95rem + 0.51vw,
-    3.815rem
-  ); /* 48.83px → 61.04px */
-  --text-6xl: clamp(
-    3.815rem,
-    3.69rem + 0.63vw,
-    4.768rem
-  ); /* 61.04px → 76.29px */
-  --text-7xl: clamp(
-    4.768rem,
-    4.61rem + 0.79vw,
-    5.96rem
-  ); /* 76.29px → 95.37px */
-  --text-8xl: clamp(5.96rem, 5.76rem + 1vw, 7.451rem); /* 95.37px → 119.22px */
-  --text-9xl: clamp(
-    7.451rem,
-    7.2rem + 1.25vw,
-    9.313rem
-  ); /* 119.22px → 149.01px */
 }
 
 /* Smooth scrolling */
