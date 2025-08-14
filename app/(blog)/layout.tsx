@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth overflow-x-hidden">
-      <body className="font-sans bg-black text-gray-900 overflow-x-hidden min-w-0">
+      <body className="font-sans bg-black text-gray-900 overflow-x-hidden">
         <main>{children}</main>
         <Footer />
       </body>
