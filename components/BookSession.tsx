@@ -11,9 +11,10 @@ import { useEffect } from 'react';
 
 interface BookSessionProps {
   variant?: 'hero' | 'contact';
+  className?: string;
 }
 
-export default function BookSession({ variant = 'hero' }: BookSessionProps) {
+export default function BookSession({ variant = 'hero', className }: BookSessionProps) {
   useEffect(() => {
     (async function () {
       const cal = await getCalApi({ namespace: '5-hrs' });
@@ -54,7 +55,7 @@ export default function BookSession({ variant = 'hero' }: BookSessionProps) {
       data-cal-namespace="5-hrs"
       data-cal-link="sharondisalvo/5-hrs"
       data-cal-config='{"layout":"month_view", "theme":"light"}'
-      className={getButtonStyles()}
+      className={`${getButtonStyles()} ${className || ''}`}
     >
       Book a Session
     </button>

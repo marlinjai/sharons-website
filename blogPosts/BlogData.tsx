@@ -22,40 +22,99 @@ function slugify(input: string): string {
 export const blogPostsData: BlogPostType[] = [
   {
     id: 1,
-    slug: slugify("Preparing for Your First Session"),
+    slug: slugify("2. Who's Who in the World of the Mind - Understanding Mental Health Professionals"),
     image: "https://images.unsplash.com/photo-1597673814716-4a1e58a1f6af?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Preparing for Your First Session",
-    subtitle: "What to expect and how to make the most of your journey into the depths of consciousness.",
+    title: "2. Who's Who in the World of the Mind",
+    subtitle: "Hypnotherapist? Psychologist? Hypnotist? Let's end the confusion...",
     category: "Guide",
-    readTime: "4 min read",
-    date: "March 5, 2024",
+    readTime: "2 min read",
+    date: "July 15, 2025",
     content: (
       <>
-        <p className="mb-6">Your first regression session is a sacred journey into the depths of your consciousness. Here's how to prepare for this transformative experience.</p>
+        <h2 className="font-secondary text-2xl font-semibold mb-6" style={{ color: '#A32015' }}>Who's Who in the World of the Mind</h2>
+        <p className="mb-6">Hypnotherapist? Psychologist? Hypnotist? Let's end the confusion.</p>
 
-        <h3 className="font-secondary text-xl font-semibold mb-4" style={{ color: '#A32015' }}>Mental Preparation</h3>
-        <p className="mb-6">Come with an open mind and heart. You don't need to believe in past lives for the session to be effective. Trust that your subconscious mind will bring forward whatever is most relevant for your healing and growth.</p>
+        <p className="mb-6">Titles are helpful. But they don't always mean what you think they mean.<br />
+          Some are medical.<br />
+          Some are trained for deep emotional support.<br />
+          Some guide you through transformation.<br />
+          Some are great on stage.</p>
 
-        <h3 className="font-secondary text-xl font-semibold mb-4" style={{ color: '#A32015' }}>Physical Preparation</h3>
-        <p className="mb-6">Wear comfortable, loose-fitting clothing. Avoid heavy meals before the session, but don't come hungry either. The session will last 5 hours, so being comfortable is important.</p>
+        <p className="mb-8">Here's what each one actually does - so you can make an informed choice based on what you need.</p>
 
-        <h3 className="font-secondary text-xl font-semibold mb-4" style={{ color: '#A32015' }}>Questions to Consider</h3>
-        <p className="mb-6">Think about what you'd like to explore or understand better. Common areas include:</p>
-        <ul className="list-disc list-inside mb-6 space-y-2 text-gray-700">
-          <li>Repeating patterns in relationships or career</li>
-          <li>Unexplained fears or phobias</li>
-          <li>Health issues with emotional roots</li>
-          <li>Life purpose and direction</li>
-          <li>Healing from past trauma</li>
-        </ul>
+        <h3 className="font-secondary text-xl font-semibold mb-6" style={{ color: '#A32015' }}>Who Does What?</h3>
 
-        <h3 className="font-secondary text-xl font-semibold mb-4" style={{ color: '#A32015' }}>What to Expect</h3>
-        <p className="mb-6">The session begins with a deep conversation where we explore your current situation and what you hope to discover. Then, I'll guide you into a relaxed state where you can access your subconscious mind. You'll remain fully aware and in control throughout the entire process.</p>
+        <div className="space-y-8">
+          <div>
+            <h4 className="font-secondary text-lg font-semibold mb-2">1. Psychologist</h4>
+            <p className="mb-2"><strong>Training:</strong> Academic degree in psychology, typically 5 to 6 years, including a master's</p>
+            <p className="mb-2"><strong>Helps with:</strong> Emotional support, mental health evaluation, behavioral strategies</p>
+            <p className="mb-2"><strong>Best for:</strong> Talk therapy, understanding patterns, getting clarity on your inner world</p>
+            <p className="mb-2"><strong>Limitations:</strong> Doesn't work directly with the subconscious. Often focused on conscious-level insight.</p>
+          </div>
 
-        <h3 className="font-secondary text-xl font-semibold mb-4" style={{ color: '#A32015' }}>After the Session</h3>
-        <p className="mb-6">You'll receive a full audio recording of your session to revisit anytime. Many clients find that insights continue to emerge in the days and weeks following the session. Trust the process and allow the healing to unfold naturally.</p>
+          <div>
+            <h4 className="font-secondary text-lg font-semibold mb-2">2. Psychotherapist</h4>
+            <p className="mb-2"><strong>Training:</strong> Postgraduate clinical psychotherapy training, often 4 to 6 years, sometimes following a psychology degree</p>
+            <p className="mb-2"><strong>Helps with:</strong> Long-term emotional healing, relationships, trauma, anxiety, mood patterns</p>
+            <p className="mb-2"><strong>Best for:</strong> Ongoing support, unpacking deep emotional layers</p>
+            <p className="mb-2"><strong>Limitations:</strong> Can be time-intensive. Focuses more on analysis than action.</p>
+          </div>
 
-        <p className="italic text-gray-600">Remember, there's no "right" way to experience regression. Every journey is unique and perfect for the individual taking it.</p>
+          <div>
+            <h4 className="font-secondary text-lg font-semibold mb-2">3. Psychiatrist</h4>
+            <p className="mb-2"><strong>Training:</strong> Medical doctor with specialization in psychiatry, in total around 10 to 12 years</p>
+            <p className="mb-2"><strong>Helps with:</strong> Diagnosing mental illness, prescribing medication</p>
+            <p className="mb-2"><strong>Best for:</strong> Clinical conditions that are severe or have progressed to a heavy stage, such as major depression, bipolar disorder, or schizophrenia.</p>
+            <p className="mb-2"><strong>Limitations:</strong> Psychiatrists are not trained to offer talk therapy. Their role is to evaluate, diagnose, and prescribe. Their focus is medical, not therapeutic or subconscious</p>
+          </div>
+
+          <div>
+            <h4 className="font-secondary text-lg font-semibold mb-2">4. Hypnotherapist</h4>
+            <p className="mb-2"><strong>Training:</strong> Certified in hypnotherapy through recognized training programs</p>
+            <p className="mb-2"><strong>Helps with:</strong> Accessing the subconscious, releasing blocks, shifting internal responses</p>
+            <p className="mb-2"><strong>Best for:</strong> Fast, deep change on emotional or behavioral patterns</p>
+            <p className="mb-2"><strong>Limitations:</strong> Not licensed to diagnose or treat clinical disorders. Effectiveness depends on depth of training and presence.</p>
+          </div>
+
+          <div>
+            <h4 className="font-secondary text-lg font-semibold mb-2">5. Hypnotherapy Practitioner</h4>
+            <p className="mb-2"><strong>Training:</strong> Varies by method, may include certified hypnotherapy, holistic modalities, regression work</p>
+            <p className="mb-2"><strong>Helps with:</strong> Subconscious root work, regression, reframing, emotional integration</p>
+            <p className="mb-2"><strong>Best for:</strong> Those ready to shift what's no longer serving them, at the source</p>
+            <p className="mb-2"><strong>Limitations:</strong> Not medically or clinically licensed. Certification is often obtained through private academies, but standards and scope of practice vary widely. Outcomes depend on the practitioner's training, approach, and alignment with the client.</p>
+          </div>
+
+          <div>
+            <h4 className="font-secondary text-lg font-semibold mb-2">6. Hypnotist (entertainment-focused)</h4>
+            <p className="mb-2"><strong>Training:</strong> Usually trained in suggestion and stage performance.</p>
+            <p className="mb-2"><strong>Helps with:</strong> Wowing audiences, party tricks, fun, and games.</p>
+            <p className="mb-2"><strong>Best for:</strong> Laughter, not healing.</p>
+            <p className="mb-2"><strong>Limitations:</strong> Not for therapeutic purposes. Not trauma-informed. Developed to impress and entertain in stage performances.</p>
+          </div>
+        </div>
+
+        <div className="mt-10 space-y-6">
+          <p>In a world full of titles, modalities, and acronyms, it's easy to get overwhelmed, or to assume that one path is automatically "better" than another.</p>
+          <p className="font-semibold">But here's the truth:</p>
+          <p>The best professional is the one who sees you, gets you, and can actually help you shift.</p>
+          <p>Whether they hold a medical degree, a hypnotherapy certificate, or years of lived experience paired with emotional intelligence - what matters most is the fit.</p>
+          <p>Ask questions. Follow your gut.</p>
+          <p className="mb-8">And remember: real transformation doesn't always follow a linear path, but it should always feel aligned.</p>
+
+          <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <p className="mb-4">The curiosity for a Regression Hypnosis session is poking at you - poke back.</p>
+            <div className="[&>a]:bg-[#c5441e] [&>a]:hover:bg-orange-500 [&>a]:transition-colors [&>a]:duration-200">
+              <BookSession />
+            </div>
+          </div>
+
+          <p className="mt-8">In the next ReTurn newsletter, we challenge the status quo and elaborate on different therapy modalities: "Awareness, Empowerment, Rewiring."</p>
+
+          <p className="mt-6">Until next time, keep that curiosity switched on,</p>
+          <p className="font-semibold">Sharon</p>
+          <p className="text-gray-600">Founder, ReTurn</p>
+        </div>
       </>
     )
   },
@@ -127,12 +186,12 @@ export const blogPostsData: BlogPostType[] = [
   },
   {
     id: 4,
-    slug: slugify("What Is Hypnosis, Really?"),
+    slug: slugify("1. What Is Hypnosis, Really?"),
     image: null,
-    title: "What Is Hypnosis, Really?",
+    title: "1. What Is Hypnosis, Really?",
     subtitle: "Let's start from the top. Hypnosis is a natural state of deep relaxation...",
     category: "Education",
-    readTime: "8 min read",
+    readTime: "3 min read",
     date: "August 15, 2025",
     content: (
       <>

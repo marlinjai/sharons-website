@@ -48,32 +48,6 @@ export default function BlogPostPage() {
           <div className="prose prose-lg max-w-none">{post.content}</div>
         </div>
       </div>
-
-      {/* Related Posts */}
-      <div className="py-20  bg-cover bg-center">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="font-secondary text-xxl font-semibold text-gray-900 mb-8 text-center">More Articles</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {blogPostsData
-              .filter(p => p.slug !== slug)
-              .map(p => (
-                <Link
-                  key={p.id}
-                  href={`/blog/${p.slug}`}
-                  className="block bg-white rounded-xl p-6 hover:shadow-lg transition-shadow duration-200"
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-primary text-gray-500 uppercase tracking-wide">{p.category}</span>
-                    <span className="text-gray-300">|</span>
-                    <span className="text-xs font-primary text-gray-500">{p.readTime}</span>
-                  </div>
-                  <h4 className="font-secondary text-lg font-semibold text-gray-900 mb-2 leading-tight">{p.title}</h4>
-                  <p className="font-primary text-gray-600 text-sm leading-relaxed">{p.subtitle}</p>
-                </Link>
-              ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
