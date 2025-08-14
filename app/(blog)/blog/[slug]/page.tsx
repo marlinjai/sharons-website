@@ -45,7 +45,7 @@ export default function BlogPostPage() {
       {/* Content */}
       <div className="py-20 bg-[url('/images/linnen-bg-seamless.jpg')] bg-contain bg-center ">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
+          <div className="prose prose-lg max-w-none">{post.content}</div>
         </div>
       </div>
 

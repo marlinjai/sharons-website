@@ -24,7 +24,7 @@
   --text-9xl: clamp(7.451rem, 7.2rem + 1.25vw, 9.313rem); /* 119.22px → 149.01px */
 
   /* Fluid Spacing System */
-  --content-max-width: clamp(20rem, 90vw, 75rem);
+  --content-max-width: clamp(20rem, 80vw, 75rem);
   --content-padding: clamp(1rem, 4vw, 3rem);
 }
 
