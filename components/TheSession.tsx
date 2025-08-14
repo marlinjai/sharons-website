@@ -57,7 +57,7 @@ export default function TheSession() {
           <div className="flex flex-col lg:flex-row items-start justify-center gap-24 mb-16">
             {phases.map((phase, idx) => (
               <div key={idx} className="flex flex-col items-center flex-1 gap-2">
-                <div className="w-[320px] h-[400px] rounded-full overflow-hidden mb-6 flex items-center justify-center mx-auto">
+                <div className="w-[280px] sm:w-[320px] h-[350px] sm:h-[400px] rounded-full overflow-hidden mb-6 flex items-center justify-center mx-auto">
                   <img
                     src={phase.image}
                     alt={phase.title}

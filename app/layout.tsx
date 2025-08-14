@@ -14,10 +14,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="font-sans bg-black text-gray-900 overflow-x-hidden">
+    <html lang="en" className="scroll-smooth overflow-x-hidden">
+      <body className="font-sans bg-black text-gray-900 overflow-x-hidden min-w-0">
         {children}
       </body>
     </html>
   )
-} 
+}

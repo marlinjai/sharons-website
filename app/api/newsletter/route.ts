@@ -141,9 +141,7 @@ function getLatestBlogPostForEmail() {
     return {
       id: latestPost.id,
       title: latestPost.title,
-      excerpt: latestPost.excerpt.length > 120
-        ? latestPost.excerpt.substring(0, 120).trim() + '...'
-        : latestPost.excerpt,
+      excerpt: latestPost.subtitle || 'Explore this insightful article on personal transformation through regression hypnosis.',
       url: `https://returnhypnosis.com/blog/${latestPost.slug}`,
       category: latestPost.category,
       readTime: latestPost.readTime

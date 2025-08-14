@@ -16,7 +16,7 @@ export default function VideoSection() {
         </div>
         {/* Right: Pill-shaped image */}
         <div className="flex-1 flex items-center justify-center h-full">
-          <div className="w-[400px] h-[500px] rounded-full overflow-hidden bg-gray-200 shadow-lg">
+          <div className="w-[300px] sm:w-[350px] md:w-[400px] h-[375px] sm:h-[437px] md:h-[500px] rounded-full overflow-hidden bg-gray-200 shadow-lg">
             <video
               src="/videos/mini video.webm"
               className="object-cover w-full h-full brightness-110"
@@ -30,4 +30,4 @@ export default function VideoSection() {
       </div>
     </section>
   );
-} 
+}

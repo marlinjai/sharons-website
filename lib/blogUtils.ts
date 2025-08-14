@@ -1,10 +1,10 @@
 // lib/blogUtils.ts
 // Utility functions for blog post management and URL generation
 
-import { blogPostsData, type BlogPost } from '../blogPosts/BlogData'
+import { blogPostsData, type BlogPostType } from '../blogPosts/BlogData'
 
 // Get the latest blog post (highest ID number)
-export function getLatestBlogPost(): BlogPost | null {
+export function getLatestBlogPost(): BlogPostType | null {
   if (!blogPostsData || blogPostsData.length === 0) {
     return null
   }
@@ -14,12 +14,12 @@ export function getLatestBlogPost(): BlogPost | null {
 }
 
 // Generate the URL for a specific blog post
-export function getBlogPostUrl(post: BlogPost): string {
+export function getBlogPostUrl(post: BlogPostType): string {
   return `/blog/${post.slug}`
 }
 
 // Get the latest blog post with its URL
-export function getLatestBlogPostWithUrl(): { post: BlogPost; url: string } | null {
+export function getLatestBlogPostWithUrl(): { post: BlogPostType; url: string } | null {
   const latest = getLatestBlogPost()
 
   if (!latest) {
@@ -32,18 +32,8 @@ export function getLatestBlogPostWithUrl(): { post: BlogPost; url: string } | nu
   }
 }
 
-// Get a formatted excerpt for email display (truncated if needed)
-export function getFormattedExcerpt(post: BlogPost, maxLength: number = 150): string {
-  if (post.excerpt.length <= maxLength) {
-    return post.excerpt
-  }
-
-  // Truncate and add ellipsis
-  return post.excerpt.substring(0, maxLength).trim() + '...'
-}
-
 // Get all blog posts sorted by date (newest first)
-export function getAllBlogPostsSorted(): Array<{ post: BlogPost; url: string }> {
+export function getAllBlogPostsSorted(): Array<{ post: BlogPostType; url: string }> {
   if (!blogPostsData || blogPostsData.length === 0) {
     return []
   }

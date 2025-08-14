@@ -41,7 +41,7 @@ function ScrollHandler() {
 // Main page content component
 function PageContent() {
   return (
-    <div className="relative">
+    <div className="relative overflow-x-hidden">
       <Header />
       <main>
         <Hero />
