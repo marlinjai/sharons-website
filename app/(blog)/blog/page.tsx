@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { blogPostsData, type BlogPostType } from '@/blogPosts/BlogData';
+
 import BlogHeader from '@/components/BlogHeader';
 import BlogPostComponent from '@/components/BlogPost';
-import Footer from '@/components/Footer';
+import { blogPostsData, BlogPostType } from '@/blogPosts/BlogData';
 
 export default function BlogPage() {
   const featuredPost = {

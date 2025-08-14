@@ -1,6 +1,5 @@
-// app/(blog)/layout.tsx - Blog layout that replaces root layout
+// app/(blog)/layout.tsx - Blog layout wrapper (no html/body tags needed)
 import type { Metadata } from 'next';
-import '../globals.css';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
@@ -13,11 +12,9 @@ export const metadata: Metadata = {
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth overflow-x-hidden">
-      <body className="font-sans bg-black text-gray-900 overflow-x-hidden">
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <div className="relative overflow-x-hidden">
+      <main>{children}</main>
+      <Footer />
+    </div>
   );
 }

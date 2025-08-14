@@ -130,10 +130,10 @@ export const blogPostsData: BlogPostType[] = [
     slug: slugify("What Is Hypnosis, Really?"),
     image: null,
     title: "What Is Hypnosis, Really?",
-    subtitle: "Let's start from the top. Hypnosis is a natural state of deep relaxation",
+    subtitle: "Let's start from the top. Hypnosis is a natural state of deep relaxation...",
     category: "Education",
     readTime: "8 min read",
-    date: "August 14, 2025",
+    date: "August 15, 2025",
     content: (
       <>
         <div className="mb-8">
