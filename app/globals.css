@@ -24,7 +24,8 @@
   --text-9xl: clamp(7.451rem, 7.2rem + 1.25vw, 9.313rem); /* 119.22px → 149.01px */
 
   /* Fluid Spacing System */
-  --content-max-width: clamp(20rem, 80vw, 75rem);
+  --content-max-width: clamp(20rem, 72vw, 100rem);
+  --mobile-content-max-width: clamp(18rem, 90vw, 100rem);
   --content-padding: clamp(1rem, 4vw, 3rem);
 }
 
@@ -33,31 +34,32 @@ html,
 body {
   width: 100%;
   overflow-x: hidden;
+  /* Force overlay scrollbars - prevents layout shift and keeps scrollbar over content */
+  scrollbar-gutter: auto;
 }
 
-/* Custom scrollbar - Minimal and aligned with site colors */
+/* Force overlay scrollbar behavior */
+html {
+  /* Modern approach: prevent scrollbar from taking layout space */
+  scrollbar-gutter: auto;
+}
+
+/* Hide scrollbars completely while keeping scroll functionality */
+
+/* Hide scrollbar for webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 6px;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: #faf6f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c5441e;
-  border-radius: 3px;
-  transition: background-color 0.2s ease;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a32015;
-}
-
-/* Firefox scrollbar */
+/* Hide scrollbar for Firefox */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #c5441e #faf6f1;
+  scrollbar-width: none;
+}
+
+/* Alternative method for Firefox */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
 /* Remove tap highlights on mobile devices */

@@ -27,24 +27,24 @@ export default function Contact() {
   };
 
   return (
-    <section className="pt-2 md:py-16 bg-white">
+    <section className="pb-16 pt-2 md:py-16 bg-[#f7f6f2]">
       <div id="contact" className="-mt-[140px] mb-[140px] h-16"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-10">
-          <h2 className="font-secondary text-4xl md:text-5xl font-semibold mb-4" style={{ color: '#A32015' }}>
+          <h2 className="font-secondary text-2xl sm:text-4xl md:text-5xl font-semibold mb-4" style={{ color: '#A32015' }}>
             Get in Touch
           </h2>
-          <p className="font-primary text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Curious? Stuck? Ready for something to shift?
+          <p className="font-primary text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Curious? Stuck? <br />Ready for something to shift?
           </p>
         </div>
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
-            <h3 className="font-secondary text-2xl font-semibold mb-6" style={{ color: '#A32015' }}>
+          <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 lg:h-[840px] lg:w-[600px]">
+            <h3 className="font-secondary text-xl sm:text-2xl font-semibold mb-6" style={{ color: '#A32015' }}>
               Reach out.
               <br />
               I'm here to answer, clarify, or help you take the next step.
@@ -110,7 +110,7 @@ export default function Contact() {
                   required
                   rows={6}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary resize-none"
-                  placeholder="Tell me about what you'd like to explore or any questions you have..."
+                  placeholder={`Tell me about what you'd like to explore or any questions you might have...`}
                 />
               </div>
 
@@ -124,7 +124,7 @@ export default function Contact() {
           </div>
 
           {/* Location Section */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+          <div className="flex flex-col justify-between bg-white rounded-2xl shadow-xl p-8 lg:p-12 lg:h-[840px] lg:w-[600px]">
             <h3 className="font-secondary text-2xl font-semibold mb-6" style={{ color: '#A32015' }}>
               Visit the Studio
             </h3>
@@ -140,7 +140,7 @@ export default function Contact() {
 
               <div>
                 <label className="block font-primary text-sm font-medium text-gray-700 mb-2">Map</label>
-                <div className="px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 h-[395px]">
+                <div className="px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 h-[480px]">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4853.770537225342!2d13.401955876629824!3d52.535509972065256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851fb9a297cfd%3A0x5dfea125c03cacd1!2sPraxis%20am%20Zionskirchplatz!5e0!3m2!1sen!2sde!4v1753217975364!5m2!1sen!2sde"
                     width="100%"

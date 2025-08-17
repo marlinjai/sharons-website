@@ -1,7 +1,7 @@
 export default function VideoSection() {
   return (
-    <section className="relative min-h-screen h-full w-screen flex items-center justify-center bg-white text-black overflow-hidden">
-      <div className="w-full max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-12 h-full">
+    <section className="relative min-h-screen h-full w-screen flex items-center justify-center bg-[#f7f6f2] text-black overflow-hidden">
+      <div className="sm:w-full w-[--mobile-content-max-width] py-16 sm:py-0 sm:max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-12 h-full">
         {/* Left: Text */}
         <div className="flex-1 flex flex-col items-start justify-center h-full">
           <p className="font-primary text-xl md:text-2xl text-gray-700 leading-relaxed">

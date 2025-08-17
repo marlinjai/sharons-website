@@ -42,10 +42,10 @@ function PageContent() {
       <Hero />
       <VideoSection />
       <TheSession />
-      <About />
       <Reviews />
-      <FAQ />
+      <About />
       <Newsletter />
+      <FAQ />
       <Contact />
       {/* <Pricing /> */}
       {/* <Timetable /> */}

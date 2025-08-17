@@ -5,13 +5,19 @@ import { useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigation } from './NavigationContext';
 import { NavLink } from './NavLink';
+import BookSession from '../BookSession';
 
 // Desktop navigation with dropdown menus
 export function DesktopNav() {
-  const { isSessionDropdownOpen, isBlogDropdownOpen, setSessionDropdownOpen, setBlogDropdownOpen } = useNavigation();
+  const { isSessionDropdownOpen, isBlogDropdownOpen, setSessionDropdownOpen, setBlogDropdownOpen, isOnHero } = useNavigation();
 
   const sessionDropdownRef = useRef<HTMLDivElement>(null);
   const blogDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Get context-aware hover color for dropdown buttons
+  const getHoverColor = () => {
+    return isOnHero ? 'hover:text-[#E7E5D8]' : 'hover:text-[#de640d]';
+  };
 
   // Dropdown animation variants
   const dropdownVariants = {
@@ -45,25 +51,21 @@ export function DesktopNav() {
         onMouseEnter={() => setSessionDropdownOpen(true)}
         onMouseLeave={() => setSessionDropdownOpen(false)}
       >
-        <button
-          className="transition-colors duration-200 flex items-center gap-1 focus:outline-none hover:text-[#de640d] font-primary"
-          aria-haspopup="true"
-          aria-expanded={isSessionDropdownOpen}
-          onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
-        >
-          the session
+        <div className={`transition-colors duration-200 flex items-center gap-1 font-primary ${getHoverColor()}`}>
+          <NavLink href="#the-session">the session</NavLink>
           <motion.svg
-            className="w-4 h-4 ml-1"
+            className="w-4 h-4 ml-1 cursor-pointer"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             viewBox="0 0 24 24"
             animate={{ rotate: isSessionDropdownOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
+            onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </motion.svg>
-        </button>
+        </div>
 
         <AnimatePresence>
           {isSessionDropdownOpen && (
@@ -106,25 +108,21 @@ export function DesktopNav() {
         onMouseEnter={() => setBlogDropdownOpen(true)}
         onMouseLeave={() => setBlogDropdownOpen(false)}
       >
-        <button
-          className="transition-colors duration-200 flex items-center gap-1 focus:outline-none hover:text-[#de640d] font-primary"
-          aria-haspopup="true"
-          aria-expanded={isBlogDropdownOpen}
-          onClick={() => setBlogDropdownOpen(!isBlogDropdownOpen)}
-        >
-          blog
+        <div className={`transition-colors duration-200 flex items-center gap-1 font-primary ${getHoverColor()}`}>
+          <NavLink href="/blog">blog</NavLink>
           <motion.svg
-            className="w-4 h-4 ml-1"
+            className="w-4 h-4 ml-1 cursor-pointer"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             viewBox="0 0 24 24"
             animate={{ rotate: isBlogDropdownOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
+            onClick={() => setBlogDropdownOpen(!isBlogDropdownOpen)}
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </motion.svg>
-        </button>
+        </div>
 
         <AnimatePresence>
           {isBlogDropdownOpen && (
@@ -155,9 +153,7 @@ export function DesktopNav() {
       </div>
 
       {/* CTA Button */}
-      <NavLink href="#contact" variant="cta">
-        Let's Talk
-      </NavLink>
+      <BookSession variant="nav" className="ml-4" />
     </div>
   );
 }

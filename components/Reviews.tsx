@@ -7,6 +7,7 @@ export default function Reviews() {
   const leftColumnRef = useRef<HTMLDivElement>(null);
   const rightColumnRef = useRef<HTMLDivElement>(null);
   const centerColumnRef = useRef<HTMLDivElement>(null);
+  const [showAllMobile, setShowAllMobile] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,7 +96,10 @@ export default function Reviews() {
     },
   ];
 
-  // Distribute reviews evenly across 3 columns
+  // Filter reviews with images for mobile (only first 3)
+  const reviewsWithImages = reviews.filter(review => review.image).slice(0, 3);
+
+  // Distribute all reviews evenly across 3 columns for desktop
   const leftReviews = reviews.filter((_, i) => i % 3 === 0);
   const centerReviews = reviews.filter((_, i) => i % 3 === 1);
   const rightReviews = reviews.filter((_, i) => i % 3 === 2);
@@ -108,42 +112,40 @@ export default function Reviews() {
     return 'object-cover w-full h-full';
   };
 
-  // ReviewCard component with line clamp and read more
-  const ReviewCard = ({ review, idx }: { review: any; idx: number }) => {
+  // ReviewCard component with mobile/desktop aware truncation
+  const ReviewCard = ({ review, idx, isMobile = false }: { review: any; idx: number; isMobile?: boolean }) => {
     // Track if this review is expanded
     const [expanded, setExpanded] = useState(false);
-    // Ref to measure text height
-    const textRef = useRef<HTMLParagraphElement>(null);
-    // Track if review is long (needs 'read more')
-    const [isLong, setIsLong] = useState(false);
 
-    useEffect(() => {
-      // Check if the text overflows 6 lines
-      if (textRef.current) {
-        // 1.2em * 6 lines = 7.2em (approx, adjust if needed)
-        const lineHeight = parseFloat(getComputedStyle(textRef.current).lineHeight);
-        const maxLines = 6;
-        const maxHeight = lineHeight * maxLines;
-        if (textRef.current.scrollHeight > maxHeight + 2) {
-          setIsLong(true);
-        }
+    // Different truncation logic for mobile vs desktop
+    const shouldTruncate = () => {
+      if (isMobile) {
+        return review.text.split(' ').length > 25; // Shorter truncation for mobile
       }
-    }, []);
+      return review.text.split(' ').length > 30; // Longer truncation for desktop
+    };
+
+    const getTruncatedText = () => {
+      const wordLimit = isMobile ? 25 : 30;
+      return review.text.split(' ').slice(0, wordLimit).join(' ');
+    };
+
+    const isLong = shouldTruncate();
 
     return (
-      <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col items-center">
+      <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col items-center">
         {review.image && (
-          <div className="w-28 h-28 mb-4 rounded-full overflow-hidden flex items-center justify-center">
+          <div className="w-20 h-20 lg:w-28 lg:h-28 mb-4 rounded-full overflow-hidden flex items-center justify-center">
             <Image src={review.image} alt={review.name} width={112} height={112} className={getImageClass(idx)} />
           </div>
         )}
         <div className="text-center">
-          <h3 className="font-secondary font-semibold text-gray-900 text-xl mb-1 leading-tight">{review.name}</h3>
-          {review.title && <div className="text-sm text-[#c93e2e] mb-2 font-primary">{review.title}</div>}
-          <div className="text-gray-700 leading-relaxed whitespace-pre-line font-primary">
+          <h3 className="font-secondary font-semibold text-gray-900 text-lg lg:text-xl mb-2 leading-tight">{review.name}</h3>
+          {review.title && <div className="text-base text-[#c93e2e] mb-2 font-primary">{review.title}</div>}
+          <div className="text-gray-700 leading-relaxed whitespace-pre-line font-primary text-base">
             {!expanded && isLong ? (
               <>
-                <span>{review.text.split(' ').slice(0, 30).join(' ')}...</span>
+                <span>{getTruncatedText()}...</span>
                 <button
                   className="text-[#A32015] font-primary text-sm hover:text-[#C5441E] transition-colors duration-200 ml-1"
                   onClick={() => setExpanded(true)}
@@ -173,11 +175,11 @@ export default function Reviews() {
 
   return (
     <>
-      <section className="py-16 md:pb-[420px] overflow-hidden" style={{ backgroundColor: '#f7f6f2' }}>
-        <div id="reviews" className="pt-[185px]"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-32 md:pb-[420px] overflow-hidden" style={{ backgroundColor: '#f7f6f2' }}>
+        <div id="reviews" className="sm:pt-[185px]"></div>
+        <div className="max-w-[--content-max-width] mx-auto px-[--content-padding]">
           {/* Header */}
-          <div className="text-center -mb-8">
+          <div className="text-center mb-16">
             <h2 className="font-secondary text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
               Celebrating Regression Hypnosis <em className="italic">success.</em>
             </h2>
@@ -185,8 +187,66 @@ export default function Reviews() {
               Hear what <em className="italic">clients</em> have to say
             </p>
           </div>
-          {/* Three Column Layout with Parallax */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 -mt-24">
+
+          {/* Mobile Layout - Single column, 3 reviews with images only */}
+          <div className="lg:hidden">
+            <div className="space-y-8">
+              {reviewsWithImages.map((review, index) => (
+                <ReviewCard key={index} review={review} idx={index} isMobile={true} />
+              ))}
+            </div>
+            {!showAllMobile && (
+              <div className="text-center mt-12">
+                <button
+                  onClick={() => setShowAllMobile(true)}
+                  className="bg-[#C5441E] text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)]"
+                >
+                  Read More Reviews
+                </button>
+              </div>
+            )}
+            {showAllMobile && (
+              <>
+                <div className="space-y-8 mt-8">
+                  {reviews.slice(3).map((review, index) => (
+                    <ReviewCard key={index + 3} review={review} idx={index + 3} isMobile={true} />
+                  ))}
+                </div>
+                <div className="text-center mt-12">
+                  <button
+                    onClick={() => {
+                      // Calculate current scroll position relative to reviews section
+                      const reviewsSection = document.getElementById('reviews');
+                      if (reviewsSection) {
+                        const reviewsTop = reviewsSection.offsetTop;
+                        const currentScroll = window.scrollY;
+                        const targetScroll = Math.max(reviewsTop - 140, 0); // 140px offset from top
+
+                        // Collapse content first
+                        setShowAllMobile(false);
+
+                        // Use a smooth custom scroll animation
+                        setTimeout(() => {
+                          window.scrollTo({
+                            top: targetScroll,
+                            behavior: 'smooth'
+                          });
+                        }, 50); // Shorter delay for smoother experience
+                      } else {
+                        setShowAllMobile(false);
+                      }
+                    }}
+                    className="bg-[#C5441E] text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)]"
+                  >
+                    Show Less Reviews
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Desktop Layout - Three Column Layout with Parallax */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-12 -mt-8">
             {/* Left Column */}
             <div ref={leftColumnRef} className="space-y-8">
               {leftReviews.map((review, index) => (

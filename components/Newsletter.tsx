@@ -61,22 +61,22 @@ export default function Newsletter() {
 
   return (
     <section id="newsletter" className="py-20" style={{ backgroundColor: '#f7f6f2' }}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] text-center">
         <div className="flex items-center flex-col gap-4 justify-center mb-6">
-          <h2 className="font-secondary text-4xl md:text-5xl font-semibold" style={{ color: '#A32015' }}>
-            Subscribe to the ReTurn Newsletter
-          </h2>
           <div
-            className="w-20 h-20 rounded-full flex items-center justify-center mr-4"
+            className="sm:size-20 size-12 rounded-full flex items-center justify-center mr-4"
             style={{ backgroundColor: '#fcd8b3' }}
           >
-            <svg className="w-12 h-12" style={{ color: '#A32015' }} fill="currentColor" viewBox="0 0 20 20">
+            <svg className="size-8 sm:size-12" style={{ color: '#A32015' }} fill="currentColor" viewBox="0 0 20 20">
               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
               <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
             </svg>
           </div>
+          <h2 className="font-secondary text-2xl sm:text-4xl md:text-5xl font-semibold" style={{ color: '#A32015' }}>
+            Subscribe to the ReTurn Newsletter
+          </h2>
         </div>
-        <p className="font-primary text-xl text-gray-600 mb-8 leading-relaxed">
+        <p className="font-primary text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
           Brain food, subconscious breakthroughs, and the occasional "wait, what?!" moment.
           <br />
           Delivered fresh to your inbox every month.
@@ -102,12 +102,11 @@ export default function Newsletter() {
           />
           <button
             type="submit"
-            className={`w-full px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${
-              isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)]'
-            } text-white`}
+            className={`px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)]'
+              } text-white`}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Subscribing...' : 'Subscribe to Newsletter'}
+            {isSubmitting ? 'Subscribing...' : 'Subscribe'}
           </button>
 
           {/* Status Messages */}

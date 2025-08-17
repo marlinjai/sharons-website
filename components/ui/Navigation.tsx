@@ -12,7 +12,7 @@ export function Navigation() {
     <>
       {/* Main navigation header */}
       <header className="fixed top-8 left-0 right-0 z-50 flex justify-center">
-        <nav className=" w-[--content-max-width] bg-stone-100/50 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
+        <nav className=" w-[--mobile-content-max-width] sm:w-[--content-max-width] mx-auto px-[--content-padding] bg-stone-100/50 backdrop-blur-sm rounded-full py-4 shadow-lg">
           <div className="flex justify-between items-center">
             {/* Logo with orange circle */}
             <Link href="/" className="group">
@@ -31,7 +31,7 @@ export function Navigation() {
       </header>
 
       {/* Mobile Navigation Trigger - positioned as sibling outside stacking context */}
-      <div className="fixed top-[60px] right-8 z-[60] md:hidden">
+      <div className="fixed top-[54px] right-10 sm:right-32 z-[60] md:hidden">
         <div className="bg-stone-100/50 backdrop-blur-sm rounded-full p-2">
           <MobileNavTrigger />
         </div>

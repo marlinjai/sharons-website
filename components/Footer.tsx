@@ -15,7 +15,7 @@ export default function Footer() {
   const homeLink = isHomePage ? '#home' : '/?scrollToHome=true';
 
   return (
-    <footer className="py-16" style={{ backgroundColor: '#f7f6f2' }}>
+    <footer className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-12 lg:px-16 flex flex-col justify-center gap-4">
         {/* Desktop Layout */}
         <div className="hidden md:flex flex-row justify-between">
@@ -213,7 +213,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-300 mt-12 pt-8 text-center">
           <p className="text-gray-500 mb-2 font-primary">© Copyright 2025 ReTurn Regression Hypnosis</p>
-          <p className="text-gray-400 text-sm font-primary">Designed with love • Powered by Next.js</p>
+          <p className="text-gray-400 text-sm font-primary">Designed with love by <a href="https://www.linkedin.com/in/marlin-pohl/" className="text-gray-400 hover:text-gray-900 transition-colors duration-200 font-primary">Marlin Jai Pohl</a></p>
         </div>
       </div>
     </footer>

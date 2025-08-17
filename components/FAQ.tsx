@@ -48,14 +48,14 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="w-full py-32 px-4 flex flex-col items-center bg-white">
-      <div className="max-w-4xl w-full">
+    <section id="faq" className="w-full py-16 sm:py-32 flex flex-col items-center bg-white">
+      <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="font-secondary text-4xl md:text-5xl font-semibold mb-4">
+          <h2 className="font-secondary text-2xl sm:text-4xl md:text-5xl font-semibold mb-4">
             <span style={{ color: '#A32015' }}>Frequently Asked Questions</span>
           </h2>
-          <p className="font-primary text-xl text-gray-600">Common questions about Regression Hypnosis sessions</p>
+          <p className="font-primary text-lg sm:text-xl text-gray-600">Common questions about Regression Hypnosis sessions</p>
         </div>
 
         {/* FAQ Items */}
@@ -66,44 +66,19 @@ export default function FAQ() {
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-8 py-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
               >
-                <h3 className="font-secondary text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
+                <h3 className="font-secondary text-lg sm:text-xl font-semibold text-gray-900 pr-4">{faq.question}</h3>
                 <span className="text-gray-500 text-xl font-light">{openIndex === index ? '−' : '+'}</span>
               </button>
 
               {openIndex === index && (
                 <div className="px-8 pb-6">
                   <div className="border-t border-gray-100 pt-6">
-                    <p className="font-primary text-gray-700 leading-relaxed">{faq.answer}</p>
+                    <p className="font-primary text-gray-700 leading-relaxed text-base sm:text-lg">{faq.answer}</p>
                   </div>
                 </div>
               )}
             </div>
           ))}
-        </div>
-
-        {/* CTA Section */}
-        <div className="text-center mt-16">
-          <p className="font-primary text-lg text-gray-600 mb-6">Still have questions? I'm here to help.</p>
-          <div className="flex justify-center">
-            <a
-              href="#contact"
-              className="inline-flex items-center px-8 py-3 rounded-full bg-[#C5441E] text-white font-primary text-lg hover:bg-[rgb(245,124,0)] transition-colors duration-200 shadow-md"
-              onClick={e => {
-                e.preventDefault();
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  const offset = 100; // Offset to account for header and spacing
-                  const elementPosition = contactSection.offsetTop - offset;
-                  window.scrollTo({
-                    top: elementPosition,
-                    behavior: 'smooth',
-                  });
-                }
-              }}
-            >
-              Get in Touch
-            </a>
-          </div>
         </div>
       </div>
     </section>

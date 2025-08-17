@@ -46,10 +46,9 @@ export default function TheSession() {
   return (
     <section
       id="the-session"
-      className="w-full py-32 px-4 flex flex-col items-center"
-      style={{ backgroundColor: '#f7f6f2' }}
+      className="w-full  pb-24 sm:py-32 px-4 flex flex-col items-center bg-white"
     >
-      <div className="max-w-5xl w-full">
+      <div className="max-w-6xl w-full">
         <h2 className="font-secondary text-3xl md:text-4xl font-semibold text-left mb-4 mt-24">
           <span style={{ color: '#A32015' }}>The Session</span>
         </h2>
@@ -58,52 +57,46 @@ export default function TheSession() {
         </p>
 
         <p className="font-primary text-xl text-left mb-12">Here's how it unfolds:</p>
-        <div className="flex flex-col items-center justify-center gap-4">
-          <div className="flex flex-col lg:flex-row items-start justify-center gap-24 mb-16">
-            {phases.map((phase, idx) => (
-              <div key={idx} className="flex flex-col items-center flex-1 gap-2">
-                <div className="w-[280px] sm:w-[320px] h-[350px] sm:h-[400px] rounded-full overflow-hidden mb-6 flex items-center justify-center mx-auto">
-                  <img src={phase.image} alt={phase.title} className="object-cover w-full h-full rounded-full" />
-                </div>
-                <div className="px-2 flex flex-col items-center">
-                  <div
-                    className="font-secondary text-xl font-semibold mb-2 text-center mx-auto"
-                    style={{ color: '#C93F2F' }}
-                  >
-                    {phase.title}
-                  </div>
-                  <div className="font-primary text-base text-gray-700 mb-4 text-center mx-auto leading-relaxed">
-                    {phase.description}
-                  </div>
-                </div>
-                {/* Investment Info - Only for first oval */}
-                {idx === 0 && (
-                  <div className="mt-16 w-full">
-                    <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <p className="font-secondary text-xl font-semibold mb-4" style={{ color: '#A32015' }}>
-                          A session costs: 450 EUR
-                        </p>
-                        <div className="mt-6">
-                          <SessionInfo />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {/* CTA - Only for second oval */}
-                {idx === 1 && (
-                  <div className="mt-16 w-full flex justify-center">
-                    <BookSession variant="contact" />
-                  </div>
-                )}
-                {/* What's included button and CTA - Only for second oval */}
-                {idx === 1 && <></>}
-                {/* Language Info - Only for third oval */}
-                {idx === 2 && <div className="mt-6 w-full flex justify-end"></div>}
+
+        {/* Grid Layout - Mobile: 1 column, Desktop: 3 columns with 2 rows */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-x-24 lg:gap-y-16">
+          {/* Phase Cards - Grid items 1, 2, 3 */}
+          {phases.map((phase, idx) => (
+            <div key={idx} className="flex flex-col items-center gap-2">
+              <div className="w-[280px] sm:w-[320px] h-[350px] sm:h-[400px] rounded-full overflow-hidden mb-6 flex items-center justify-center mx-auto">
+                <img src={phase.image} alt={phase.title} className="object-cover w-full h-full rounded-full" />
               </div>
-            ))}
+              <div className="px-2 flex flex-col items-center">
+                <div
+                  className="font-secondary text-xl font-semibold mb-2 text-center mx-auto"
+                  style={{ color: '#C93F2F' }}
+                >
+                  {phase.title}
+                </div>
+                <div className="font-primary text-base text-gray-700 mb-4 text-center mx-auto leading-relaxed">
+                  {phase.description}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Investment Info - Grid item 4 (row 2, col 1) */}
+          <div className="flex flex-col items-start gap-4 lg:items-start mt-8 lg:mt-0 justify-self-start">
+            <p className="font-secondary text-xl font-semibold mb-2 sm:mb-4" style={{ color: '#A32015' }}>
+              A session costs: 450 EUR
+            </p>
+            <div className="mt-2 sm:mt-6">
+              <SessionInfo />
+            </div>
           </div>
+
+          {/* CTA Button - Grid item 5 (row 2, col 2 - centered under middle card) */}
+          <div className="flex justify-center items-start mt-2 lg:mt-0 justify-self-start">
+            <BookSession variant="contact" />
+          </div>
+
+          {/* Empty grid item 6 (row 2, col 3) for balance */}
+          <div className="hidden lg:block"></div>
         </div>
       </div>
     </section>
@@ -117,7 +110,7 @@ function SessionInfo() {
     <div className="w-full max-w-md">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 text-gray-700 font-medium text-sm hover:text-black transition"
+        className="flex items-center gap-2 text-gray-700 font-medium text-base hover:text-black transition"
       >
         {open ? '◀' : '▶'} What's Included & Session Info
       </button>
