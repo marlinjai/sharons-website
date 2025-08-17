@@ -36,7 +36,7 @@ export default function PrivacyPolicy() {
           className={`fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 ${isClosing ? 'animate-fadeOut' : 'animate-fadeIn'}`}
         >
           <div
-            className={`bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto ${isClosing ? 'animate-slideOut' : 'animate-slideIn'}`}
+            className={`bg-[url('/images/linnen-bg-seamless.jpg')] bg-cover bg-center rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto ${isClosing ? 'animate-slideOut' : 'animate-slideIn'}`}
           >
             {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b border-gray-200">

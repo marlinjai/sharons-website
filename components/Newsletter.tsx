@@ -81,28 +81,32 @@ export default function Newsletter() {
           <br />
           Delivered fresh to your inbox every month.
         </p>
-        <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto space-y-4">
-          <input
-            type="text"
-            placeholder="Enter your name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
-            required
-            disabled={isSubmitting}
-          />
-          <input
-            type="email"
-            placeholder="Enter your email address"
-            value={newsletter}
-            onChange={e => setNewsletter(e.target.value)}
-            className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
-            required
-            disabled={isSubmitting}
-          />
+        <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto space-y-8">
+          <div className="flex flex-col gap-4">
+
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
+              required
+              disabled={isSubmitting}
+            />
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              value={newsletter}
+              onChange={e => setNewsletter(e.target.value)}
+              className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
+              required
+              disabled={isSubmitting}
+            />
+          </div>
+
           <button
             type="submit"
-            className={`px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)]'
+            className={`px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)] md:mt-8'
               } text-white`}
             disabled={isSubmitting}
           >

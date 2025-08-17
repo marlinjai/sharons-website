@@ -5,7 +5,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="sm:h-screen py-32 md:py-24 bg-white flex items-center justify-center"
+      className="sm:h-screen py-32 md:py-24 bg-[url('/images/linnen-bg-seamless.jpg')] bg-contain bg-center  flex items-center justify-center"
     >
       <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col-reverse md:flex-row items-center justify-center gap-24">
         <div className="text-left flex flex-col items-start md:text-left">
@@ -13,7 +13,7 @@ const About = () => {
             Hello,
           </h4>
           <br />
-          <p className="text-gray-700 text-base md:text-lg mb-6 font-primary">
+          <p className="text-gray-700 text-base md:text-lg 2xl:text-xl mb-6 font-primary">
             I'm <span className="italic">Sharon</span> - certified{' '}
             <span className="italic">hypnotherapy practitioner</span> and full-time nerd for the mysteries of the human
             mind (and everything in between, above, and beyond).
@@ -30,7 +30,7 @@ const About = () => {
             with a witty, fresh approach, because breakthroughs should feel energizing like a zesty mental mic-drop.
           </p>
         </div>
-        <div className=" w-[280px] h-[350px] sm:w-[350px] sm:h-[500px] 2xl:w-[80em] 2xl:h-[40em] relative rounded-full overflow-hidden">
+        <div className=" w-[280px] h-[350px] md:w-[1350px] md:h-[550px] xl:w-[80em] xl:h-[40em] relative rounded-full overflow-hidden">
           <Image src="/images/_98A3529.jpg" alt="Sharon Di Salvo" fill className="object-cover" />
         </div>
       </div>

@@ -70,12 +70,7 @@ export default function Reviews() {
       image: null,
       text: `My experience with Sharon was simply outstanding. I usually find it difficult to relax around others, but from the start, she made me feel safe, comfortable, and cared for.\nHer guidance and patience made the session deeply transformative. I accessed new parts of myself that connected me to a wellspring of wisdom and love, as if I had finally met my own heart and the heart of the universe.\nI recommend this to anyone who wants to connect with the depth of their soul or simply receive loving support. I'm forever grateful to Sharon for creating such a nurturing and transformative space.`,
     },
-    {
-      name: 'Carlo Bortolini',
-      title: 'Founder and Lead Coach',
-      image: null,
-      text: `My experience with Sharon in brief: relaxing, deep, and magical - with a touch of laughter, connection, and a healthy detachment from past experiences.`,
-    },
+
     {
       name: 'Diana W.',
       title: 'hypnotherapist',
@@ -113,7 +108,7 @@ export default function Reviews() {
   };
 
   // ReviewCard component with mobile/desktop aware truncation
-  const ReviewCard = ({ review, idx, isMobile = false }: { review: any; idx: number; isMobile?: boolean }) => {
+  const ReviewCard = ({ review, idx, isMobile = false, isFirstInColumn = false }: { review: any; idx: number; isMobile?: boolean; isFirstInColumn?: boolean }) => {
     // Track if this review is expanded
     const [expanded, setExpanded] = useState(false);
 
@@ -121,6 +116,10 @@ export default function Reviews() {
     const shouldTruncate = () => {
       if (isMobile) {
         return review.text.split(' ').length > 25; // Shorter truncation for mobile
+      }
+      // On desktop, don't truncate the first review in each column
+      if (!isMobile && isFirstInColumn) {
+        return false; // Never truncate first review in each column
       }
       return review.text.split(' ').length > 30; // Longer truncation for desktop
     };
@@ -175,7 +174,7 @@ export default function Reviews() {
 
   return (
     <>
-      <section className="py-32 md:pb-[420px] overflow-hidden" style={{ backgroundColor: '#f7f6f2' }}>
+      <section className="py-32 md:pb-[420px] md:pt-0 overflow-hidden" style={{ backgroundColor: '#f7f6f2' }}>
         <div id="reviews" className="sm:pt-[185px]"></div>
         <div className="max-w-[--content-max-width] mx-auto px-[--content-padding]">
           {/* Header */}
@@ -246,23 +245,23 @@ export default function Reviews() {
           </div>
 
           {/* Desktop Layout - Three Column Layout with Parallax */}
-          <div className="hidden lg:grid lg:grid-cols-3 gap-12 -mt-8">
+          <div className="hidden lg:grid lg:grid-cols-3 gap-12 -mt-32">
             {/* Left Column */}
             <div ref={leftColumnRef} className="space-y-8">
               {leftReviews.map((review, index) => (
-                <ReviewCard key={index} review={review} idx={index * 3} />
+                <ReviewCard key={index} review={review} idx={index * 3} isFirstInColumn={index === 0} />
               ))}
             </div>
             {/* Center Column */}
             <div ref={centerColumnRef} className="space-y-8 lg:mt-16">
               {centerReviews.map((review, index) => (
-                <ReviewCard key={index} review={review} idx={index * 3 + 1} />
+                <ReviewCard key={index} review={review} idx={index * 3 + 1} isFirstInColumn={index === 0} />
               ))}
             </div>
             {/* Right Column */}
             <div ref={rightColumnRef} className="space-y-8 lg:mt-8">
               {rightReviews.map((review, index) => (
-                <ReviewCard key={index} review={review} idx={index * 3 + 2} />
+                <ReviewCard key={index} review={review} idx={index * 3 + 2} isFirstInColumn={index === 0} />
               ))}
             </div>
           </div>
