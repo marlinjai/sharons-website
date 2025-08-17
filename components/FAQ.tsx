@@ -55,7 +55,7 @@ export default function FAQ() {
           <h2 className="font-secondary text-2xl sm:text-4xl md:text-5xl font-semibold mb-4">
             <span style={{ color: '#A32015' }}>Frequently Asked Questions</span>
           </h2>
-          <p className="font-primary text-lg sm:text-xl text-gray-600">Common questions about Regression Hypnosis sessions</p>
+          <p className="font-primary text-lg sm:text-xl text-gray-600">Common questions about Hypnosis</p>
         </div>
 
         {/* FAQ Items */}

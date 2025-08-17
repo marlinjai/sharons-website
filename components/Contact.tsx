@@ -29,9 +29,9 @@ export default function Contact() {
   return (
     <section className="pb-16 pt-2 md:py-16 bg-[#f7f6f2]">
       <div id="contact" className="-mt-[140px] mb-[140px] h-16"></div>
-      <div className="max-w-[--content-max-width] md:max-w-[90vw] mx-auto px-[--content-padding]">
+      <div className="max-w-[--content-max-width] md:max-w-[90vw] mx-auto md:px-[--content-padding]">
         {/* Header Section */}
-        <div className="text-center mb-24">
+        <div className="text-center mb-12 md:mb-24">
           <h2 className="font-secondary text-2xl sm:text-4xl md:text-5xl font-semibold mb-4" style={{ color: '#A32015' }}>
             Get in Touch
           </h2>

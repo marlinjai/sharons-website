@@ -19,18 +19,20 @@ export default function Hero() {
           className="object-cover w-full h-full"
           priority
         />
-        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
-
       {/* Content */}
-      <div className="relative h-full z-20 flex items-end justify-center sm:pb-[36vw] lg:pb-[9vh] pb-[20vh] pt-0">
-        <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col lg:flex-row items-end gap-24">
-          <div className="max-w-2xl 2xl:max-w-full text-left space-y-2 md:space-y-6">
-            <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
-              Regression Hypnosis
-            </h1>
-            <div className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
-              For the <TypingAnimation words={['Curious', 'Brave', 'Ready']} className="italic" duration={150} />
+
+      <div className="relative h-full z-20 flex items-end justify-center sm:pb-[16vw] lg:pb-[9vh] pb-[20vh] pt-0">
+        <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col lg:flex-row items-end gap-24 pl-8 min-[380px]:pl-0 md:pl-8">
+          <div className="max-w-2xl 2xl:max-w-full text-left space-y-4 md:space-y-6">
+            <div className="flex flex-col gap-2">
+              <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
+                Hypnosis
+              </h1>
+              <div className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
+                For the <TypingAnimation words={['Curious', 'Brave', 'Ready']} className="italic" duration={150} />
+              </div>
             </div>
             <p className="text-lg md:text-xl lg:text-2xl 2xl:text-3xl text-white drop-shadow-md font-primary">
               Irresistibly drawn to the unknown?

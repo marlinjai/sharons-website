@@ -40,7 +40,7 @@ export function DesktopNav() {
   };
 
   return (
-    <div className="hidden md:flex items-center space-x-6 text-stone-900 text-lg tracking-wider font-primary">
+    <div className="hidden lg:flex items-center space-x-6 text-stone-900 text-lg tracking-wider font-primary">
       {/* Home Link */}
       <NavLink href="/">home</NavLink>
 

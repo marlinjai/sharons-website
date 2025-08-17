@@ -25,13 +25,13 @@ export function Navigation() {
             <DesktopNav />
 
             {/* Spacer for mobile trigger button positioning */}
-            <div className="md:hidden w-10 h-10" />
+            <div className="lg:hidden w-10 h-10" />
           </div>
         </nav>
       </header>
 
       {/* Mobile Navigation Trigger - positioned as sibling outside stacking context */}
-      <div className="fixed top-[54px] right-10 sm:right-32 z-[60] md:hidden">
+      <div className="fixed top-[54px] right-10 sm:right-32 md:right-40 z-[60] lg:hidden">
         <div className="bg-stone-100/50 backdrop-blur-sm rounded-full p-2">
           <MobileNavTrigger />
         </div>

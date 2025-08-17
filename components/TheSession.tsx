@@ -59,7 +59,7 @@ export default function TheSession() {
         <p className="font-primary text-xl text-left mb-12">Here's how it unfolds:</p>
 
         {/* Grid Layout - Mobile: 1 column, Desktop: 3 columns with 2 rows */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-x-24 lg:gap-y-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-x-24 lg:gap-y-16">
           {/* Phase Cards - Grid items 1, 2, 3 */}
           {phases.map((phase, idx) => (
             <div key={idx} className="flex flex-col items-center gap-2">
@@ -68,12 +68,12 @@ export default function TheSession() {
               </div>
               <div className="px-2 flex flex-col items-center">
                 <div
-                  className="font-secondary text-xl font-semibold mb-2 text-center mx-auto"
+                  className="font-secondary text-2xl font-semibold mb-2 text-center mx-auto"
                   style={{ color: '#C93F2F' }}
                 >
                   {phase.title}
                 </div>
-                <div className="font-primary text-base text-gray-700 mb-4 text-center mx-auto leading-relaxed">
+                <div className="font-primary text-lg‚ 2xl:text-xl text-gray-700 mb-4 text-center mx-auto leading-relaxed">
                   {phase.description}
                 </div>
               </div>
@@ -81,7 +81,7 @@ export default function TheSession() {
           ))}
 
           {/* Investment Info - Grid item 4 (row 2, col 1) */}
-          <div className="flex flex-col items-start gap-4 lg:items-start mt-8 lg:mt-0 justify-self-start">
+          <div className="flex flex-col items-start gap-4 lg:items-start -mt-4 md:mt-8 lg:mt-0 justify-self-start">
             <p className="font-secondary text-xl font-semibold mb-2 sm:mb-4" style={{ color: '#A32015' }}>
               A session costs: 450 EUR
             </p>
