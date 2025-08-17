@@ -172,7 +172,11 @@ export function MobileNavOverlay() {
             exit="closed"
           >
             <motion.nav
-              className="flex flex-col items-center space-y-8 text-2xl"
+              className="flex flex-col items-center mt-4"
+              style={{
+                fontSize: 'var(--mobile-nav-font-size)',
+                gap: 'var(--mobile-nav-gap)'
+              }}
               variants={containerVariants}
               initial="closed"
               animate="open"
@@ -180,21 +184,21 @@ export function MobileNavOverlay() {
             >
               {/* Home link */}
               <motion.div variants={menuItemVariants}>
-                <NavLink href="/" variant="mobile" className="text-2xl">
+                <NavLink href="/" variant="mobile">
                   home
                 </NavLink>
               </motion.div>
 
               {/* The Session link */}
               <motion.div variants={menuItemVariants}>
-                <NavLink href="#the-session" variant="mobile" className="text-2xl">
+                <NavLink href="#the-session" variant="mobile">
                   the session
                 </NavLink>
               </motion.div>
 
               {/* About link */}
               <motion.div variants={menuItemVariants}>
-                <NavLink href="#about" variant="mobile" className="text-2xl">
+                <NavLink href="#about" variant="mobile">
                   about
                 </NavLink>
               </motion.div>
@@ -203,7 +207,8 @@ export function MobileNavOverlay() {
               <motion.div variants={menuItemVariants} className="flex flex-col items-center">
                 <button
                   onClick={() => setBlogDropdownOpen(!isBlogDropdownOpen)}
-                  className="text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary text-2xl flex items-center gap-2 hover:text-[#de640d]"
+                  className="text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary flex items-center gap-2 hover:text-[#de640d]"
+                  style={{ fontSize: 'var(--mobile-nav-font-size)' }}
                   aria-expanded={isBlogDropdownOpen}
                 >
                   blog
@@ -229,7 +234,7 @@ export function MobileNavOverlay() {
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <NavLink href="#newsletter" variant="mobile" className="text-xl">
+                      <NavLink href="#newsletter" variant="mobile">
                         newsletter
                       </NavLink>
                     </motion.div>
@@ -245,7 +250,7 @@ export function MobileNavOverlay() {
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <NavLink href="/blog" variant="mobile" className="text-xl">
+                      <NavLink href="/blog" variant="mobile">
                         All Posts
                       </NavLink>
                     </motion.div>
@@ -255,24 +260,19 @@ export function MobileNavOverlay() {
 
               {/* Contact link */}
               <motion.div variants={menuItemVariants}>
-                <NavLink href="#contact" variant="mobile" className="text-2xl">
+                <NavLink href="#contact" variant="mobile">
                   contact
                 </NavLink>
               </motion.div>
 
               {/* Reviews link */}
               <motion.div variants={menuItemVariants}>
-                <NavLink href="#reviews" variant="mobile" className="text-2xl">
+                <NavLink href="#reviews" variant="mobile">
                   reviews
                 </NavLink>
               </motion.div>
 
-              {/* CTA Button */}
-              <motion.div variants={menuItemVariants} className="mt-8">
-                <NavLink href="#contact" variant="mobileCta" className="text-xl">
-                  Let's Talk
-                </NavLink>
-              </motion.div>
+
             </motion.nav>
           </motion.div>
         </div>

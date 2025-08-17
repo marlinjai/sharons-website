@@ -4,6 +4,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 interface BlogHeaderProps {
   backgroundImage: string;
@@ -67,9 +68,9 @@ export default function BlogHeader({
               {/* Back link */}
               <Link
                 href={backLink.href}
-                className="inline-flex items-center gap-2 font-primary text-sm md:text-base font-semibold transition-colors duration-200 mb-8 text-white hover:text-gray-200"
+                className="inline-flex items-center gap-2 font-primary text-base md:text-2xl font-semibold transition-colors duration-200 mb-8 text-white hover:text-gray-200"
               >
-                &lt; {backLink.text}
+                <FaArrowLeftLong className="size-4 md:size-6" />
               </Link>
 
               {/* Logo + content */}

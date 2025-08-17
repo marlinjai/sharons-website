@@ -27,6 +27,12 @@
   --content-max-width: clamp(20rem, 72vw, 100rem);
   --mobile-content-max-width: clamp(18rem, 90vw, 100rem);
   --content-padding: clamp(1rem, 4vw, 3rem);
+
+  /* Mobile Navigation Font Size - Responsive */
+  --mobile-nav-font-size: clamp(1.25rem, 1.26rem + 0.19vw, 1.763rem); /* text-xl → text-2xl */
+
+  /* Mobile Navigation Spacing - Responsive */
+  --mobile-nav-gap: 2rem; /* Default spacing */
 }
 
 /* Ensure proper body and html structure */
@@ -234,4 +240,11 @@ html {
 
 .animate-slideOut {
   animation: slideOut 0.3s ease-in;
+}
+
+/* Mobile Navigation Spacing for Small Devices */
+@media (max-width: 380px) {
+  :root {
+    --mobile-nav-gap: 1.5rem; /* Tighter spacing for small devices */
+  }
 }
