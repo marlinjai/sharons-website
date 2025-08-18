@@ -1,3 +1,5 @@
+"use client";
+
 /* First make sure that you have installed the package */
 
 /* If you are using yarn */
