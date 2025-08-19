@@ -73,30 +73,20 @@ export default function TheSession() {
                 >
                   {phase.title}
                 </div>
-                <div className="font-primary text-lg‚ 2xl:text-xl text-gray-700 mb-4 text-center mx-auto leading-relaxed">
+                <div className="font-primary text-lg 2xl:text-xl text-gray-700 mb-4 text-center mx-auto leading-relaxed">
                   {phase.description}
                 </div>
               </div>
             </div>
           ))}
 
-          {/* Investment Info - Grid item 4 (row 2, col 1) */}
-          <div className="flex flex-col items-start gap-4 lg:items-start -mt-4 md:mt-8 lg:mt-0 justify-self-start">
-            <p className="font-secondary text-xl font-semibold mb-2 sm:mb-4" style={{ color: '#A32015' }}>
-              A session costs: 450 EUR
-            </p>
+          {/* CTA Button - Grid item 5 (spans entire second row) */}
+          <div className="lg:col-span-3 flex flex-col justify-center items-center mt-2 lg:gap-4">
+            <BookSession variant="contact" />
             <div className="mt-2 sm:mt-6">
               <SessionInfo />
             </div>
           </div>
-
-          {/* CTA Button - Grid item 5 (row 2, col 2 - centered under middle card) */}
-          <div className="flex justify-center items-start mt-2 lg:mt-0 justify-self-start">
-            <BookSession variant="contact" />
-          </div>
-
-          {/* Empty grid item 6 (row 2, col 3) for balance */}
-          <div className="hidden lg:block"></div>
         </div>
       </div>
     </section>
@@ -107,38 +97,38 @@ function SessionInfo() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-[--content-max-width] flex flex-col items-center justify-center gap-4">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 text-gray-700 font-medium text-base hover:text-black transition"
+        className="flex items-start flex-row gap-2 text-gray-700 font-medium text-lg hover:text-[#A32015] transition justify-center"
       >
-        {open ? '◀' : '▶'} What's Included & Session Info
+        Session Cost & What's Included
       </button>
 
       {open && (
-        <div className="mt-4 space-y-4 text-[15px] text-gray-900">
-          {/* Section: What's Included */}
-          <div>
-            <p className="font-semibold mb-3">Your session includes:</p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>2h conversation to explore your story</li>
-              <li>2h guided regression (theta hypnosis)</li>
-              <li>1h integration & reflection</li>
-              <li>Full session audio recording</li>
-              <li>30 min follow-up session</li>
-            </ul>
-          </div>
+        <>
+          <div className="mt-4 text-lg text-gray-900 flex flex-row items-center justify-between w-full text-center">
+            {/* Section: What's Included */}
+            <div className="flex-1">
+              <p className="font-semibold mb-3">Your session includes:</p>
+            </div>
+            <div className="flex-1 flex items-start justify-center">
+              <ul className="list-disc list-inside space-y-2 flex-1">
+                <li>Full session audio recording</li>
+                <li>30 min follow-up session</li>
+              </ul>
+            </div>
 
-          {/* Section: Languages */}
-          <div className="pt-2">
-            <p style={{ color: '#A32015' }}>Sessions are held in English or Italian.</p>
+            {/* Section: Languages */}
+            <div className="pt-2 flex-1">
+              <p style={{ color: '#A32015' }}>Sessions are held in English or Italian.</p>
+            </div>
           </div>
-
           {/* Section: Note */}
-          <div className="text-sm text-gray-600 leading-snug pt-2">
+          <div className="text-base text-gray-600 leading-snug mt-8">
             <strong>Note:</strong> A €50 non-refundable deposit (deducted from the session fee) secures your spot.
           </div>
-        </div>
+        </>
       )}
     </div>
   );

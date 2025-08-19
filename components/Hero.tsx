@@ -7,7 +7,7 @@ import BookSession from './BookSession';
 
 export default function Hero() {
   return (
-    <section className="relative h-[90vh] min-h-[600px] md:h-screen w-full bg-black text-white overflow-hidden">
+    <section className="relative h-[100vh] min-h-[600px] md:h-screen w-full bg-black text-white overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 z-0 w-full h-full">
         <Image
@@ -31,7 +31,7 @@ export default function Hero() {
                 Hypnosis
               </h1>
               <div className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
-                For the <TypingAnimation words={['Curious', 'Brave', 'Ready']} className="italic" duration={150} />
+                For the <TypingAnimation words={['Curious', 'Brave', 'Ready']} duration={100} />
               </div>
             </div>
             <p className="text-lg md:text-xl lg:text-2xl 2xl:text-3xl text-white drop-shadow-md font-primary">
