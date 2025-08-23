@@ -24,7 +24,7 @@ export default function BookSession({ variant = 'hero', className }: BookSession
         theme: 'light',
         cssVarsPerTheme: {
           light: {
-            'cal-brand': '#c5441e',
+            'cal-brand': '#c5441f',
             'cal-bg-emphasis': '#fcd8b3',
             'cal-brand-text': '#ffffff',
             'cal-bg': '#ffffff',
@@ -44,14 +44,14 @@ export default function BookSession({ variant = 'hero', className }: BookSession
   // Button styles based on Hero and Contact sections
   const getButtonStyles = () => {
     if (variant === 'contact') {
-      // Orange background with white text (like Contact section)
-      return 'inline-block bg-[#C5441E] text-white px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)] hover:text-white text-lg md:text-lg 2xl:text-2xl';
+      // Burgundy background with white text (like Contact section)
+      return 'inline-block bg-[--button-background-color-primary] text-white px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[--button-hover-background-color-primary] hover:text-white text-lg md:text-lg 2xl:text-2xl';
     } else if (variant === 'nav') {
-      // Orange background with white text (like Contact section)
-      return 'inline-block bg-[#C5441E] text-white px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)] hover:text-whitetext-lg md:text-lg';
+      // Burgundy background with white text (like nav section)
+      return 'inline-block bg-[--button-background-color-primary] text-white px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[--button-hover-background-color-primary] hover:text-white text-lg md:text-lg';
     } else {
-      // White background with black text (like Hero section)
-      return 'inline-block bg-white text-black px-6 py-3 rounded-full text-lg shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)] hover:text-white';
+      // Burgundy background with white text (like Hero section)
+      return 'inline-block bg-[--button-background-color-primary] text-white px-6 py-3 rounded-full text-lg shadow-lg transition-colors duration-200 hover:bg-[--button-hover-background-color-primary] hover:text-white';
     }
   };
 

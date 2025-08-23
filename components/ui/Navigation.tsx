@@ -54,6 +54,7 @@ export function Navigation() {
         className={`fixed left-0 right-0 z-50 flex justify-center transition-transform duration-300 ease-in-out ${isHeaderVisible ? 'translate-y-8' : '-translate-y-full'
           }`}
       >
+        {/* Logo */}
         <nav className="w-[--mobile-content-max-width] sm:w-[--content-max-width] mx-auto px-[--content-padding] bg-stone-100/50 backdrop-blur-sm rounded-full py-3 shadow-lg">
           <div className="flex justify-between items-center">
             {/* Logo with orange circle */}

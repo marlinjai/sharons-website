@@ -11,12 +11,42 @@ import BookSession from '../BookSession';
 export function DesktopNav() {
   const { isSessionDropdownOpen, isBlogDropdownOpen, setSessionDropdownOpen, setBlogDropdownOpen, isOnHero } = useNavigation();
 
-  const sessionDropdownRef = useRef<HTMLDivElement>(null);
-  const blogDropdownRef = useRef<HTMLDivElement>(null);
+  // Define CSS variable classes based on context
+  const navLinkBaseClass = isOnHero
+    ? 'text-[--nav-link-color-hero]'
+    : 'text-[--nav-link-color]';
 
-  // Get context-aware hover color for dropdown buttons
-  const getHoverColor = () => {
-    return isOnHero ? 'hover:text-[#E7E5D8]' : 'hover:text-[#de640d]';
+  const navLinkHoverClass = isOnHero
+    ? 'hover:text-[--nav-link-hover-color-hero]'
+    : 'hover:text-[--nav-link-hover-color]';
+
+  const dropdownLinkClass = isOnHero
+    ? 'text-[--nav-link-dropdown-color-hero]'
+    : 'text-[--nav-link-dropdown-color]';
+
+  const dropdownLinkHoverClass = isOnHero
+    ? 'hover:text-[--nav-link-dropdown-hover-color-hero]'
+    : 'hover:text-[--nav-link-dropdown-hover-color]';
+
+  const dropdownBgClass = isOnHero
+    ? 'bg-[--nav-link-dropdown-background-color-hero]'
+    : 'bg-[--nav-link-dropdown-background-color]';
+
+  const dropdownBgHoverClass = isOnHero
+    ? 'hover:bg-[--nav-link-dropdown-background-hover-color-hero]'
+    : 'hover:bg-[--nav-link-dropdown-background-hover-color]';
+
+  // Helper functions to combine classes
+  const getNavLinkColor = () => {
+    return `${navLinkBaseClass} ${navLinkHoverClass}`;
+  };
+
+  const getNavLinkDropdownColor = () => {
+    return `${dropdownLinkClass} ${dropdownLinkHoverClass}`;
+  };
+
+  const getNavLinkDropdownBackground = () => {
+    return `${dropdownBgClass} ${dropdownBgHoverClass}`;
   };
 
   // Dropdown animation variants
@@ -40,28 +70,35 @@ export function DesktopNav() {
   };
 
   return (
-    <div className="hidden lg:flex items-center space-x-6 text-stone-900 text-lg tracking-wider font-primary">
+    <div className={`hidden lg:flex items-center space-x-6 ${getNavLinkColor()} text-lg tracking-wider font-primary`}>
       {/* Home Link */}
       <NavLink href="/">home</NavLink>
 
       {/* The Session Dropdown */}
       <div
         className="relative"
-        ref={sessionDropdownRef}
+        data-dropdown-id="session"
         onMouseEnter={() => setSessionDropdownOpen(true)}
         onMouseLeave={() => setSessionDropdownOpen(false)}
       >
-        <div className={`transition-colors duration-200 flex items-center gap-1 font-primary ${getHoverColor()}`}>
-          <NavLink href="#the-session">the session</NavLink>
+        <div
+          className={`transition-colors duration-200 flex items-center gap-1 font-primary cursor-pointer ${navLinkBaseClass} ${navLinkHoverClass}`}
+          onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
+          role="button"
+          aria-expanded={isSessionDropdownOpen}
+          aria-haspopup="true"
+        >
+          <span className={isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}>
+            the session
+          </span>
           <motion.svg
-            className="w-4 h-4 ml-1 cursor-pointer"
+            className={`w-4 h-4 ml-1 ${isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}`}
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             viewBox="0 0 24 24"
             animate={{ rotate: isSessionDropdownOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
-            onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </motion.svg>
@@ -75,17 +112,22 @@ export function DesktopNav() {
               initial="closed"
               animate="open"
               exit="closed"
+              role="menu"
             >
-              <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+              <div className={`${getNavLinkDropdownBackground()} rounded-xl shadow-lg border border-gray-100 overflow-hidden`}>
                 <NavLink
                   href="#reviews"
-                  className="block px-4 py-2 text-stone-900 font-primary hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200"
+                  variant="dropdown"
+                  className={`font-primary transition-colors duration-200 ${getNavLinkDropdownColor()}`}
+                  role="menuitem"
                 >
                   reviews
                 </NavLink>
                 <NavLink
                   href="#faq"
-                  className="block px-4 py-2 text-stone-900 font-primary hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200"
+                  variant="dropdown"
+                  className={`font-primary transition-colors duration-200 ${getNavLinkDropdownColor()}`}
+                  role="menuitem"
                 >
                   FAQ
                 </NavLink>
@@ -104,21 +146,28 @@ export function DesktopNav() {
       {/* Blog Dropdown */}
       <div
         className="relative"
-        ref={blogDropdownRef}
+        data-dropdown-id="blog"
         onMouseEnter={() => setBlogDropdownOpen(true)}
         onMouseLeave={() => setBlogDropdownOpen(false)}
       >
-        <div className={`transition-colors duration-200 flex items-center gap-1 font-primary ${getHoverColor()}`}>
-          <NavLink href="/blog">blog</NavLink>
+        <div
+          className={`transition-colors duration-200 flex items-center gap-1 font-primary cursor-pointer ${navLinkBaseClass} ${navLinkHoverClass}`}
+          onClick={() => setBlogDropdownOpen(!isBlogDropdownOpen)}
+          role="button"
+          aria-expanded={isBlogDropdownOpen}
+          aria-haspopup="true"
+        >
+          <span className={isBlogDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}>
+            blog
+          </span>
           <motion.svg
-            className="w-4 h-4 ml-1 cursor-pointer"
+            className={`w-4 h-4 ml-1 ${isBlogDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}`}
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             viewBox="0 0 24 24"
             animate={{ rotate: isBlogDropdownOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
-            onClick={() => setBlogDropdownOpen(!isBlogDropdownOpen)}
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </motion.svg>
@@ -132,17 +181,22 @@ export function DesktopNav() {
               initial="closed"
               animate="open"
               exit="closed"
+              role="menu"
             >
-              <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+              <div className={`${getNavLinkDropdownBackground()} rounded-xl shadow-lg border border-gray-100 overflow-hidden`}>
                 <NavLink
                   href="/blog"
-                  className="block px-4 py-2 text-stone-900 font-primary hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200"
+                  variant="dropdown"
+                  className={`font-primary transition-colors duration-200 ${getNavLinkDropdownColor()}`}
+                  role="menuitem"
                 >
                   all posts
                 </NavLink>
                 <NavLink
                   href="#newsletter"
-                  className="block px-4 py-2 text-stone-900 font-primary hover:bg-[rgb(245,124,0)] hover:text-white transition-colors duration-200"
+                  variant="dropdown"
+                  className={`font-primary transition-colors duration-200 ${getNavLinkDropdownColor()}`}
+                  role="menuitem"
                 >
                   newsletter
                 </NavLink>

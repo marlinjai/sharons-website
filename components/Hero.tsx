@@ -39,7 +39,9 @@ export default function Hero() {
               <br />
               This is more than a journey - it's the Adventure of a Lifetime.
             </p>
-            <BookSession />
+            <div className="[&>button]:bg-white [&>button]:text-black [&>button]:hover:bg-[#c5441f] [&>button]:hover:text-white [&>button]:transition-colors [&>button]:duration-200">
+              <BookSession />
+            </div>
           </div>
 
           {/* Circular image */}
