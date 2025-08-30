@@ -45,13 +45,13 @@ export default function BookSession({ variant = 'hero', className }: BookSession
   const getButtonStyles = () => {
     if (variant === 'contact') {
       // Burgundy background with white text (like Contact section)
-      return 'inline-block bg-[--button-background-color-primary] text-white px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[--button-hover-background-color-primary] hover:text-white text-lg md:text-lg 2xl:text-2xl';
+      return 'inline-block bg-btn-primary-bg text-btn-primary-text px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg-hover hover:text-btn-primary-text-hover text-lg md:text-lg 2xl:text-2xl';
     } else if (variant === 'nav') {
       // Burgundy background with off-white text (like nav section)
-      return 'inline-block bg-[--button-background-color-primary] text-[#FEFEFE] px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[--button-hover-background-color-primary] hover:text-white text-lg md:text-lg';
+      return 'inline-block bg-btn-primary-bg text-brand-off-black px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg-hover hover:text-btn-primary-text-hover text-lg md:text-lg';
     } else {
       // Hero variant: White background with dark text, primary color on hover
-      return 'inline-block bg-[#FEFEFE] text-[#212121] px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[#c5441f] hover:text-white';
+      return 'inline-block bg-brand-off-black text-text-dark px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg hover:text-btn-primary-text-hover';
     }
   };
 

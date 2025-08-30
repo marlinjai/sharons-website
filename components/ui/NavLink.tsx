@@ -28,13 +28,13 @@ export function NavLink({ href, children, className = '', onClick, variant = 'de
   const getColor = () => {
     if (variant === 'dropdown') {
       return isOnHero
-        ? 'text-[--nav-link-dropdown-color-hero] hover:text-[--nav-link-dropdown-hover-color-hero]'
-        : 'text-[--nav-link-dropdown-color] hover:text-[--nav-link-dropdown-hover-color]';
+        ? 'text-nav-dropdown-text hover:text-nav-dropdown-text-hover'
+        : 'text-nav-dropdown-text hover:text-nav-dropdown-text-hover';
     }
 
     return isOnHero
-      ? 'text-[--nav-link-color-hero] hover:text-[--nav-link-hover-color-hero]'
-      : 'text-[--nav-link-color] hover:text-[--nav-link-hover-color]';
+      ? 'text-nav-text hover:text-nav-text-hover'
+      : 'text-nav-text hover:text-nav-text-hover';
   };
 
   // Base styles for all variants - includes mobile tap highlight removal
@@ -44,10 +44,10 @@ export function NavLink({ href, children, className = '', onClick, variant = 'de
   // Variant-specific styles
   const variantStyles = {
     default: getColor(),
-    dropdown: `block px-4 py-2 active:text-[#e15023]`,
-    cta: 'ml-4 bg-[#c5441f] text-white px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[#e15023] hover:text-white active:bg-[#e15023] active:text-white',
-    mobile: `text-[var(--nav-link-color)] px-4 py-2 rounded-full hover:text-[var(--nav-link-hover-color)]`,
-    mobileCta: 'px-6 py-4 rounded-full tracking-normal shadow-md bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-light)] active:bg-[#e15023]',
+    dropdown: `block px-4 py-2 active:text-brand-primary-light`,
+    cta: 'ml-4 bg-btn-primary-bg text-btn-primary-text px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg-hover hover:text-btn-primary-text-hover ',
+    mobile: `text-nav-text px-4 py-2 rounded-full hover:text-nav-text-hover`,
+    mobileCta: 'px-6 py-4 rounded-full tracking-normal shadow-md bg-btn-primary-bg text-btn-primary-text hover:bg-btn-primary-bg-hover',
   };
 
   // Combine all styles

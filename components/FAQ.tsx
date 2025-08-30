@@ -57,10 +57,10 @@ export default function FAQ() {
       <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="font-secondary text-3xl md:text-4xl font-semibold mb-4" style={{ color: '#c5441f' }}>
+          <h2 className="font-secondary text-3xl md:text-4xl font-semibold mb-4 text-text-primary">
             Frequently Asked Questions
           </h2>
-          <p className="font-primary text-lg sm:text-xl text-[#374152]">Common questions about Hypnosis</p>
+          <p className="font-primary text-lg sm:text-xl text-text-gray">Common questions about Hypnosis</p>
         </div>
 
         {/* FAQ Items */}
@@ -74,14 +74,14 @@ export default function FAQ() {
                     onClick={() => toggleFAQ(index)}
                     className="w-full px-8 py-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
                   >
-                    <h3 className="font-secondary text-lg sm:text-xl font-semibold text-[var(--color-black)] pr-4">{faq.question}</h3>
+                    <h3 className="font-secondary text-lg sm:text-xl font-semibold text-text-dark pr-4">{faq.question}</h3>
                     <span className="text-gray-500 text-xl font-light">{openIndex === index ? '−' : '+'}</span>
                   </button>
 
                   {openIndex === index && (
                     <div className="px-8 pb-6">
                       <div className="border-t border-gray-100 pt-6">
-                        <p className="font-primary text-[#374152] leading-relaxed text-base sm:text-lg">{faq.answer}</p>
+                        <p className="font-primary text-text-gray leading-relaxed text-base sm:text-lg">{faq.answer}</p>
                       </div>
                     </div>
                   )}
@@ -93,7 +93,7 @@ export default function FAQ() {
               <div className="text-center mt-12">
                 <button
                   onClick={() => setShowAllMobile(true)}
-                  className="bg-[#c5441f] text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[#e15023]"
+                  className="bg-btn-primary-bg text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg-hover"
                 >
                   More FAQs
                 </button>
@@ -109,14 +109,14 @@ export default function FAQ() {
                         onClick={() => toggleFAQ(index + 3)}
                         className="w-full px-8 py-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
                       >
-                        <h3 className="font-secondary text-lg sm:text-xl font-semibold text-[var(--color-black)] pr-4">{faq.question}</h3>
+                        <h3 className="font-secondary text-lg sm:text-xl font-semibold text-text-dark pr-4">{faq.question}</h3>
                         <span className="text-gray-500 text-xl font-light">{openIndex === index + 3 ? '−' : '+'}</span>
                       </button>
 
                       {openIndex === index + 3 && (
                         <div className="px-8 pb-6">
                           <div className="border-t border-gray-100 pt-6">
-                            <p className="font-primary text-[#374152] leading-relaxed text-base sm:text-lg">{faq.answer}</p>
+                            <p className="font-primary text-text-gray leading-relaxed text-base sm:text-lg">{faq.answer}</p>
                           </div>
                         </div>
                       )}
@@ -145,7 +145,7 @@ export default function FAQ() {
                         }, 100); // Small delay to ensure DOM has updated
                       }
                     }}
-                    className="bg-[#c5441f] text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[#e15023]"
+                    className="bg-btn-primary-bg text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg-hover"
                   >
                     Less FAQs
                   </button>
@@ -162,14 +162,14 @@ export default function FAQ() {
                   onClick={() => toggleFAQ(index)}
                   className="w-full px-8 py-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
                 >
-                  <h3 className="font-secondary text-lg sm:text-xl font-semibold text-[var(--color-black)] pr-4">{faq.question}</h3>
+                  <h3 className="font-secondary text-lg sm:text-xl font-semibold text-text-dark pr-4">{faq.question}</h3>
                   <span className="text-gray-500 text-xl font-light">{openIndex === index ? '−' : '+'}</span>
                 </button>
 
                 {openIndex === index && (
                   <div className="px-8 pb-6">
                     <div className="border-t border-gray-100 pt-6">
-                      <p className="font-primary text-[#374152] leading-relaxed text-base sm:text-lg">{faq.answer}</p>
+                      <p className="font-primary text-text-gray leading-relaxed text-base sm:text-lg">{faq.answer}</p>
                     </div>
                   </div>
                 )}

@@ -222,7 +222,7 @@ export function MobileNavOverlay() {
               <motion.div variants={menuItemVariants} className="flex flex-col items-center">
                 <button
                   onClick={() => setBlogDropdownOpen(!isBlogDropdownOpen)}
-                  className="text-[var(--nav-link-color)] transition-colors duration-200 px-4 py-2 rounded-full font-primary flex items-center gap-2 hover:text-[var(--nav-link-hover-color)] relative"
+                  className="text-nav-text transition-colors duration-200 px-4 py-2 rounded-full font-primary flex items-center gap-2 hover:text-nav-text-hover relative"
                   style={{ fontSize: 'var(--mobile-nav-font-size)' }}
                   aria-expanded={isBlogDropdownOpen}
                 >

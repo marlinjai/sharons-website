@@ -8,7 +8,56 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#c5441f',
+        // Base Brand Colors
+        'brand-primary': '#c5441f',
+        'brand-primary-light': '#e15023',
+        'brand-white': '#FFFFFF',
+        'brand-off-white': '#f7f6f2',
+        'brand-gray-light': '#BCBCBC',
+        'brand-gray': '#707785',
+        'brand-gray-dark': '#374152',
+        'brand-black': '#212121',
+        'brand-off-black': '#FEFEFE',
+
+        // Text Colors (semantic naming)
+        'text-primary': '#c5441f',
+        'text-light': '#FFFFFF',
+        'text-dark': '#212121',
+        'text-gray': '#374152',
+        'text-gray-light': '#707785',
+        'text-muted': '#BCBCBC',
+
+        // Background Colors (semantic naming)
+        'bg-primary': '#FFFFFF',
+        'bg-secondary': '#f7f6f2',
+        'bg-off-white': '#FEFEFE',
+        'bg-gradient-start': '#c5441f',
+        'bg-gradient-end': '#C9A89E',
+
+        // Button Colors
+        'btn-primary-bg': '#c5441f',
+        'btn-primary-bg-hover': '#e15023',
+        'btn-primary-text': '#FFFFFF',
+        'btn-primary-text-hover': '#FFFFFF',
+        'btn-secondary-bg': '#FFFFFF',
+        'btn-secondary-bg-hover': '#c5441f',
+        'btn-secondary-text': '#212121',
+        'btn-secondary-text-hover': '#FFFFFF',
+
+        // Navigation Colors
+        'nav-text': '#212121',
+        'nav-text-hover': '#c5441f',
+        'nav-dropdown-bg': '#FFFFFF',
+        'nav-dropdown-text': '#212121',
+        'nav-dropdown-text-hover': '#c5441f',
+
+        // Border Colors
+        'border-primary': '#c5441f',
+        'border-accent': '#e15023',
+        'border-light': '#BCBCBC',
+
+        // Blog Colors
+        'blog-color': '#ffffff',
       },
       fontFamily: {
         sans: ['Josefin Sans', 'sans-serif'],
@@ -32,6 +81,20 @@ module.exports = {
         '7xl': 'var(--text-7xl)',
         '8xl': 'var(--text-8xl)',
         '9xl': 'var(--text-9xl)',
+      },
+      // Map CSS variables to Tailwind utilities
+      maxWidth: {
+        content: 'var(--content-max-width)',
+        'mobile-content': 'var(--mobile-content-max-width)',
+      },
+      padding: {
+        content: 'var(--content-padding)',
+      },
+      gap: {
+        'mobile-nav': 'var(--mobile-nav-gap)',
+      },
+      fontSize: {
+        'mobile-nav': 'var(--mobile-nav-font-size)',
       },
       // Custom animations
       keyframes: {

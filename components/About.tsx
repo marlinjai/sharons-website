@@ -5,7 +5,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="sm:h-full py-32 md:py-24 flex items-center justify-center bg-gradient-to-br from-[#c5441f] to-[#e15023]"
+      className="sm:h-full py-32 md:py-24 flex items-center justify-center bg-gradient-to-br from-bg-gradient-start to-brand-primary-light"
       style={{
         background: 'linear-gradient(135deg, #c5441f, #756D6B)',
         backgroundImage: 'linear-gradient(135deg, #c5441f, #C9A89E)',
@@ -14,11 +14,11 @@ const About = () => {
     >
       <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col xl:flex-row items-center justify-center gap-12 xl:gap-24">
         <div className="text-left flex flex-col items-start md:text-left flex-1 max-w-2xl xl:max-w-none xl:flex-1 px-6 md:px-8 xl:px-0">
-          <h4 className="text-3xl md:text-4xl leading-4 mb-4 font-secondary text-white">
+          <h4 className="text-3xl md:text-4xl leading-4 mb-4 font-secondary text-text-light">
             Hello,
           </h4>
           <br />
-          <p className="text-white text-base md:text-lg 2xl:text-xl mb-6 font-primary">
+          <p className="text-text-light text-base md:text-lg 2xl:text-xl mb-6 font-primary">
             I'm Sharon - a certified Hypnotherapy Practitioner and full-time nerd when it comes to the mysteries of the human
             mind (and everything in between, above, and beyond).
             <br />

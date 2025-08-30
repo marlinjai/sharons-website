@@ -38,14 +38,13 @@
   /* Base Color Palette */
   --color-primary: #c5441f;
   --color-primary-light: #e15023;
-  --color-white: #FFFFFF;
-  --color-off-white:  #f7f6f2;
-  --color-gray-light: #BCBCBC;
+  --color-white: #ffffff;
+  --color-off-white: #f7f6f2;
+  --color-gray-light: #bcbcbc;
   --color-gray-dark: #374152;
   --color-gray: #707785;
   --color-black: #212121;
 
-
   /* Section Background Colors */
   --section-background-color-primary: var(--color-white);
   --section-background-color-secondary: var(--color-off-white);
@@ -54,61 +53,56 @@
   --section-background-color-primary: var(--color-white);
   --section-background-color-secondary: var(--color-off-white);
 
-    /* Text Colors */
-      --text-color-light: var(--color-white);
-      --text-color-dark: var(--color-black);
-      --text-color-gray: var(--color-gray-dark);
-      --placeholder-color: var(--color-gray-light);
-      --text-color-primary: var(--color-primary);
+  /* Text Colors */
+  --text-color-light: var(--color-white);
+  --text-color-dark: var(--color-black);
+  --text-color-gray: var(--color-gray-dark);
+  --placeholder-color: var(--color-gray-light);
+  --text-color-primary: var(--color-primary);
 
-    /* Navigation Colors */
+  /* Navigation Colors */
 
-    /* Hero Section Colors */
-      --nav-link-color-hero: #212121;
-      --nav-link-hover-color-hero: var(--color-primary);
+  /* Hero Section Colors */
+  --nav-link-color-hero: #212121;
+  --nav-link-hover-color-hero: var(--color-primary);
 
-      --nav-link-dropdown-color-hero: #212121;
-      --nav-link-dropdown-hover-color-hero: var(--color-primary);
+  --nav-link-dropdown-color-hero: #212121;
+  --nav-link-dropdown-hover-color-hero: var(--color-primary);
 
-      --nav-link-dropdown-background-color-hero: var(--color-white);
-      --nav-link-dropdown-background-hover-color-hero: var(--color-white);
+  --nav-link-dropdown-background-color-hero: var(--color-white);
+  --nav-link-dropdown-background-hover-color-hero: var(--color-white);
 
-      /* Base Navigation Colors */
-      --nav-link-color: #212121;
-      --nav-link-hover-color: var(--color-primary);
+  /* Base Navigation Colors */
+  --nav-link-color: #212121;
+  --nav-link-hover-color: var(--color-primary);
 
-      --nav-link-dropdown-color: #212121;
-      --nav-link-dropdown-hover-color: var(--color-primary);
+  --nav-link-dropdown-color: #212121;
+  --nav-link-dropdown-hover-color: var(--color-primary);
 
-      --nav-link-dropdown-background-color: var(--color-white);
-      --nav-link-dropdown-background-hover-color: var(--color-white);
-
-
+  --nav-link-dropdown-background-color: var(--color-white);
+  --nav-link-dropdown-background-hover-color: var(--color-white);
 
   /* Button Colors */
 
   /* Primary Button */
 
-    /* Primary Button Background Colors */
-    --button-background-color-primary: var(--color-primary);
-    --button-hover-background-color-primary: var(--color-primary-light);
+  /* Primary Button Background Colors */
+  --button-background-color-primary: var(--color-primary);
+  --button-hover-background-color-primary: var(--color-primary-light);
 
-    /* Primary Button Text Colors */
-    --button-text-color-primary: var(--color-white);
-    --button-hover-text-color-primary: var(--color-white);
-
+  /* Primary Button Text Colors */
+  --button-text-color-primary: var(--color-white);
+  --button-hover-text-color-primary: var(--color-white);
 
   /* Secondary Button */
 
-    /* Secondary Button Background Colors */
-    --button-background-color-secondary: var(--color-white);
-    --button-hover-background-color-secondary: var(--color-primary);
+  /* Secondary Button Background Colors */
+  --button-background-color-secondary: var(--color-white);
+  --button-hover-background-color-secondary: var(--color-primary);
 
-    /* Secondary Button Text Colors*/
-    --button-text-color-secondary: var(--color-black);
-    --button-hover-text-color-secondary: var(--color-white);
-
-
+  /* Secondary Button Text Colors*/
+  --button-text-color-secondary: var(--color-black);
+  --button-hover-text-color-secondary: var(--color-white);
 }
 
 /* Ensure proper body and html structure */
@@ -192,7 +186,6 @@ nav button:active,
   outline: none !important;
   border: none !important;
   box-shadow: none !important;
-  background-color: transparent !important;
   -webkit-tap-highlight-color: transparent !important;
 }
 
