@@ -27,10 +27,10 @@ export default function Hero() {
         <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col lg:flex-row items-end gap-24 pl-8 min-[380px]:pl-0 md:pl-8">
           <div className="max-w-2xl 2xl:max-w-full text-left space-y-4 md:space-y-6">
             <div className="flex flex-col gap-2">
-              <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
+              <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-[--text-color-light] drop-shadow-lg">
                 Hypnosis
               </h1>
-              <div className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
+              <div className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight  drop-shadow-lg">
                 For the <TypingAnimation words={['Curious', 'Brave', 'Ready']} duration={100} />
               </div>
             </div>

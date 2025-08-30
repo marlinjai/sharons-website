@@ -52,10 +52,14 @@
   --section-background-color-primary: var(--color-white);
   --section-background-color-secondary: var(--color-off-white);
 
-  /* Font Colors */
-  --placeholder-color: var(--color-gray-light);
+    /* Text Colors */
+      --text-color-light: var(--color-white);
+      --text-color-dark: var(--color-black);
+      --text-color-gray: var(--color-gray-dark);
+      --placeholder-color: var(--color-gray-light);
+      --text-color-primary: var(--color-primary);
 
-  /* Navigation Colors */
+    /* Navigation Colors */
 
     /* Hero Section Colors */
       --nav-link-color-hero: var(--color-black);

@@ -47,8 +47,6 @@ function PageContent() {
       <Newsletter />
       <FAQ />
       <Contact />
-      {/* <Pricing /> */}
-      {/* <Timetable /> */}
     </>
   );
 }
