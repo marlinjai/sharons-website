@@ -25,6 +25,7 @@
 
   /* Fluid Spacing System */
   --content-max-width: clamp(20rem, 72vw, 100rem);
+  --content-max-width-reviews: clamp(20rem, 90vw, 100rem);
   --mobile-content-max-width: clamp(18rem, 90vw, 100rem);
   --content-padding: clamp(1rem, 4vw, 3rem);
 
@@ -37,11 +38,12 @@
   /* Base Color Palette */
   --color-primary: #c5441f;
   --color-primary-light: #e15023;
-  --color-white: #F7F7F7;
-  --color-off-white:  #f6f6f2;
+  --color-white: #FFFFFF;
+  --color-off-white:  #f7f6f2;
   --color-gray-light: #BCBCBC;
-  --color-gray-dark: #666666;
-  --color-black: #121212;
+  --color-gray-dark: #374152;
+  --color-gray: #707785;
+  --color-black: #212121;
 
 
   /* Section Background Colors */
@@ -62,24 +64,24 @@
     /* Navigation Colors */
 
     /* Hero Section Colors */
-      --nav-link-color-hero: var(--color-black);
+      --nav-link-color-hero: #212121;
       --nav-link-hover-color-hero: var(--color-primary);
 
-      --nav-link-dropdown-color-hero: var(--color-black);
+      --nav-link-dropdown-color-hero: #212121;
       --nav-link-dropdown-hover-color-hero: var(--color-primary);
 
       --nav-link-dropdown-background-color-hero: var(--color-white);
       --nav-link-dropdown-background-hover-color-hero: var(--color-white);
 
       /* Base Navigation Colors */
-      --nav-link-color: var(--color-primary);
-      --nav-link-hover-color: var(--color-black);
+      --nav-link-color: #212121;
+      --nav-link-hover-color: var(--color-primary);
 
-      --nav-link-dropdown-color: var(--color-primary);
-      --nav-link-dropdown-hover-color: var(--color-primary-light);
+      --nav-link-dropdown-color: #212121;
+      --nav-link-dropdown-hover-color: var(--color-primary);
 
       --nav-link-dropdown-background-color: var(--color-white);
-      --nav-link-dropdown-background-hover-color: var(--color-primary);
+      --nav-link-dropdown-background-hover-color: var(--color-white);
 
 
 
