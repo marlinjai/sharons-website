@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { FiMail } from "react-icons/fi";
 import Link from 'next/link';
 
 export default function Newsletter() {
@@ -62,22 +63,19 @@ export default function Newsletter() {
   return (
     <section id="newsletter" className="py-20" style={{ backgroundColor: '#f7f6f2' }}>
       <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] text-center">
-        <div className="flex items-center flex-col gap-4 justify-center mb-6">
+        <div className="flex items-center flex-col gap-6 justify-center mb-6">
           <div
-            className="sm:size-20 size-12 rounded-full flex items-center justify-center mr-4"
-            style={{ backgroundColor: '#fcd8b3' }}
+            className="sm:size-24 size-12 rounded-full flex items-center justify-center mr-4"
+            style={{ backgroundColor: 'var(--color-white)' }}
           >
-            <svg className="size-8 sm:size-12" style={{ color: '#A32015' }} fill="currentColor" viewBox="0 0 20 20">
-              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-            </svg>
+            <FiMail className="size-8 sm:size-12 stroke-[1.8px]" style={{ color: `var(--color-primary)` }} />
           </div>
-          <h2 className="font-secondary text-2xl sm:text-4xl md:text-5xl font-semibold" style={{ color: '#A32015' }}>
+          <h2 className="font-secondary text-3xl md:text-4xl font-semibold md:mb-6" style={{ color: '#c5441f' }}>
             Subscribe to the ReTurn Newsletter
           </h2>
         </div>
-        <p className="font-primary text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
-          Brain food, subconscious breakthroughs, and the occasional "wait, what?!" moment.
+        <p className="font-primary text-lg sm:text-xl text-[#374152] mb-12 leading-relaxed">
+          Brain food, breakthroughs, and the occasional "wait, what?!" moment.
           <br />
           Delivered fresh to your inbox every month.
         </p>
@@ -89,7 +87,7 @@ export default function Newsletter() {
               placeholder="Enter your name"
               value={name}
               onChange={e => setName(e.target.value)}
-              className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
+              className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#c5441f] focus:border-[#c5441f] outline-none transition-all duration-200 font-primary text-lg placeholder-[#BCBCBC]"
               required
               disabled={isSubmitting}
             />
@@ -98,7 +96,7 @@ export default function Newsletter() {
               placeholder="Enter your email address"
               value={newsletter}
               onChange={e => setNewsletter(e.target.value)}
-              className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#C93F2F] focus:border-transparent outline-none transition-all duration-200 font-primary text-lg"
+              className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#c5441f] focus:border-[#c5441f] outline-none transition-all duration-200 font-primary text-lg placeholder-[#BCBCBC]"
               required
               disabled={isSubmitting}
             />
@@ -106,7 +104,7 @@ export default function Newsletter() {
 
           <button
             type="submit"
-            className={`px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#C5441E] hover:bg-[rgb(245,124,0)] md:mt-8'
+            className={`px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#c5441f] hover:bg-[#e15023] md:mt-8'
               } text-white`}
             disabled={isSubmitting}
           >

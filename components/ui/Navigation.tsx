@@ -67,21 +67,15 @@ export function Navigation() {
             {/* Desktop Navigation */}
             <DesktopNav />
 
-            {/* Spacer for mobile trigger button positioning */}
-            <div className="lg:hidden w-10 h-10" />
+            {/* Mobile Navigation Trigger - positioned inside header container */}
+            <div className="lg:hidden">
+              <div className="bg-stone-100/50 backdrop-blur-sm rounded-full p-2">
+                <MobileNavTrigger />
+              </div>
+            </div>
           </div>
         </nav>
       </header>
-
-      {/* Mobile Navigation Trigger - positioned as sibling outside stacking context */}
-      <div
-        className={`fixed right-10 sm:right-32 md:right-40 z-[60] lg:hidden transition-transform duration-300 ease-in-out ${isHeaderVisible ? 'translate-y-[54px]' : '-translate-y-full'
-          }`}
-      >
-        <div className="bg-stone-100/50 backdrop-blur-sm rounded-full p-2">
-          <MobileNavTrigger />
-        </div>
-      </div>
 
       {/* Mobile Navigation Overlay */}
       <MobileNavOverlay />

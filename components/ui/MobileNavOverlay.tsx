@@ -140,7 +140,7 @@ export function MobileNavOverlay() {
       {isMobileMenuOpen && (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-50 md:hidden"
+          className="fixed inset-0 z-50 lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation menu"
@@ -162,6 +162,21 @@ export function MobileNavOverlay() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           />
+
+          {/* Close button */}
+          <motion.button
+            onClick={closeMobileMenu}
+            className="absolute top-8 right-8 z-10 p-3 rounded-full bg-stone-100/50 backdrop-blur-sm text-black hover:bg-stone-200/50 transition-colors duration-200"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2, delay: 0.1 }}
+            aria-label="Close navigation menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </motion.button>
 
           {/* Navigation content */}
           <motion.div
@@ -207,13 +222,13 @@ export function MobileNavOverlay() {
               <motion.div variants={menuItemVariants} className="flex flex-col items-center">
                 <button
                   onClick={() => setBlogDropdownOpen(!isBlogDropdownOpen)}
-                  className="text-black transition-colors duration-200 px-4 py-2 rounded-full font-primary flex items-center gap-2 hover:text-[#de640d]"
+                  className="text-[var(--nav-link-color)] transition-colors duration-200 px-4 py-2 rounded-full font-primary flex items-center gap-2 hover:text-[var(--nav-link-hover-color)] relative"
                   style={{ fontSize: 'var(--mobile-nav-font-size)' }}
                   aria-expanded={isBlogDropdownOpen}
                 >
                   blog
                   <motion.svg
-                    className="w-5 h-5"
+                    className="w-5 h-5 absolute -right-3"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -251,7 +266,7 @@ export function MobileNavOverlay() {
                       transition={{ duration: 0.2 }}
                     >
                       <NavLink href="/blog" variant="mobile">
-                        All Posts
+                        all posts
                       </NavLink>
                     </motion.div>
                   )}
@@ -272,6 +287,12 @@ export function MobileNavOverlay() {
                 </NavLink>
               </motion.div>
 
+              {/* Let's Talk CTA */}
+              <motion.div variants={menuItemVariants} className="mt-8">
+                <NavLink href="#contact" variant="mobileCta">
+                  let's talk
+                </NavLink>
+              </motion.div>
 
             </motion.nav>
           </motion.div>

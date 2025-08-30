@@ -44,10 +44,10 @@ export function NavLink({ href, children, className = '', onClick, variant = 'de
   // Variant-specific styles
   const variantStyles = {
     default: getColor(),
-    dropdown: `block px-4 py-2`,
-    cta: 'ml-4 px-6 py-2 rounded-full tracking-normal text-lg bg-white text-black shadow-md hover:bg-[rgb(245,124,0)] hover:text-white',
-    mobile: `text-black px-4 py-2 rounded-full`,
-    mobileCta: 'px-6 py-4 rounded-full tracking-normal shadow-md bg-[rgb(245,124,0)] text-white',
+    dropdown: `block px-4 py-2 active:text-[#e15023]`,
+    cta: 'ml-4 bg-[#c5441f] text-white px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[#e15023] hover:text-white active:bg-[#e15023] active:text-white',
+    mobile: `text-[var(--nav-link-color)] px-4 py-2 rounded-full hover:text-[var(--nav-link-hover-color)]`,
+    mobileCta: 'px-6 py-4 rounded-full tracking-normal shadow-md bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-light)] active:bg-[#e15023]',
   };
 
   // Combine all styles

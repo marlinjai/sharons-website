@@ -27,19 +27,19 @@ export default function Hero() {
         <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col lg:flex-row items-end gap-24 pl-8 min-[380px]:pl-0 md:pl-8">
           <div className="max-w-2xl 2xl:max-w-full text-left space-y-4 md:space-y-6">
             <div className="flex flex-col gap-2">
-              <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-[--text-color-light] drop-shadow-lg">
+              <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-[#FEFEFE] drop-shadow-lg">
                 Hypnosis
               </h1>
-              <div className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight  drop-shadow-lg">
+              <div className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-[#FEFEFE] drop-shadow-lg">
                 For the <TypingAnimation words={['Curious', 'Brave', 'Ready']} duration={100} />
               </div>
             </div>
-            <p className="text-lg md:text-xl lg:text-2xl 2xl:text-3xl text-white drop-shadow-md font-primary">
+            <p className="text-lg md:text-xl lg:text-2xl 2xl:text-3xl text-[#FEFEFE] drop-shadow-md font-primary">
               Irresistibly drawn to the unknown?
               <br />
               This is more than a journey - it's the Adventure of a Lifetime.
             </p>
-            <div className="[&>button]:bg-white [&>button]:text-black [&>button]:hover:bg-[#c5441f] [&>button]:hover:text-white [&>button]:transition-colors [&>button]:duration-200">
+            <div>
               <BookSession />
             </div>
           </div>

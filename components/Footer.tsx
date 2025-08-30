@@ -21,32 +21,33 @@ export default function Footer() {
         <div className="hidden md:flex flex-row justify-between">
           {/* Logo & Description */}
           <div className="flex flex-col">
-            <Link href={homeLink} className="inline-block group mb-4">
+            <Link href={homeLink} className="inline-block mb-4">
               <div className="flex items-center gap-3">
-                <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300">
                   <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-8 w-auto" />
                 </div>
-                <div className="font-secondary text-3xl font-semibold text-[#944923] group-hover:text-gray-900 transition-colors duration-200">
+                <div className="font-secondary text-3xl font-semibold text-[#e15023] hover:text-[#374152] transition-colors duration-200">
                   ReTurn
                 </div>
               </div>
             </Link>
-            <p className="text-gray-600 max-w-md font-primary leading-relaxed">
+            <p className="text-[#707785] max-w-md font-primary leading-relaxed">
               Regression Hypnosis: the Adventure
               <br />
-              of a Lifetime for the Curious, the Bold, and the Ready.
+              of a Lifetime for the Curious, the Bold,
+              <br className="block lg:hidden" /> and the Ready.
             </p>
           </div>
           {/* Links */}
           <div className="flex flex-row gap-16">
             {/* Menu Links */}
             <div className="flex flex-col">
-              <h3 className="font-secondary font-semibold text-gray-900 mb-4">Menu</h3>
+              <h3 className="font-secondary font-semibold text-[#707785] mb-4">Menu</h3>
               <ul className="space-y-2">
                 <li>
                   <a
                     href="/#the-session"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary"
                   >
                     Sessions
                   </a>
@@ -54,7 +55,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/#about"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary"
                   >
                     About
                   </a>
@@ -62,7 +63,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/#reviews"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary"
                   >
                     Reviews
                   </a>
@@ -70,7 +71,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/#contact"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary"
                   >
                     Contact
                   </a>
@@ -80,7 +81,7 @@ export default function Footer() {
 
             {/* Legal Links */}
             <div className="flex flex-col">
-              <h3 className="font-secondary font-semibold text-gray-900 mb-4">Legal</h3>
+              <h3 className="font-secondary font-semibold text-[#707785] mb-4">Legal</h3>
               <ul className="space-y-2">
                 <li>
                   <PrivacyPolicy />
@@ -93,12 +94,12 @@ export default function Footer() {
 
             {/* Utility Links */}
             <div className="flex flex-col">
-              <h3 className="font-secondary font-semibold text-gray-900 mb-4">Resources</h3>
+              <h3 className="font-secondary font-semibold text-[#707785] mb-4">Resources</h3>
               <ul className="space-y-2">
                 <li>
                   <Link
                     href="/blog"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary"
                   >
                     Blog
                   </Link>
@@ -106,7 +107,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/#faq"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary"
                   >
                     FAQ
                   </Link>
@@ -120,31 +121,32 @@ export default function Footer() {
         <div className="md:hidden">
           {/* Logo & Description - Always visible on mobile */}
           <div className="mb-8">
-            <Link href={homeLink} className="inline-block group mb-4">
+            <Link href={homeLink} className="inline-block mb-4">
               <div className="flex items-center gap-3">
-                <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300">
                   <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-8 w-auto" />
                 </div>
-                <div className="font-secondary text-3xl font-semibold text-[#944923] group-hover:text-gray-900 transition-colors duration-200">
+                <div className="font-secondary text-3xl font-semibold text-[#e15023] hover:text-[#374152] transition-colors duration-200">
                   ReTurn
                 </div>
               </div>
             </Link>
-            <p className="text-gray-600 font-primary leading-relaxed">
+            <p className="text-[#707785] font-primary leading-relaxed">
               Regression Hypnosis: the Adventure
               <br />
-              of a Lifetime for the Curious, the Bold, and the Ready.
+              of a Lifetime for the Curious, the Bold,
+              <br className="block lg:hidden" /> and the Ready.
             </p>
           </div>
 
           {/* Accordion for mobile links */}
           <Accordion>
-            <AccordionItem title="Menu">
+            <AccordionItem title="Menu" titleColor="text-[#707785]" arrowColor="text-[#707785]">
               <ul className="space-y-3">
                 <li>
                   <a
                     href="/#the-session"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary block"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary block"
                   >
                     Sessions
                   </a>
@@ -152,7 +154,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/#about"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary block"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary block"
                   >
                     About
                   </a>
@@ -160,7 +162,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/#reviews"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary block"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary block"
                   >
                     Reviews
                   </a>
@@ -168,7 +170,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/#contact"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary block"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary block"
                   >
                     Contact
                   </a>
@@ -176,7 +178,7 @@ export default function Footer() {
               </ul>
             </AccordionItem>
 
-            <AccordionItem title="Legal">
+            <AccordionItem title="Legal" titleColor="text-[#707785]" arrowColor="text-[#707785]">
               <ul className="space-y-3">
                 <li>
                   <PrivacyPolicy />
@@ -187,12 +189,12 @@ export default function Footer() {
               </ul>
             </AccordionItem>
 
-            <AccordionItem title="Resources">
+            <AccordionItem title="Resources" titleColor="text-[#707785]" arrowColor="text-[#707785]">
               <ul className="space-y-3">
                 <li>
                   <Link
                     href="/blog"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary block"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary block"
                   >
                     Blog
                   </Link>
@@ -200,7 +202,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/#faq"
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary block"
+                    className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary block"
                   >
                     FAQ
                   </Link>
@@ -212,8 +214,8 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-300 mt-12 pt-8 text-center">
-          <p className="text-gray-500 mb-2 font-primary">© Copyright 2025 ReTurn Regression Hypnosis</p>
-          <p className="text-gray-400 text-sm font-primary">Designed with love by <a href="https://www.linkedin.com/in/marlin-pohl/" className="text-[#C5441E] hover:text-gray-900 transition-colors duration-200 font-primary">Marlin Jai Pohl</a></p>
+          <p className="text-[#707785] mb-2 font-primary">© Copyright 2025 ReTurn Regression Hypnosis</p>
+          <p className="text-[#707785] text-sm font-primary">Designed with love by <a href="https://www.linkedin.com/in/marlin-pohl/" className="text-[#c5441f] hover:text-[#e15023] transition-colors duration-200 font-primary">Marlin Jai Pohl</a></p>
         </div>
       </div>
     </footer>
