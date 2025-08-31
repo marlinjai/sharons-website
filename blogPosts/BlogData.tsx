@@ -22,9 +22,9 @@ function slugify(input: string): string {
 export const blogPostsData: BlogPostType[] = [
   {
     id: 2,
-    slug: slugify("2. Who's Who in the World of the Mind - Understanding Mental Health Professionals"),
+    slug: slugify("Who's Who in the World of the Mind - Understanding Mental Health Professionals"),
     image: "https://images.unsplash.com/photo-1597673814716-4a1e58a1f6af?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "2. Who's Who in the World of the Mind",
+    title: "Who's Who in the World of the Mind",
     subtitle: "Hypnotherapist? Psychologist? Hypnotist? Let's end the confusion...",
     category: "Education",
     readTime: "2 min read",
@@ -120,17 +120,15 @@ export const blogPostsData: BlogPostType[] = [
   },
   {
     id: 3,
-    slug: slugify("3. Awareness, Empowerment, Rewiring."),
+    slug: slugify("Awareness, Empowerment, Rewiring."),
     image: "https://images.unsplash.com/photo-1512641406448-6574e777bec6?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "3. Awareness, Empowerment, Rewiring.",
+    title: "Awareness, Empowerment, Rewiring.",
     subtitle: "Where does Real Empowerment lie?",
     category: "Education",
     readTime: "4 min read",
     date: "June 15, 2025",
     content: (
       <>
-        <h2 className="font-secondary text-2xl font-semibold mb-6" style={{ color: '#A32015' }}>Awareness, Empowerment, Rewiring</h2>
-
         <p className="mb-6">For decades (since Freud and Jung started dissecting the human mind), people from all walks of life have been sitting on the couch, pouring their hearts out to psychologists, therapists, and psychiatrists.</p>
 
         <p className="mb-6">All valuable. All extremely useful. And yes, I found emotional comfort in modern therapy as well.</p>
@@ -235,9 +233,9 @@ export const blogPostsData: BlogPostType[] = [
   },
   {
     id: 1,
-    slug: slugify("1. What Is Hypnosis, Really?"),
+    slug: slugify("What Is Hypnosis, Really?"),
     image: null,
-    title: "1. What Is Hypnosis, Really?",
+    title: "What Is Hypnosis, Really?",
     subtitle: "Let's start from the top. Hypnosis is a natural state of deep relaxation...",
     category: "Education",
     readTime: "3 min read",

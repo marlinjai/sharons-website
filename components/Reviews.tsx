@@ -132,21 +132,21 @@ export default function Reviews() {
     const isLong = shouldTruncate();
 
     return (
-      <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col items-center">
+      <div className="bg-white rounded-2xl p-6 lg:p-8 xl:p-10 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col items-center w-full">
         {review.image && (
           <div className="w-20 h-20 lg:w-28 lg:h-28 mb-4 rounded-full overflow-hidden flex items-center justify-center">
             <Image src={review.image} alt={review.name} width={112} height={112} className={getImageClass(idx)} />
           </div>
         )}
-        <div className="text-center">
-          <h3 className="font-secondary font-semibold text-gray-900 text-lg lg:text-xl mb-2 leading-tight">{review.name}</h3>
-          {review.title && <div className="text-base text-[#c93e2e] mb-2 font-primary">{review.title}</div>}
+        <div className="text-center w-full">
+          <h3 className="font-secondary font-semibold text-[#212121] text-lg lg:text-xl mb-2 leading-tight">{review.name}</h3>
+          {review.title && <div className="text-base text-[#c5441f] mb-2 font-primary">{review.title}</div>}
           <div className="text-gray-700 leading-relaxed whitespace-pre-line font-primary text-base">
             {!expanded && isLong ? (
               <>
                 <span>{getTruncatedText()}...</span>
                 <button
-                  className="text-[#A32015] font-primary text-sm hover:text-[#C5441E] transition-colors duration-200 ml-1"
+                  className="text-[#c5441f] font-primary text-sm hover:text-[#A32015] transition-colors duration-200 ml-1"
                   onClick={() => setExpanded(true)}
                   aria-label="Read full review"
                 >
@@ -160,7 +160,7 @@ export default function Reviews() {
           {/* Show 'read less' when review is expanded */}
           {isLong && expanded && (
             <button
-              className="mt-2 text-[#A32015] font-primary text-sm hover:text-[#C5441E] transition-colors duration-200"
+              className="mt-2 text-[#c5441f] font-primary text-sm hover:text-[#A32015] transition-colors duration-200"
               onClick={() => setExpanded(false)}
               aria-label="Show less of review"
             >
@@ -175,15 +175,15 @@ export default function Reviews() {
   return (
     <>
       <section className="py-32 md:pb-[420px] md:pt-0 overflow-hidden" style={{ backgroundColor: '#f7f6f2' }}>
-        <div id="reviews" className="sm:pt-[185px]"></div>
-        <div className="max-w-[--content-max-width] mx-auto px-[--content-padding]">
+        <div id="reviews" className="sm:pt-[155px]"></div>
+        <div className="max-w-[--content-max-width-reviews] mx-auto px-[--content-padding] xl:px-8 2xl:px-12">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="font-secondary text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
-              Celebrating Regression Hypnosis <em className="italic">success.</em>
+            <h2 className="font-secondary text-3xl md:text-4xl font-semibold text-[#212121] mb-6">
+              Celebrating Regression Hypnosis Success
             </h2>
-            <p className="text-2xl text-gray-600 font-primary">
-              Hear what <em className="italic">clients</em> have to say
+            <p className="text-2xl text-[#374152] font-primary">
+              Hear what clients have to say
             </p>
           </div>
 
@@ -198,7 +198,7 @@ export default function Reviews() {
               <div className="text-center mt-12">
                 <button
                   onClick={() => setShowAllMobile(true)}
-                  className="bg-[#C5441E] text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)]"
+                  className="bg-[#c5441f] text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[#e15023]"
                 >
                   Read More Reviews
                 </button>
@@ -235,7 +235,7 @@ export default function Reviews() {
                         setShowAllMobile(false);
                       }
                     }}
-                    className="bg-[#C5441E] text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[rgb(245,124,0)]"
+                    className="bg-[#c5441f] text-white px-8 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-[#e15023]"
                   >
                     Show Less Reviews
                   </button>

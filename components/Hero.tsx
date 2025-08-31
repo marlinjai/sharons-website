@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { TypingAnimation } from '@/components/ui/typing-animation';
+import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import BookSession from './BookSession';
 
 export default function Hero() {
@@ -23,23 +23,73 @@ export default function Hero() {
       </div>
       {/* Content */}
 
-      <div className="relative h-full z-20 flex items-end justify-center sm:pb-[16vw] lg:pb-[9vh] pb-[20vh] pt-0">
+      <div className="relative h-full z-20 flex items-end justify-center sm:pb-[16vw] lg:pb-[15vh] pb-[20vh] pt-0">
         <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col lg:flex-row items-end gap-24 pl-8 min-[380px]:pl-0 md:pl-8">
           <div className="max-w-2xl 2xl:max-w-full text-left space-y-4 md:space-y-6">
             <div className="flex flex-col gap-2">
-              <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
-                Hypnosis
-              </h1>
-              <div className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-white drop-shadow-lg">
-                For the <TypingAnimation words={['Curious', 'Brave', 'Ready']} duration={100} />
+              {/* Line 1: Hypnosis */}
+              <TextGenerateEffect
+                words="Hypnosis"
+                className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg"
+                duration={0.6}
+                filter={true}
+                delay={0}
+              />
+
+              {/* Line 2: For the Curious, Brave & Ready - all on one line */}
+              <div className="flex flex-wrap gap-2 sm:gap-4">
+                <TextGenerateEffect
+                  words="For the Curious,"
+                  className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg"
+                  duration={0.6}
+                  filter={true}
+                  delay={1.2}
+                />
+                <TextGenerateEffect
+                  words=" Brave,"
+                  className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg"
+                  duration={0.9}
+                  filter={true}
+                  delay={2.2}
+                />
+                <TextGenerateEffect
+                  words="and Ready"
+                  className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg"
+                  duration={0.9}
+                  filter={true}
+                  delay={3.3}
+                />
               </div>
             </div>
-            <p className="text-lg md:text-xl lg:text-2xl 2xl:text-3xl text-white drop-shadow-md font-primary">
-              Irresistibly drawn to the unknown?
-              <br />
-              This is more than a journey - it's the Adventure of a Lifetime.
-            </p>
-            <div className="[&>button]:bg-white [&>button]:text-black [&>button]:hover:bg-[#c5441f] [&>button]:hover:text-white [&>button]:transition-colors [&>button]:duration-200">
+
+            <div className="flex flex-col gap-2">
+              {/* Line 3: Irresistibly drawn to the unknown? */}
+              <TextGenerateEffect
+                words="Irresistibly drawn to the unknown?"
+                className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
+                duration={1.5}
+                filter={true}
+                delay={4.2}
+              />
+
+              {/* Line 4: This is more than a journey + delayed second part */}
+              <TextGenerateEffect
+                words="This is more than a journey"
+                className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
+                duration={0.9}
+                filter={true}
+                delay={6.5}
+              />
+              <TextGenerateEffect
+                words="it's the Adventure of a Lifetime."
+                className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
+                duration={0.9}
+                filter={true}
+                delay={8.5}
+              />
+            </div>
+
+            <div className="opacity-0 animate-fadeIn" style={{ animationDelay: '12.5s', animationFillMode: 'forwards' }}>
               <BookSession />
             </div>
           </div>

@@ -7,6 +7,7 @@ const nextConfig = {
     domains: ['images.unsplash.com', 'i.pinimg.com'],
     unoptimized: true,
   },
+  // Remove allowedDevOrigins - it might be blocking network access
 };
 
 module.exports = nextConfig;

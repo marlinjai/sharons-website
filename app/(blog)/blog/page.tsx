@@ -31,7 +31,7 @@ export default function BlogPage() {
 
         {/* Blog Posts */}
         <div className="py-16 bg-[url('/images/linnen-bg-seamless.jpg')] bg-contain bg-center">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Featured Post */}
             <div className="mb-16">
               <BlogPostComponent {...featuredPost} />

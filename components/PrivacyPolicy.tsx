@@ -25,7 +25,8 @@ export default function PrivacyPolicy() {
       {/* Trigger Button */}
       <button
         onClick={openModal}
-        className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-primary"
+        className="text-[#707785] hover:text-[#374152] transition-colors duration-200 font-primary"
+        aria-label="Open Privacy Policy"
       >
         Privacy Policy
       </button>
@@ -33,10 +34,10 @@ export default function PrivacyPolicy() {
       {/* Modal Overlay */}
       {isOpen && (
         <div
-          className={`fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 ${isClosing ? 'animate-fadeOut' : 'animate-fadeIn'}`}
+          className={`fixed inset-0 bg-black bg-opacity-50 z-[70] flex items-center justify-center p-4 ${isClosing ? 'animate-fadeOut' : 'animate-fadeIn'}`}
         >
           <div
-            className={`bg-[url('/images/linnen-bg-seamless.jpg')] bg-cover bg-center rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto ${isClosing ? 'animate-slideOut' : 'animate-slideIn'}`}
+            className={`bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto ${isClosing ? 'animate-slideOut' : 'animate-slideIn'}`}
           >
             {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b border-gray-200">
@@ -176,7 +177,7 @@ export default function PrivacyPolicy() {
             <div className="flex justify-end p-6 border-t border-gray-200">
               <button
                 onClick={closeModal}
-                className="bg-[#C5441E] text-white px-6 py-2 rounded-full font-primary font-medium hover:bg-[rgb(245,124,0)] transition-colors duration-200"
+                className="bg-[#c5441f] text-white px-6 py-2 rounded-full font-primary font-medium hover:bg-[#e15023] transition-colors duration-200"
               >
                 Close
               </button>

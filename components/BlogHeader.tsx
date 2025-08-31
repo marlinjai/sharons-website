@@ -85,7 +85,7 @@ export default function BlogHeader({
                   {/* Post meta (only for individual posts) */}
                   {isPostHeader && postMeta && (
                     <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 mb-6 justify-center text-xs sm:text-sm md:text-base">
-                      <span className="flex items-center justify-center px-3 py-[6px] bg-white text-[#2F2F2F] font-primary font-semibold uppercase tracking-wide rounded-full leading-none">
+                      <span className="flex items-center justify-center px-3 py-[6px] text-xs bg-white text-[#2F2F2F] font-primary font-semibold uppercase tracking-wide rounded-full leading-none">
                         <p className="translate-y-[0.09rem]">{postMeta.category}</p>
                       </span>
                       <span className=" font-primary text-gray-100 leading-none">|</span>
@@ -99,12 +99,8 @@ export default function BlogHeader({
                     {title}
                   </h1>
 
-                  {subtitle && isPostHeader ? (
-                    <p className="font-primary text-lg md:text-xl mb-6 italic" style={{ color: '#E9AAA4' }}>
-                      {subtitle}
-                    </p>
-                  ) : (
-                    <p className="font-primary text-lg md:text-xl mb-6 italic" style={{ color: '#E9C9C6' }}>
+                  {subtitle && (
+                    <p className="font-primary text-lg md:text-2xl mb-6  text-blog-color ">
                       {subtitle}
                     </p>
                   )}

@@ -70,7 +70,7 @@ export function DesktopNav() {
   };
 
   return (
-    <div className={`hidden lg:flex items-center space-x-6 ${getNavLinkColor()} text-lg tracking-wider font-primary`}>
+    <div className={`hidden lg:flex items-center space-x-4 ${getNavLinkColor()} text-base lg:text-lg tracking-wider font-primary`}>
       {/* Home Link */}
       <NavLink href="/">home</NavLink>
 
@@ -81,24 +81,26 @@ export function DesktopNav() {
         onMouseEnter={() => setSessionDropdownOpen(true)}
         onMouseLeave={() => setSessionDropdownOpen(false)}
       >
-        <div
-          className={`transition-colors duration-200 flex items-center gap-1 font-primary cursor-pointer ${navLinkBaseClass} ${navLinkHoverClass}`}
-          onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
-          role="button"
-          aria-expanded={isSessionDropdownOpen}
-          aria-haspopup="true"
-        >
-          <span className={isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}>
+        <div className={`transition-colors duration-200 flex items-center gap-1 font-primary ${navLinkBaseClass} ${navLinkHoverClass}`}>
+          <NavLink
+            href="#the-session"
+            className={`${isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}`}
+          >
             the session
-          </span>
+          </NavLink>
           <motion.svg
-            className={`w-4 h-4 ml-1 ${isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}`}
+            className={`w-4 h-4 ml-1 cursor-pointer ${isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}`}
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             viewBox="0 0 24 24"
             animate={{ rotate: isSessionDropdownOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
+            onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
+            role="button"
+            aria-expanded={isSessionDropdownOpen}
+            aria-haspopup="true"
+            aria-label="Toggle session dropdown"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </motion.svg>
@@ -206,8 +208,10 @@ export function DesktopNav() {
         </AnimatePresence>
       </div>
 
-      {/* CTA Button */}
-      <BookSession variant="nav" className="ml-4" />
+      {/* Let's Talk CTA Button */}
+      <NavLink href="#contact" variant="cta">
+        let's talk
+      </NavLink>
     </div>
   );
 }
