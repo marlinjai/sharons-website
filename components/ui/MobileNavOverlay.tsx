@@ -273,10 +273,10 @@ export function MobileNavOverlay() {
                 </AnimatePresence>
               </motion.div>
 
-              {/* Contact link */}
+              {/* FAQ link */}
               <motion.div variants={menuItemVariants}>
-                <NavLink href="#contact" variant="mobile">
-                  contact
+                <NavLink href="#faq" variant="mobile">
+                  FAQ
                 </NavLink>
               </motion.div>
 

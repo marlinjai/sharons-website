@@ -45,10 +45,10 @@ module.exports = {
         'btn-secondary-text-hover': '#FFFFFF',
 
         // Navigation Colors
-        'nav-text': '#212121',
+        'nav-text': '#ffffff',
         'nav-text-hover': '#c5441f',
         'nav-dropdown-bg': '#FFFFFF',
-        'nav-dropdown-text': '#212121',
+        'nav-dropdown-text': '#FFFFFF',
         'nav-dropdown-text-hover': '#c5441f',
 
         // Border Colors

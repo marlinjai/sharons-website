@@ -29,7 +29,7 @@ export default function Hero() {
             <div className="flex flex-col gap-2">
               {/* Line 1: Hypnosis */}
               <TextGenerateEffect
-                words="Hypnosis"
+                words="Hypnotherapy"
                 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg"
                 duration={0.6}
                 filter={true}

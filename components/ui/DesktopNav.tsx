@@ -81,26 +81,24 @@ export function DesktopNav() {
         onMouseEnter={() => setSessionDropdownOpen(true)}
         onMouseLeave={() => setSessionDropdownOpen(false)}
       >
-        <div className={`transition-colors duration-200 flex items-center gap-1 font-primary ${navLinkBaseClass} ${navLinkHoverClass}`}>
-          <NavLink
-            href="#the-session"
-            className={`${isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}`}
-          >
+        <div
+          className={`transition-colors duration-200 flex items-center gap-1 font-primary cursor-pointer ${navLinkBaseClass} ${navLinkHoverClass}`}
+          onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
+          role="button"
+          aria-expanded={isSessionDropdownOpen}
+          aria-haspopup="true"
+        >
+          <span className={isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}>
             the session
-          </NavLink>
+          </span>
           <motion.svg
-            className={`w-4 h-4 ml-1 cursor-pointer ${isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}`}
+            className={`w-4 h-4 ml-1 ${isSessionDropdownOpen ? (isOnHero ? 'text-[--nav-link-hover-color-hero]' : 'text-[--nav-link-hover-color]') : ''}`}
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             viewBox="0 0 24 24"
             animate={{ rotate: isSessionDropdownOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
-            onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
-            role="button"
-            aria-expanded={isSessionDropdownOpen}
-            aria-haspopup="true"
-            aria-label="Toggle session dropdown"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </motion.svg>
@@ -142,8 +140,8 @@ export function DesktopNav() {
       {/* About Link */}
       <NavLink href="#about">about</NavLink>
 
-      {/* Contact Link */}
-      <NavLink href="#contact">contact</NavLink>
+      {/* FAQ Link */}
+      <NavLink href="#faq">FAQ</NavLink>
 
       {/* Blog Dropdown */}
       <div
