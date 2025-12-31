@@ -3,15 +3,17 @@
 'use client';
 
 import React, { useState } from 'react';
+import BookSession from './BookSession';
 
 export default function SessionInfo() {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="w-[--mobile-content-max-width] lg:w-[--content-max-width] flex flex-col items-center justify-center gap-4 mb-8">
+      {/* CTA Button styled like Book a Session */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-start flex-row gap-2 text-text-primary lg:text-text-gray font-primary font-normal text-lg hover:text-text-primary transition justify-center"
+        className="inline-block bg-btn-primary-bg text-btn-primary-text px-6 py-3 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg-hover hover:text-btn-primary-text-hover"
       >
         Investment & Session Info
       </button>
@@ -71,6 +73,11 @@ export default function SessionInfo() {
                     <span className="text-sm md:text-base text-text-gray-light">(deducted from the fee) secures your spot</span>
                   </p>
                 </div>
+              </div>
+
+              {/* Book a Session button - nested inside the expanded section */}
+              <div className="mt-12 [&>button]:bg-btn-primary-bg [&>button]:text-btn-primary-text [&>button]:hover:bg-btn-primary-bg-hover [&>button]:hover:text-btn-primary-text-hover">
+                <BookSession />
               </div>
             </div>
           </div>

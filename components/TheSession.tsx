@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import BookSession from './BookSession';
 import SessionInfo from './SessionInfo';
 
 const phases = [
@@ -90,12 +89,7 @@ export default function TheSession() {
 
           {/* CTA Button - Grid item 5 (spans entire second row) */}
           <div className="lg:col-span-3 flex flex-col justify-center items-center mt-2 lg:gap-4">
-            <div className="mb-8">
-              <SessionInfo />
-            </div>
-            <div className="[&>button]:bg-btn-primary-bg [&>button]:text-btn-primary-text [&>button]:hover:bg-btn-primary-bg-hover [&>button]:hover:text-btn-primary-text-hover [&>button]:transition-colors [&>button]:duration-200">
-              <BookSession />
-            </div>
+            <SessionInfo />
           </div>
         </div>
       </div>

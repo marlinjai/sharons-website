@@ -27,69 +27,54 @@ export default function Hero() {
         <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col lg:flex-row items-end gap-24 pl-8 min-[380px]:pl-0 md:pl-8">
           <div className="max-w-2xl 2xl:max-w-full text-left space-y-4 md:space-y-6">
             <div className="flex flex-col gap-2">
-              {/* Line 1: Hypnosis */}
-              <TextGenerateEffect
-                words="Hypnotherapy"
-                className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg"
-                duration={0.6}
-                filter={true}
-                delay={0}
-              />
+              {/* Line 1: Hypnotherapy - immediately visible */}
+              <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg">
+                Hypnotherapy
+              </h1>
 
-              {/* Line 2: For the Curious, Brave & Ready - all on one line */}
+              {/* Line 2: For the Curious, Brave & Ready - immediately visible */}
               <div className="flex flex-wrap gap-2 sm:gap-4">
-                <TextGenerateEffect
-                  words="For the Curious,"
-                  className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg"
-                  duration={0.6}
-                  filter={true}
-                  delay={1.2}
-                />
-                <TextGenerateEffect
-                  words=" Brave,"
-                  className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg"
-                  duration={0.9}
-                  filter={true}
-                  delay={2.2}
-                />
-                <TextGenerateEffect
-                  words="and Ready"
-                  className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg"
-                  duration={0.9}
-                  filter={true}
-                  delay={3.3}
-                />
+                <span className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg">
+                  For the Curious,
+                </span>
+                <span className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg">
+                  Brave,
+                </span>
+                <span className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg">
+                  and Ready
+                </span>
               </div>
             </div>
 
             <div className="flex flex-col gap-2">
-              {/* Line 3: Irresistibly drawn to the unknown? */}
+              {/* Line 3: Irresistibly drawn to the unknown? - animates in faster */}
               <TextGenerateEffect
                 words="Irresistibly drawn to the unknown?"
                 className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
-                duration={1.5}
+                duration={0.8}
                 filter={true}
-                delay={4.2}
+                delay={0.5}
               />
 
-              {/* Line 4: This is more than a journey + delayed second part */}
+              {/* Line 4: This is more than a journey + Adventure of a Lifetime - animates faster */}
               <TextGenerateEffect
                 words="This is more than a journey"
                 className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
-                duration={0.9}
+                duration={0.7}
                 filter={true}
-                delay={6.5}
+                delay={1.5}
               />
               <TextGenerateEffect
                 words="it's the Adventure of a Lifetime."
                 className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
-                duration={0.9}
+                duration={0.7}
                 filter={true}
-                delay={8.5}
+                delay={2.5}
               />
             </div>
 
-            <div className="opacity-0 animate-fadeIn" style={{ animationDelay: '12.5s', animationFillMode: 'forwards' }}>
+            {/* CTA Button - immediately visible */}
+            <div>
               <BookSession />
             </div>
           </div>

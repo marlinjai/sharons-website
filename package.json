@@ -25,6 +25,7 @@
     "autoprefixer": "^10.4.16",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
+    "gsap": "^3.14.2",
     "next": "^15.3.3",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
