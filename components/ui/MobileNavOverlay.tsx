@@ -166,7 +166,7 @@ export function MobileNavOverlay() {
           {/* Close button */}
           <motion.button
             onClick={closeMobileMenu}
-            className="absolute top-8 right-8 z-10 p-3 rounded-full bg-stone-100/50 backdrop-blur-sm text-black hover:bg-stone-200/50 transition-colors duration-200"
+            className="absolute top-8 right-8 z-10 p-3 rounded-full bg-stone-100/50 backdrop-blur-sm text-black hover:bg-stone-200/50 transition-colors duration-200 focus:outline-none"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
@@ -206,25 +206,29 @@ export function MobileNavOverlay() {
 
               {/* The Session dropdown */}
               <motion.div variants={menuItemVariants} className="flex flex-col items-center">
-                <button
-                  onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
-                  className="text-gray-900 transition-colors duration-200 px-4 py-2 rounded-full font-primary flex items-center gap-2 hover:text-[--color-primary] relative"
-                  style={{ fontSize: 'var(--mobile-nav-font-size)' }}
-                  aria-expanded={isSessionDropdownOpen}
-                >
-                  The Session
-                  <motion.svg
-                    className="w-5 h-5 absolute -right-3"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    animate={{ rotate: isSessionDropdownOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+                <div className="flex items-center gap-0">
+                  <NavLink href="#the-session" variant="mobile">
+                    The Session
+                  </NavLink>
+                  <button
+                    onClick={() => setSessionDropdownOpen(!isSessionDropdownOpen)}
+                    className="text-gray-900 p-1 hover:text-gray-600 transition-colors duration-200 focus:outline-none"
+                    aria-expanded={isSessionDropdownOpen}
+                    aria-label="Toggle session submenu"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </motion.svg>
-                </button>
+                    <motion.svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      animate={{ rotate: isSessionDropdownOpen ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </motion.svg>
+                  </button>
+                </div>
 
                 <AnimatePresence>
                   {isSessionDropdownOpen && (
@@ -250,27 +254,38 @@ export function MobileNavOverlay() {
                 </NavLink>
               </motion.div>
 
+              {/* FAQ link */}
+              <motion.div variants={menuItemVariants}>
+                <NavLink href="#faq" variant="mobile">
+                  FAQ
+                </NavLink>
+              </motion.div>
+
               {/* Blog dropdown */}
               <motion.div variants={menuItemVariants} className="flex flex-col items-center">
-                <button
-                  onClick={() => setBlogDropdownOpen(!isBlogDropdownOpen)}
-                  className="text-gray-900 transition-colors duration-200 px-4 py-2 rounded-full font-primary flex items-center gap-2 hover:text-[--color-primary] relative"
-                  style={{ fontSize: 'var(--mobile-nav-font-size)' }}
-                  aria-expanded={isBlogDropdownOpen}
-                >
-                  Blog
-                  <motion.svg
-                    className="w-5 h-5 absolute -right-3"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    animate={{ rotate: isBlogDropdownOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+                <div className="flex items-center gap-0">
+                  <NavLink href="/blog" variant="mobile">
+                    Blog
+                  </NavLink>
+                  <button
+                    onClick={() => setBlogDropdownOpen(!isBlogDropdownOpen)}
+                    className="text-gray-900 p-1 hover:text-gray-600 transition-colors duration-200 focus:outline-none"
+                    aria-expanded={isBlogDropdownOpen}
+                    aria-label="Toggle blog submenu"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </motion.svg>
-                </button>
+                    <motion.svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      animate={{ rotate: isBlogDropdownOpen ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </motion.svg>
+                  </button>
+                </div>
 
                 <AnimatePresence>
                   {isBlogDropdownOpen && (
@@ -303,13 +318,6 @@ export function MobileNavOverlay() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
-
-              {/* FAQ link */}
-              <motion.div variants={menuItemVariants}>
-                <NavLink href="#faq" variant="mobile">
-                  FAQ
-                </NavLink>
               </motion.div>
 
               {/* Let's Talk CTA */}

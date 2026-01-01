@@ -140,7 +140,7 @@ export default function Impressum() {
 
               <div className="text-sm text-gray-500 pt-4 border-t border-gray-200">
                 <p>
-                  <strong>Last updated:</strong> August 2025
+                  <strong>Last updated:</strong> January 2026
                 </p>
               </div>
             </div>

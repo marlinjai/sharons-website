@@ -5,7 +5,7 @@ export default function VideoSection() {
         {/* Left: Text */}
         <div className="flex-1 flex flex-col items-start justify-center h-full">
           <p className="font-primary text-xl md:text-2xl text-[#374152] leading-relaxed">
-            A <span className="font-semibold">Regression Hypnosis</span> session
+            A <span className="font-semibold">Hypnotherapy</span> session
             is truly the adventure of a lifetime, through which you can access earlier moments in this life, or, if it
             aligns with your belief system, past lives.
             <br />

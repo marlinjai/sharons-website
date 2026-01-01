@@ -38,7 +38,7 @@ export default function Reviews() {
       name: 'Francesca Borelli',
       title: 'Global Head of People',
       image: '/images/reviews/francesca_I.png',
-      text: `Sharon helped me connect with a deep, inner part of myself through her hypnosis guidance. From the beginning, she showed sensitivity and empathy, which helped me trust her completely.\nShe clearly explained what would happen during the session and encouraged me to experience it without judgment, Which helped me relax and flow with my emotions. I felt fully supported before, during, and after the session.\nSharon radiates a calm, welcoming energy and possesses a natural gift of deep perception and emotional intelligence. I recommend her to anyone who wants to explore deeply but feels afraid - she will be your perfect Virgilio.`,
+      text: `Sharon helped me connect with a deep, inner part of myself through her hypnotherapy guidance. From the beginning, she showed sensitivity and empathy, which helped me trust her completely.\nShe clearly explained what would happen during the session and encouraged me to experience it without judgment, Which helped me relax and flow with my emotions. I felt fully supported before, during, and after the session.\nSharon radiates a calm, welcoming energy and possesses a natural gift of deep perception and emotional intelligence. I recommend her to anyone who wants to explore deeply but feels afraid - she will be your perfect Virgilio.`,
     },
     {
       name: 'Katie Barbaro',
@@ -50,7 +50,7 @@ export default function Reviews() {
       name: 'Alessandro Gentile',
       title: 'Designer at BMW',
       image: '/images/reviews/alessandro_II.png',
-      text: `I had one hypnosis session with Sharon, and I wholeheartedly recommend it to anyone. The process she guided me through felt natural and yet full of surprises. She helped me identify and explore emotions that were already within me but had remained unclear until that point. Acknowledging and accepting these feelings has made my life better.\nI also want to highlight how gracefully Sharon addressed my initial skepticism about hypnosis. She never judged or pressured me, which allowed me to fully relax and enjoy a session that far exceeded my expectations.`,
+      text: `I had one hypnotherapy session with Sharon, and I wholeheartedly recommend it to anyone. The process she guided me through felt natural and yet full of surprises. She helped me identify and explore emotions that were already within me but had remained unclear until that point. Acknowledging and accepting these feelings has made my life better.\nI also want to highlight how gracefully Sharon addressed my initial skepticism about hypnotherapy. She never judged or pressured me, which allowed me to fully relax and enjoy a session that far exceeded my expectations.`,
     },
     {
       name: 'Marco Tidu',
@@ -61,7 +61,8 @@ export default function Reviews() {
     {
       name: 'Cristina Soler',
       title: '',
-      image: '/images/reviews/christina.png',
+      //image: '/images/reviews/christina.png',
+      image: null,
       text: `I had the pleasure of experiencing my first QHHT session with Sharon, and it was truly positive. I felt a bit nervous at first, but she was incredibly caring and explained everything so clearly that I felt comfortable right from the start. During the session, Sharon guided me into a deep state of relaxation and regression, allowing me to explore the depths of my consciousness. Her intuitive and compassionate approach made me feel safe and supported.\nA few weeks after the session, I noticed a greater sense of peace within myself. It felt like a newfound calm and clarity had emerged. I'm deeply grateful - thank you, Sharon!`,
     },
     {
@@ -180,7 +181,7 @@ export default function Reviews() {
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="font-secondary text-3xl md:text-4xl font-semibold text-[#212121] mb-6">
-              Celebrating Regression Hypnosis Success
+              Celebrating Hypnotherapy Success
             </h2>
             <p className="text-2xl text-[#374152] font-primary">
               Hear what clients have to say

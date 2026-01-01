@@ -6,12 +6,12 @@ import { useNavigation } from './NavigationContext';
 
 // Mobile navigation trigger button with animated hamburger/close transformation
 export function MobileNavTrigger() {
-  const { isMobileMenuOpen, toggleMobileMenu } = useNavigation();
+  const { isMobileMenuOpen, toggleMobileMenu, isOnHero } = useNavigation();
 
   return (
     <button
       onClick={toggleMobileMenu}
-      className="p-3 rounded-full text-black transition-colors duration-200 relative"
+      className={`p-3 rounded-full transition-colors duration-200 relative ${isOnHero ? 'text-white' : 'text-black'}`}
       title={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
       aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
       aria-expanded={isMobileMenuOpen}

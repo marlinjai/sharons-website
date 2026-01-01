@@ -8,9 +8,9 @@ const faqs = [
       'Hypnotherapy is a therapeutic technique that uses guided relaxation and focused attention to achieve a heightened state of awareness, helping you access your subconscious mind for positive change.',
   },
   {
-    question: 'Is hypnosis safe?',
+    question: 'Is hypnotherapy safe?',
     answer:
-      'Yes! Hypnosis is a natural state of mind and is completely safe when practiced by a certified professional. You are always in control during a session.',
+      'Yes! Hypnotherapy is a natural state of mind and is completely safe when practiced by a certified professional. You are always in control during a session.',
   },
   {
     question: 'What can hypnotherapy help with?',
@@ -22,8 +22,8 @@ const faqs = [
     answer: 'You can contact me through the contact form to book a session or ask any questions you may have.',
   },
   {
-    question: 'Will I lose control during hypnosis?',
-    answer: 'No, you remain in control at all times. Hypnosis is a state of focused attention, not mind control.',
+    question: 'Will I lose control during hypnotherapy?',
+    answer: 'No, you remain in control at all times. Hypnotherapy is a state of focused attention, not mind control.',
   },
   {
     question: 'Can everyone be hypnotized?',

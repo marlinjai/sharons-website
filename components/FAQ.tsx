@@ -19,9 +19,9 @@ const faqs = [
       "Most definitely not, you don't need to believe in past lives. QHHT works regardless of your beliefs. The technique accesses your subconscious mind, which holds all your memories, patterns, and wisdom. Whether we explore current life experiences or past lives, the insights you receive are real and transformative.",
   },
   {
-    question: 'Is hypnosis safe?',
+    question: 'Is hypnotherapy safe?',
     answer:
-      "Yes, hypnosis is entirely safe. You're not asleep, and you're definitely not under anyone's control. Think of it more like that floaty, in-between state right before falling asleep. The difference? In a session, I´ll be asking questions while you stay in that calm, open space. You're relaxed, aware, and always in control, just tuned in deeper.",
+      "Yes, hypnotherapy is entirely safe. You're not asleep, and you're definitely not under anyone's control. Think of it more like that floaty, in-between state right before falling asleep. The difference? In a session, I´ll be asking questions while you stay in that calm, open space. You're relaxed, aware, and always in control, just tuned in deeper.",
   },
   {
     question: 'How should I prepare for my session?',
@@ -60,7 +60,7 @@ export default function FAQ() {
           <h2 className="font-secondary text-3xl md:text-4xl font-semibold mb-4 text-text-primary">
             Frequently Asked Questions
           </h2>
-          <p className="font-primary text-lg sm:text-xl text-text-gray">Common questions about Hypnosis</p>
+          <p className="font-primary text-lg sm:text-xl text-text-gray">Common questions about Hypnotherapy</p>
         </div>
 
         {/* FAQ Items */}

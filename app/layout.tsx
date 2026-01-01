@@ -3,9 +3,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'ReTurn Hypnosis - Regression Hypnosis & Personal Transformation',
+  title: 'ReTurn Hypnotherapy - Hypnotherapy & Personal Transformation',
   description:
-    'Transform your life through regression hypnosis with certified practitioner Sharon Di Salvo. Discover healing, clarity, and personal transformation.',
+    'Transform your life through hypnotherapy with certified practitioner Sharon Di Salvo. Discover healing, clarity, and personal transformation.',
   keywords:
     'regression hypnosis, hypnotherapy, personal transformation, healing, past life regression, Sharon Di Salvo',
 };

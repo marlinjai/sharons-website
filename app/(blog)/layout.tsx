@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'ReTurn Blog - Regression Hypnosis Insights',
+  title: 'ReTurn Blog - Hypnotherapy Insights',
   description:
-    "Explore deep insights into regression hypnosis, personal transformation, and healing through Sharon Di Salvo's expert articles and client stories.",
+    "Explore deep insights into hypnotherapy, personal transformation, and healing through Sharon Di Salvo's expert articles and client stories.",
   keywords:
-    'regression hypnosis, past life regression, hypnotherapy, personal transformation, healing, Sharon Di Salvo, blog',
+    'hypnotherapy, past life regression, hypnotherapy, personal transformation, healing, Sharon Di Salvo, blog',
 };
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
