@@ -9,6 +9,7 @@ export type BlogPostType = {
   category: string;
   readTime: string;
   date: string;
+  published: boolean;
   content: React.ReactNode;
 };
 
@@ -29,6 +30,7 @@ export const blogPostsData: BlogPostType[] = [
     category: "Education",
     readTime: "2 min read",
     date: "July 15, 2025",
+    published: false,
     content: (
       <>
         <h2 className="font-secondary text-2xl font-semibold mb-6" style={{ color: '#A32015' }}>Who's Who in the World of the Mind</h2>
@@ -127,6 +129,7 @@ export const blogPostsData: BlogPostType[] = [
     category: "Education",
     readTime: "4 min read",
     date: "June 15, 2025",
+    published: false,
     content: (
       <>
         <p className="mb-6">For decades (since Freud and Jung started dissecting the human mind), people from all walks of life have been sitting on the couch, pouring their hearts out to psychologists, therapists, and psychiatrists.</p>
@@ -201,6 +204,7 @@ export const blogPostsData: BlogPostType[] = [
     category: "Guide",
     readTime: "4 min read",
     date: "March 5, 2024",
+    published: false,
     content: (
       <>
         <p className="mb-6">Your first regression session is a sacred journey into the depths of your consciousness. Here's how to prepare for this transformative experience.</p>
@@ -240,6 +244,7 @@ export const blogPostsData: BlogPostType[] = [
     category: "Education",
     readTime: "3 min read",
     date: "August 15, 2025",
+    published: false,
     content: (
       <>
         <div className="mb-8">

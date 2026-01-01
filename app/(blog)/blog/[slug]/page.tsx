@@ -9,7 +9,8 @@ import BlogHeader from '@/components/BlogHeader';
 export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;
-  const post: BlogPostType | undefined = blogPostsData.find(p => p.slug === slug);
+  // Only allow access to published posts
+  const post: BlogPostType | undefined = blogPostsData.find(p => p.slug === slug && p.published);
 
   if (!post) {
     return (
