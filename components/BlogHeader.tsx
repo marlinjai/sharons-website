@@ -77,7 +77,7 @@ export default function BlogHeader({
               <div className="flex flex-col items-center gap-12 md:gap-16 justify-center -mt-[2%]">
                 <Link href="/" className="group">
                   <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                    <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-12 sm:h-16 lg:h-20 w-auto" />
+                    <img src="/graphics/return-logo-new.png" alt="ReTurn Logo" className="h-12 sm:h-16 lg:h-20 w-auto" />
                   </div>
                 </Link>
 

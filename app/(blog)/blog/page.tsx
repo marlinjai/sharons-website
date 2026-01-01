@@ -21,7 +21,7 @@ export default function BlogPage() {
       <div className="min-h-screen bg-white overflow-x-hidden">
         <BlogHeader
           backgroundImage="/images/6.jpg"
-          title="Hypnosis, Explained."
+          title="Hypnotherapy, Explained."
           subtitle="Simple. Nerdy. Surprisingly Fun."
           backLink={{
             href: '/',
@@ -30,7 +30,7 @@ export default function BlogPage() {
         />
 
         {/* Blog Posts */}
-        <div className="py-16 bg-[url('/images/linnen-bg-seamless.jpg')] bg-contain bg-center">
+        <div className="py-16 ">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Featured Post */}
             <div className="mb-16">

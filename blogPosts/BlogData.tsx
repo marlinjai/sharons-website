@@ -233,19 +233,19 @@ export const blogPostsData: BlogPostType[] = [
   },
   {
     id: 1,
-    slug: slugify("What Is Hypnosis, Really?"),
+    slug: slugify("What Is hypnotherapy, Really?"),
     image: null,
-    title: "What Is Hypnosis, Really?",
-    subtitle: "Let's start from the top. Hypnosis is a natural state of deep relaxation...",
+    title: "What Is Hypnotherapy, Really?",
+    subtitle: "Let's start from the top. Hypnotherapy is a natural state of deep relaxation...",
     category: "Education",
     readTime: "3 min read",
     date: "August 15, 2025",
     content: (
       <>
         <div className="mb-8">
-          <h2 className="font-secondary text-3xl font-semibold mb-4" style={{ color: '#A32015' }}>What Is Hypnosis, Really?</h2>
+          <h2 className="font-secondary text-3xl font-semibold mb-4" style={{ color: '#A32015' }}>What Is Hypnotherapy, Really?</h2>
           <p className="mb-6">Let's start from the top.</p>
-          <p className="mb-6">Hypnosis is a natural state of deep relaxation where your mind focuses, your body softens, and your subconscious - the real boss - becomes open and responsive.</p>
+          <p className="mb-6">Hypnotherapy is a natural state of deep relaxation where your mind focuses, your body softens, and your subconscious - the real boss - becomes open and responsive.</p>
           <p className="mb-6">It's not mind control. It's not sleep. And no, it's not dangerous.</p>
           <p className="mb-6">You naturally drift into this state twice a day:</p>
           <ul className="list-none space-y-2 mb-6">

@@ -8,8 +8,8 @@ import BookSession from './BookSession';
 export default function Hero() {
   return (
     <section className="relative h-[100vh] min-h-[600px] md:h-screen w-full bg-black text-white overflow-hidden">
-      {/* Background image */}
-      <div className="absolute inset-0 z-0 w-full h-full">
+      {/* Background image - rotated -1deg with scale to cover edges */}
+      <div className="absolute inset-0 z-0 w-full h-full -rotate-1 scale-105">
         <Image
           // src="/images/doors.avif"
           src="/images/6.jpg"
@@ -26,24 +26,19 @@ export default function Hero() {
       <div className="relative h-full z-20 flex items-end justify-center sm:pb-[16vw] lg:pb-[15vh] pb-[20vh] pt-0">
         <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col lg:flex-row items-end gap-24 pl-8 min-[380px]:pl-0 md:pl-8">
           <div className="max-w-2xl 2xl:max-w-full text-left space-y-4 md:space-y-6">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col">
               {/* Line 1: Hypnotherapy - immediately visible */}
-              <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg">
+              <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold mb-[0.93rem] text-brand-off-black drop-shadow-lg">
                 Hypnotherapy
               </h1>
 
               {/* Line 2: For the Curious, Brave & Ready - immediately visible */}
-              <div className="flex flex-wrap gap-2 sm:gap-4">
-                <span className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg">
-                  For the Curious,
-                </span>
-                <span className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg">
-                  Brave,
-                </span>
-                <span className="text-2xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold leading-tight text-brand-off-black drop-shadow-lg">
-                  and Ready
-                </span>
-              </div>
+              <p className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold mb-[0.74rem] text-brand-off-black drop-shadow-lg">
+                For the Curious, Brave,
+              </p>
+              <p className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold mb-3 text-brand-off-black drop-shadow-lg">
+                and Ready
+              </p>
             </div>
 
             <div className="flex flex-col gap-2">

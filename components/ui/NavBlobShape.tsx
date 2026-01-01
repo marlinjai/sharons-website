@@ -118,25 +118,25 @@ export function NavBlobShape({ isOpen, dropdownHeight, centerX, extensionWidth, 
         {/* Fill path with glass background color - adapts to hero/off-hero */}
         <motion.path
           d={isOpen ? openPath : closedPath}
-          fill={isOnHero ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.75)"}
+          fill={isOnHero ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.75)"}
           initial={false}
           animate={{
             d: isOpen ? openPath : closedPath,
-            fill: isOnHero ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.75)"
+            fill: isOnHero ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.75)"
           }}
           transition={transition}
         />
 
-        {/* Stroke path for the border - adapts to hero/off-hero */}
+        {/* Stroke path for the border - adapts to hero/off-hero (subtle) */}
         <motion.path
           d={isOpen ? openPath : closedPath}
           fill="none"
-          stroke={isOnHero ? "rgba(255, 255, 255, 0.5)" : "rgba(255, 255, 255, 0.6)"}
+          stroke={isOnHero ? "rgba(255, 255, 255, 0.2)" : "rgba(255, 255, 255, 0.25)"}
           strokeWidth="1.5"
           initial={false}
           animate={{
             d: isOpen ? openPath : closedPath,
-            stroke: isOnHero ? "rgba(255, 255, 255, 0.5)" : "rgba(255, 255, 255, 0.6)"
+            stroke: isOnHero ? "rgba(255, 255, 255, 0.2)" : "rgba(255, 255, 255, 0.25)"
           }}
           transition={transition}
         />

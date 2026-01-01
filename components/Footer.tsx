@@ -24,7 +24,7 @@ export default function Footer() {
             <Link href={homeLink} className="inline-block mb-4">
               <div className="flex items-center gap-3">
                 <div className="bg-white border-border-accent border-2 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300">
-                  <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-8 w-auto" />
+                  <img src="/graphics/return-logo-new.png" alt="ReTurn Logo" className="h-8 w-auto" />
                 </div>
                 <div className="font-secondary text-3xl font-semibold text-text-primary hover:text-brand-primary-light transition-colors duration-200">
                   ReTurn
@@ -32,7 +32,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-text-gray-light max-w-md font-primary leading-relaxed">
-              Regression Hypnosis: the Adventure
+              Hypnotherapy: the Adventure
               <br />
               of a Lifetime for the Curious, the Bold,
               <br className="block lg:hidden" /> and the Ready.
@@ -124,7 +124,7 @@ export default function Footer() {
             <Link href={homeLink} className="inline-block mb-4">
               <div className="flex items-center gap-3">
                 <div className="bg-white border-border-accent border-2 rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300">
-                  <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-8 w-auto" />
+                  <img src="/graphics/return-logo-new.png" alt="ReTurn Logo" className="h-8 w-auto" />
                 </div>
                 <div className="font-secondary text-3xl font-semibold text-text-primary hover:text-brand-primary-light transition-colors duration-200">
                   ReTurn
@@ -132,7 +132,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-text-gray-light font-primary leading-relaxed">
-              Regression Hypnosis: the Adventure
+              Hypnotherapy: the Adventure
               <br />
               of a Lifetime for the Curious, the Bold,
               <br className="block lg:hidden" /> and the Ready.
@@ -214,7 +214,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-300 mt-12 pt-8 text-center">
-          <p className="text-text-gray-light mb-2 font-primary">© Copyright 2025 ReTurn Regression Hypnosis</p>
+          <p className="text-text-gray-light mb-2 font-primary">© Copyright 2026 ReTurn Hypnotherapy</p>
           <p className="text-text-gray-light text-sm font-primary">Designed with love by <a href="https://www.linkedin.com/in/marlin-pohl/" className="text-text-primary hover:text-brand-primary-light transition-colors duration-200 font-primary">Marlin Jai Pohl</a></p>
         </div>
       </div>

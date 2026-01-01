@@ -223,8 +223,8 @@ export function Navigation() {
           {/* Mobile-only simple pill background (no morphing) - matches NavBlobShape exactly */}
           <div
             className={`absolute inset-x-0 top-0 h-[104px] rounded-full lg:hidden pointer-events-none ${isOnHero
-              ? 'bg-[rgba(255,255,255,0.35)] border-[1.5px] border-[rgba(255,255,255,0.5)]'
-              : 'bg-[rgba(255,255,255,0.75)] border-[1.5px] border-[rgba(255,255,255,0.6)]'
+              ? 'bg-[rgba(255,255,255,0.45)] border-[1.5px] border-[rgba(255,255,255,0.2)]'
+              : 'bg-[rgba(255,255,255,0.75)] border-[1.5px] border-[rgba(255,255,255,0.25)]'
               }`}
           />
 
@@ -234,7 +234,7 @@ export function Navigation() {
               {/* Logo - positioned to align with main content */}
               <Link href="/" className="group">
                 <div className="bg-white border-[rgb(245,124,0)] border-2 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                  <img src="/graphics/logo_return.svg" alt="ReTurn Logo" className="h-10 sm:h-12 lg:h-[3.5rem] w-auto" />
+                  <img src="/graphics/return-logo-new.png" alt="ReTurn Logo" className="h-10 sm:h-12 lg:h-[3.5rem] w-auto" />
                 </div>
               </Link>
 
