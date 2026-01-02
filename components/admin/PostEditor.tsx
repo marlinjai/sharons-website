@@ -10,9 +10,6 @@ import 'react-quill-new/dist/quill.snow.css';
 // Dynamically import ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
-// Type for ReactQuill ref
-type ReactQuillType = any;
-
 interface PostEditorProps {
   initialData?: {
     id?: number;
@@ -66,15 +63,19 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
   const [aiToolbarPos, setAiToolbarPos] = useState<{ top: number; left: number } | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
 
-  // Store Quill editor refs
-  const quillRef = useRef<ReactQuillType>(null);
+  // Ref for the editor container
   const editorContainerRef = useRef<HTMLDivElement>(null);
+  const quillInstanceRef = useRef<any>(null);
 
-  // Get Quill instance from the ReactQuill ref
+  // Get Quill instance from the DOM (dynamic imports don't support refs)
   const getQuillInstance = useCallback(() => {
-    if (quillRef.current) {
-      const editor = quillRef.current.getEditor?.();
-      if (editor) return editor;
+    if (quillInstanceRef.current) return quillInstanceRef.current;
+
+    // Find Quill instance via DOM - stored on .ql-container element
+    const container = editorContainerRef.current?.querySelector('.ql-container');
+    if (container && (container as any).__quill) {
+      quillInstanceRef.current = (container as any).__quill;
+      return quillInstanceRef.current;
     }
     return null;
   }, []);
@@ -225,11 +226,11 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
   return (
     <div className="max-w-5xl mx-auto relative">
-      {/* Floating AI Toolbar */}
+      {/* Floating AI Toolbar - z-[9999] ensures it's above all other elements */}
       {aiToolbarPos && selectedText && (
         <div
           id="ai-toolbar"
-          className="fixed z-50 transform -translate-x-1/2"
+          className="fixed z-[9999] transform -translate-x-1/2"
           style={{ top: aiToolbarPos.top, left: aiToolbarPos.left }}
         >
           <div className="bg-gray-900 rounded-xl shadow-2xl p-1.5 flex items-center gap-1 animate-in fade-in zoom-in-95 duration-150">
@@ -516,7 +517,6 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
           }
         `}</style>
         <ReactQuill
-          ref={quillRef}
           theme="snow"
           value={content}
           onChange={setContent}
