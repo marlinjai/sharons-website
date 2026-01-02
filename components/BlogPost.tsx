@@ -2,9 +2,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import BlogMetadata from './BlogMetadata';
-import { BlogPostType } from '@/blogPosts/BlogData';
 
-export default function BlogPost({ slug, title, image, subtitle, category, readTime, date }: BlogPostType) {
+// Props needed for blog post card display
+interface BlogPostProps {
+  slug: string;
+  title: string;
+  image?: string | null;
+  subtitle?: string;
+  category: string;
+  readTime: string;
+  date: string;
+}
+
+export default function BlogPost({ slug, title, image, subtitle, category, readTime, date }: BlogPostProps) {
   return (
     <Link href={`/blog/${slug}`} className="group">
       <article className="rounded-lg overflow-hidden hover:shadow-lg min-h-[300px] transition-all duration-300">
