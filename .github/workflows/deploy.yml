@@ -10,6 +10,8 @@
 # - RESEND_AUDIENCE_ID: Newsletter audience ID
 # - FROM_EMAIL: Sender email
 # - TO_EMAIL: Recipient email
+# - JWT_SECRET: Secret for signing admin JWT tokens
+# - ADMIN_PASSWORD: Admin panel password
 name: Deploy to Production
 
 on:
@@ -120,19 +122,21 @@ jobs:
           # Execute deployment
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             cd ~/sharons-website
-            
+
             # Login to GitHub Container Registry
             echo ${{ secrets.PERSONAL_GITHUB_TOKEN }} | docker login ghcr.io -u marlinjai --password-stdin
-            
+
             # Pull latest image to ensure fresh deployment (belt and suspenders approach)
             docker pull ghcr.io/marlinjai/sharons-website:latest
-            
+
             # Create .env file with environment variables
             echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" > .env
             echo "RESEND_AUDIENCE_ID=${{ secrets.RESEND_AUDIENCE_ID }}" >> .env
             echo "FROM_EMAIL=${{ secrets.FROM_EMAIL }}" >> .env
             echo "TO_EMAIL=${{ secrets.TO_EMAIL }}" >> .env
-            
+            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+            echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env
+
             # Run deployment script with SSL enabled
             chmod +x scripts/deploy.sh
             ./scripts/deploy.sh deploy main true
@@ -146,7 +150,7 @@ jobs:
                       # Check if the application is responding through main endpoint
             echo "Waiting for deployment to stabilize..."
             sleep 30
-            
+
             if curl -f -s -k "https://${{ secrets.SERVER_HOST }}/health"; then
               echo "✅ Deployment successful!"
             else
