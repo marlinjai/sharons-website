@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Build the message for OpenAI
-    const systemMessage = `You are a helpful writing assistant for a blog about hypnotherapy and mental wellness. 
+    const systemMessage = `You are a helpful writing assistant for a blog about hypnotherapy and mental wellness.
 Your task is to help improve, expand, or generate content that is:
 - Professional yet warm and approachable
 - Clear and easy to understand
@@ -40,7 +40,7 @@ Your task is to help improve, expand, or generate content that is:
 
 Respond with just the content, no explanations or meta-commentary.`;
 
-    const userMessage = context 
+    const userMessage = context
       ? `${prompt}\n\n${context}`
       : prompt;
 
