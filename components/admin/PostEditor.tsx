@@ -3,12 +3,15 @@
 
 'use client';
 
-import { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 
 // Dynamically import ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+
+// Type for ReactQuill ref
+type ReactQuillType = any;
 
 interface PostEditorProps {
   initialData?: {
@@ -63,9 +66,18 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
   const [aiToolbarPos, setAiToolbarPos] = useState<{ top: number; left: number } | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
 
-  // Store Quill editor instance
-  const quillEditorRef = useRef<any>(null);
+  // Store Quill editor refs
+  const quillRef = useRef<ReactQuillType>(null);
   const editorContainerRef = useRef<HTMLDivElement>(null);
+
+  // Get Quill instance from the ReactQuill ref
+  const getQuillInstance = useCallback(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor?.();
+      if (editor) return editor;
+    }
+    return null;
+  }, []);
 
   // Quill modules
   const modules = useMemo(
@@ -88,42 +100,30 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
   const formats = [
     'header', 'bold', 'italic', 'underline', 'strike',
-    'list', 'bullet', 'indent', 'blockquote', 'code-block',
+    'list', 'indent', 'blockquote', 'code-block',
     'link', 'image', 'color', 'background', 'align',
   ];
 
-  // Get the actual Quill instance from the DOM
-  const getQuillInstance = () => {
-    if (quillEditorRef.current) return quillEditorRef.current;
-
-    // Find Quill instance via DOM - it's stored on the container element
-    const container = editorContainerRef.current?.querySelector('.ql-container');
-    if (container && (container as any).__quill) {
-      quillEditorRef.current = (container as any).__quill;
-      return quillEditorRef.current;
-    }
-    return null;
-  };
-
   // Handle selection change from Quill
   // react-quill-new signature: (selection: Range, source: EmitterSource, editor: UnprivilegedEditor)
-  const handleSelectionChange = (range: any, source: any, editor: any) => {
-    // Try to get the actual Quill instance
-    const quill = getQuillInstance();
-
+  const handleSelectionChange = useCallback((range: any, source: any, editor: any) => {
     // Only process if there's a selection with length > 0
-    if (range && range.length > 0 && quill) {
-      const text = quill.getText(range.index, range.length).trim();
+    if (range && range.length > 0) {
+      // Use the editor parameter from react-quill or fall back to ref
+      const quill = getQuillInstance();
+      const text = editor?.getText?.(range.index, range.length)?.trim() ||
+                   quill?.getText?.(range.index, range.length)?.trim() || '';
 
       if (text.length > 2) {
         setSelectedText(text);
         setSelectionRange({ index: range.index, length: range.length });
 
         // Get bounds for toolbar positioning
-        const bounds = quill.getBounds(range.index, range.length);
+        const bounds = quill?.getBounds?.(range.index, range.length) ||
+                       editor?.getBounds?.(range.index, range.length);
         const containerRect = editorContainerRef.current?.getBoundingClientRect();
 
-        if (containerRect) {
+        if (containerRect && bounds) {
           setAiToolbarPos({
             top: containerRect.top + bounds.top + window.scrollY - 55,
             left: containerRect.left + bounds.left + (bounds.width / 2),
@@ -135,13 +135,13 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
     } else {
       hideAiToolbar();
     }
-  };
+  }, [getQuillInstance, hideAiToolbar]);
 
-  const hideAiToolbar = () => {
+  const hideAiToolbar = useCallback(() => {
     setSelectedText('');
     setSelectionRange(null);
     setAiToolbarPos(null);
-  };
+  }, []);
 
   // Apply AI transformation using Quill's native API
   const applyAiAction = async (action: typeof AI_ACTIONS[0]) => {
@@ -515,6 +515,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
           }
         `}</style>
         <ReactQuill
+          ref={quillRef}
           theme="snow"
           value={content}
           onChange={setContent}

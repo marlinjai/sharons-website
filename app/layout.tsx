@@ -8,6 +8,10 @@ export const metadata: Metadata = {
     'Transform your life through hypnotherapy with certified practitioner Sharon Di Salvo. Discover healing, clarity, and personal transformation.',
   keywords:
     'regression hypnosis, hypnotherapy, personal transformation, healing, past life regression, Sharon Di Salvo',
+  icons: {
+    icon: '/graphics/favicon.png',
+    apple: '/graphics/favicon.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

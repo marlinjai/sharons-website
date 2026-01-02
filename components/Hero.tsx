@@ -42,29 +42,29 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col gap-2">
-              {/* Line 3: Irresistibly drawn to the unknown? - animates in faster */}
+              {/* Line 3: Irresistibly drawn to the unknown? - animates in */}
               <TextGenerateEffect
                 words="Irresistibly drawn to the unknown?"
                 className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
                 duration={0.8}
                 filter={true}
-                delay={2}
+                delay={0.9}
               />
 
-              {/* Line 4: This is more than a journey + Adventure of a Lifetime - animates faster */}
+              {/* Line 4: This is more than a journey + Adventure of a Lifetime */}
               <TextGenerateEffect
                 words="This is more than a journey"
                 className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
                 duration={0.7}
                 filter={true}
-                delay={3}
+                delay={1.9}
               />
               <TextGenerateEffect
                 words="it's the Adventure of a Lifetime."
                 className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
                 duration={0.7}
                 filter={true}
-                delay={4}
+                delay={2.9}
               />
             </div>
 
