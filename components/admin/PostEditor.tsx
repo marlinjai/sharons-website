@@ -92,20 +92,27 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
     'link', 'image', 'color', 'background', 'align',
   ];
 
+  // Get the actual Quill instance from the DOM
+  const getQuillInstance = () => {
+    if (quillEditorRef.current) return quillEditorRef.current;
+    
+    // Find Quill instance via DOM - it's stored on the container element
+    const container = editorContainerRef.current?.querySelector('.ql-container');
+    if (container && (container as any).__quill) {
+      quillEditorRef.current = (container as any).__quill;
+      return quillEditorRef.current;
+    }
+    return null;
+  };
+
   // Handle selection change from Quill
   // react-quill-new signature: (selection: Range, source: EmitterSource, editor: UnprivilegedEditor)
   const handleSelectionChange = (range: any, source: any, editor: any) => {
-    // Capture editor instance on first call
-    if (!quillEditorRef.current && editor) {
-      const quill = editor.getEditor ? editor.getEditor() : editor;
-      if (quill) {
-        quillEditorRef.current = quill;
-      }
-    }
+    // Try to get the actual Quill instance
+    const quill = getQuillInstance();
 
     // Only process if there's a selection with length > 0
-    if (range && range.length > 0 && quillEditorRef.current) {
-      const quill = quillEditorRef.current;
+    if (range && range.length > 0 && quill) {
       const text = quill.getText(range.index, range.length).trim();
 
       if (text.length > 2) {
@@ -138,8 +145,10 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
   // Apply AI transformation using Quill's native API
   const applyAiAction = async (action: typeof AI_ACTIONS[0]) => {
-    if (!selectedText || !selectionRange || !quillEditorRef.current) {
-      console.log('Missing requirements:', { selectedText: !!selectedText, selectionRange: !!selectionRange, editor: !!quillEditorRef.current });
+    const quill = getQuillInstance();
+    
+    if (!selectedText || !selectionRange || !quill) {
+      console.log('Missing requirements:', { selectedText: !!selectedText, selectionRange: !!selectionRange, editor: !!quill });
       return;
     }
 
@@ -165,9 +174,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       const data = await res.json();
       const result = data.result?.trim();
 
-      if (result) {
-        const quill = quillEditorRef.current;
-
+      if (result && quill) {
         // Use Quill's native API to replace text
         quill.deleteText(rangeToReplace.index, rangeToReplace.length, 'user');
         quill.insertText(rangeToReplace.index, result, 'user');
