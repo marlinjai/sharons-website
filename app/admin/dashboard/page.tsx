@@ -24,6 +24,7 @@ export default function AdminDashboardPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [migrating, setMigrating] = useState(false);
   const router = useRouter();
 
   // Check auth and fetch posts
@@ -91,6 +92,33 @@ export default function AdminDashboardPage() {
     }
   };
 
+  // Seed initial blog posts from migration endpoint
+  const handleMigrate = async () => {
+    if (!confirm('Seed database with initial blog posts?')) return;
+
+    setMigrating(true);
+    try {
+      const res = await fetch('/api/admin/migrate', { method: 'POST' });
+      const data = await res.json();
+
+      if (res.ok) {
+        alert(data.message);
+        // Refresh posts list
+        const postsRes = await fetch('/api/admin/posts');
+        if (postsRes.ok) {
+          const postsData = await postsRes.json();
+          setPosts(postsData);
+        }
+      } else {
+        alert(`Migration failed: ${data.error}`);
+      }
+    } catch (err) {
+      alert('Network error during migration');
+    } finally {
+      setMigrating(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -147,8 +175,15 @@ export default function AdminDashboardPage() {
         {/* Posts Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
           {posts.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
-              No posts yet. Create your first post!
+            <div className="p-8 text-center">
+              <p className="text-gray-500 mb-4">No posts yet. Create your first post!</p>
+              <button
+                onClick={handleMigrate}
+                disabled={migrating}
+                className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50"
+              >
+                {migrating ? 'Seeding...' : 'Seed Initial Posts'}
+              </button>
             </div>
           ) : (
             <table className="min-w-full divide-y divide-gray-200">
