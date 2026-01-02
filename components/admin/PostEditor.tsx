@@ -104,6 +104,13 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
     'link', 'image', 'color', 'background', 'align',
   ];
 
+  // Hide AI toolbar helper - declared first since handleSelectionChange depends on it
+  const hideAiToolbar = useCallback(() => {
+    setSelectedText('');
+    setSelectionRange(null);
+    setAiToolbarPos(null);
+  }, []);
+
   // Handle selection change from Quill
   // react-quill-new signature: (selection: Range, source: EmitterSource, editor: UnprivilegedEditor)
   const handleSelectionChange = useCallback((range: any, source: any, editor: any) => {
@@ -136,12 +143,6 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       hideAiToolbar();
     }
   }, [getQuillInstance, hideAiToolbar]);
-
-  const hideAiToolbar = useCallback(() => {
-    setSelectedText('');
-    setSelectionRange(null);
-    setAiToolbarPos(null);
-  }, []);
 
   // Apply AI transformation using Quill's native API
   const applyAiAction = async (action: typeof AI_ACTIONS[0]) => {
