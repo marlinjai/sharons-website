@@ -140,6 +140,12 @@ export default function AdminDashboardPage() {
             >
               Newsletter
             </Link>
+            <Link
+              href="/admin/email-settings"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              Email Settings
+            </Link>
             <a href="/" target="_blank" className="text-gray-600 hover:text-gray-900 transition-colors">
               View Site
             </a>
@@ -221,11 +227,10 @@ export default function AdminDashboardPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
                         onClick={() => handleTogglePublish(post.id, post.published)}
-                        className={`px-2 py-1 text-xs rounded-full ${
-                          post.published
+                        className={`px-2 py-1 text-xs rounded-full ${post.published
                             ? 'bg-green-100 text-green-700 hover:bg-green-200'
                             : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
-                        } transition-colors`}
+                          } transition-colors`}
                       >
                         {post.published ? 'Published' : 'Draft'}
                       </button>

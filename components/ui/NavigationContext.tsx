@@ -25,7 +25,7 @@ interface NavigationActions {
 }
 
 // Combined context interface
-interface NavigationContextType extends NavigationState, NavigationActions {}
+interface NavigationContextType extends NavigationState, NavigationActions { }
 
 // Create context with undefined default (will throw if used outside provider)
 const NavigationContext = createContext<NavigationContextType | undefined>(undefined);

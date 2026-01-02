@@ -12,6 +12,7 @@
 # - TO_EMAIL: Recipient email
 # - JWT_SECRET: Secret for signing admin JWT tokens
 # - ADMIN_PASSWORD: Admin panel password
+# - CALCOM_WEBHOOK_SECRET: Cal.com webhook signing secret (optional)
 name: Deploy to Production
 
 on:
@@ -20,9 +21,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to deploy'
+        description: "Version to deploy"
         required: false
-        default: 'latest'
+        default: "latest"
 
 env:
   REGISTRY: ghcr.io
@@ -39,8 +40,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -136,6 +137,7 @@ jobs:
             echo "TO_EMAIL=${{ secrets.TO_EMAIL }}" >> .env
             echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
             echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env
+            echo "CALCOM_WEBHOOK_SECRET=${{ secrets.CALCOM_WEBHOOK_SECRET }}" >> .env
 
             # Run deployment script with SSL enabled
             chmod +x scripts/deploy.sh

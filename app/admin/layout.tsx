@@ -14,7 +14,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   // Check if user is authenticated
   // Note: The login page handles its own auth check
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
-  
+
   return (
     <div className="min-h-screen bg-gray-100">
       {children}

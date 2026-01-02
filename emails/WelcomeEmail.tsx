@@ -41,7 +41,7 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({ name, latestBlogPost
           {/* Header with Logo */}
           <Section style={header}>
             <div style={logoContainer}>
-              <img src="/graphics/logo_return.svg" alt="ReTurn Hypnosis Logo" style={logo} />
+              <img src="https://returnhypnosis.com/graphics/return-logo-new.png" alt="ReTurn Hypnosis Logo" style={logo} />
             </div>
             <Heading style={heading}>Welcome to the ReTurn Newsletter</Heading>
             <Text style={subheading}>Personal transformation through regression hypnosis</Text>

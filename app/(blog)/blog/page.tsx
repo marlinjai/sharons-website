@@ -1,11 +1,12 @@
 // app/(blog)/blog/page.tsx
-// Blog listing page - fetches posts from database
+// Blog listing page - fetches posts from database (admins see drafts with inline editing)
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import BlogHeader from '@/components/BlogHeader';
 import BlogPostComponent from '@/components/BlogPost';
+import InlinePostEditor from '@/components/blog/InlinePostEditor';
 
 interface Post {
   id: number;
@@ -21,59 +22,69 @@ interface Post {
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [editingPostId, setEditingPostId] = useState<number | null>(null);
 
-  useEffect(() => {
-    async function fetchPosts() {
+  const fetchPosts = useCallback(async () => {
       try {
         const res = await fetch('/api/blog/posts');
         if (res.ok) {
           const data = await res.json();
-          setPosts(data);
+        setPosts(data.posts || []);
+        setIsAdmin(data.isAdmin || false);
         }
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       } finally {
         setLoading(false);
       }
-    }
-    fetchPosts();
   }, []);
 
-  // Featured post is the most recent (first in array since sorted by created_at DESC)
-  const featuredPost =
-    posts.length > 0
-      ? {
-          id: posts[0].id,
-          slug: posts[0].slug,
-          title: posts[0].title,
-          subtitle: posts[0].subtitle,
-          category: posts[0].category,
-          readTime: posts[0].read_time,
-          image: posts[0].featured_image || '/images/envelope-seal-horizontal.jpg',
-          date: new Date(posts[0].created_at).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          }),
-        }
-      : null;
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
 
-  // Remaining posts for the grid
-  const listPosts = posts.slice(1).map(post => ({
+  // Handle edit button click
+  const handleEdit = (postId: number) => {
+    setEditingPostId(postId);
+  };
+
+  // Handle save from inline editor - merge updated data with existing post
+  const handleSave = (updatedPost: { id: number; slug: string; title: string; subtitle: string; category: string; read_time: string; featured_image: string | null; content: string; published: boolean }) => {
+    setPosts(prevPosts =>
+      prevPosts.map(p => (p.id === updatedPost.id ? { ...p, ...updatedPost } : p))
+    );
+    setEditingPostId(null);
+  };
+
+  // Handle cancel from inline editor
+  const handleCancel = () => {
+    setEditingPostId(null);
+  };
+
+  // Transform posts for display
+  const transformPost = (post: Post) => ({
     id: post.id,
     slug: post.slug,
     title: post.title,
     subtitle: post.subtitle,
     category: post.category,
     readTime: post.read_time,
-    image: post.featured_image,
+    image: post.featured_image || '/images/envelope-seal-horizontal.jpg',
     date: new Date(post.created_at).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     }),
-  }));
+    isDraft: !post.published,
+  });
+
+  // Featured post is the most recent (first in array since sorted by created_at DESC)
+  const featuredPost = posts.length > 0 ? transformPost(posts[0]) : null;
+
+  // Remaining posts for the grid
+  const listPosts = posts.slice(1).map(transformPost);
 
   return (
     <>
@@ -102,16 +113,43 @@ export default function BlogPage() {
                 {/* Featured Post */}
                 {featuredPost && (
                   <div className="mb-16">
-                    <BlogPostComponent {...featuredPost} />
+                    {editingPostId === featuredPost.id ? (
+                      <InlinePostEditor
+                        postId={featuredPost.id}
+                        onSave={handleSave}
+                        onCancel={handleCancel}
+                      />
+                    ) : (
+                      <BlogPostComponent
+                        {...featuredPost}
+                        isAdmin={isAdmin}
+                        onEdit={handleEdit}
+                      />
+                    )}
                   </div>
                 )}
 
                 {/* List Posts in 2 columns */}
                 {listPosts.length > 0 && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {listPosts.map(post => (
-                      <BlogPostComponent key={post.id} {...post} />
-                    ))}
+                    {listPosts.map(post =>
+                      editingPostId === post.id ? (
+                        <div key={post.id} className="md:col-span-2">
+                          <InlinePostEditor
+                            postId={post.id}
+                            onSave={handleSave}
+                            onCancel={handleCancel}
+                          />
+                        </div>
+                      ) : (
+                        <BlogPostComponent
+                          key={post.id}
+                          {...post}
+                          isAdmin={isAdmin}
+                          onEdit={handleEdit}
+                        />
+                      )
+                    )}
                   </div>
                 )}
               </>

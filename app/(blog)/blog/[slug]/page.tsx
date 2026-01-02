@@ -26,6 +26,7 @@ export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;
   const [post, setPost] = useState<Post | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
@@ -35,7 +36,8 @@ export default function BlogPostPage() {
         const res = await fetch(`/api/blog/posts/${slug}`);
         if (res.ok) {
           const data = await res.json();
-          setPost(data);
+          setPost(data.post || null);
+          setIsAdmin(data.isAdmin || false);
         } else if (res.status === 404) {
           setNotFound(true);
         }
@@ -131,9 +133,26 @@ export default function BlogPostPage() {
 
       {/* Content */}
       <div className="py-20 ">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Draft Banner - only visible to admins viewing unpublished posts */}
+          {!post.published && isAdmin && (
+            <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-center gap-3">
+              <span className="px-3 py-1 bg-amber-500 text-white text-xs font-semibold uppercase tracking-wide rounded-full">
+                Draft
+              </span>
+              <span className="text-amber-800 text-sm">
+                This post is not published. Only admins can see this preview.
+              </span>
+              <a
+                href={`/admin/posts/${post.id}`}
+                className="ml-auto px-4 py-2 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-600 transition-colors"
+              >
+                Edit Post
+              </a>
+            </div>
+          )}
           <div
-            className="prose prose-lg max-w-none"
+            className="prose prose-lg max-w-3xl mx-auto"
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
         </div>
