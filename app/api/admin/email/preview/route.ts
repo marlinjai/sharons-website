@@ -94,9 +94,7 @@ export async function POST(request: NextRequest) {
             featuredStory = {
               title: post.title,
               excerpt: post.subtitle || 'Read the full article on our blog.',
-              url: `https://returnhypnosis.com/blog/${post.slug}`,
-              category: post.category,
-              readTime: post.read_time,
+              readMoreUrl: `https://returnhypnosis.com/blog/${post.slug}`,
             };
           }
         }
