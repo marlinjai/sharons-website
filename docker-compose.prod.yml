@@ -13,6 +13,8 @@ services:
       - NODE_ENV=production
       - APP_VERSION=${APP_VERSION:-latest}
       - DEPLOYMENT_SLOT=blue
+    volumes:
+      - blog-data:/app/data  # Shared SQLite database volume
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/health']
       interval: 30s
@@ -35,6 +37,8 @@ services:
       - NODE_ENV=production
       - APP_VERSION=${APP_VERSION:-latest}
       - DEPLOYMENT_SLOT=green
+    volumes:
+      - blog-data:/app/data  # Shared SQLite database volume
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/health']
       interval: 30s
@@ -65,3 +69,8 @@ services:
 networks:
   app-network:
     driver: bridge
+
+# Named volumes for data persistence across deployments
+volumes:
+  blog-data:
+    driver: local
