@@ -61,7 +61,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
   const [selectedText, setSelectedText] = useState('');
   const [aiToolbarPos, setAiToolbarPos] = useState<{ top: number; left: number } | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
-  
+
   // Editor container reference
   const editorContainerRef = useRef<HTMLDivElement>(null);
 
@@ -176,10 +176,28 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       const result = data.result?.trim();
 
       if (result) {
-        // Replace in content using string replacement
-        // This is simpler and works without needing Quill's internal state
-        const newContent = content.replace(textToReplace, result);
-        setContent(newContent);
+        // Create a regex that matches the text even if split across HTML tags
+        // Escape special regex characters and allow optional HTML tags between words
+        const escapedText = textToReplace
+          .replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // Escape regex special chars
+          .split(/\s+/) // Split by whitespace
+          .join('(?:</[^>]+>)?\\s*(?:<[^>]+>)?'); // Allow tags between words
+        
+        const regex = new RegExp(escapedText, 'i');
+        
+        if (regex.test(content)) {
+          const newContent = content.replace(regex, result);
+          setContent(newContent);
+        } else {
+          // Fallback: simple replacement
+          const newContent = content.replace(textToReplace, result);
+          if (newContent !== content) {
+            setContent(newContent);
+          } else {
+            // Last resort: append result with note
+            alert(`AI result: ${result}\n\n(Could not auto-replace - please paste manually)`);
+          }
+        }
       }
 
       hideAiToolbar();
