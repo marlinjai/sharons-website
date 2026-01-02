@@ -59,13 +59,11 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
   // Inline AI state
   const [selectedText, setSelectedText] = useState('');
-  const [selectionRange, setSelectionRange] = useState<{ index: number; length: number } | null>(null);
   const [aiToolbarPos, setAiToolbarPos] = useState<{ top: number; left: number } | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
   
-  // Store Quill editor reference
+  // Editor container reference
   const editorContainerRef = useRef<HTMLDivElement>(null);
-  const quillEditorRef = useRef<any>(null);
 
   // Quill modules
   const modules = useMemo(
@@ -99,29 +97,22 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       setTimeout(() => {
         const selection = window.getSelection();
         const selectedStr = selection?.toString().trim() || '';
-        
+
         if (selectedStr.length > 2 && editorContainerRef.current) {
           // Check if selection is within our editor
           const editorEl = editorContainerRef.current.querySelector('.ql-editor');
           if (selection && editorEl && editorEl.contains(selection.anchorNode)) {
             setSelectedText(selectedStr);
-            
+
             // Get selection bounds for positioning toolbar
             const range = selection.getRangeAt(0);
             const rect = range.getBoundingClientRect();
-            
+
             setAiToolbarPos({
               top: rect.top + window.scrollY - 55,
               left: rect.left + (rect.width / 2),
             });
-            
-            // Store Quill selection range
-            if (quillEditorRef.current) {
-              const quillRange = quillEditorRef.current.getSelection();
-              if (quillRange) {
-                setSelectionRange(quillRange);
-              }
-            }
+
           } else {
             hideAiToolbar();
           }
@@ -146,7 +137,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
     document.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('keydown', handleKeyDown);
-    
+
     return () => {
       document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('keydown', handleKeyDown);
@@ -155,14 +146,16 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
   const hideAiToolbar = () => {
     setSelectedText('');
-    setSelectionRange(null);
     setAiToolbarPos(null);
   };
 
   // Apply AI transformation to selected text
   const applyAiAction = async (action: typeof AI_ACTIONS[0]) => {
-    if (!selectedText || !selectionRange) return;
+    if (!selectedText) return;
 
+    // Store the current selection before async operation
+    const textToReplace = selectedText;
+    
     setAiLoading(true);
     try {
       const res = await fetch('/api/admin/ai', {
@@ -170,7 +163,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           prompt: action.prompt,
-          context: selectedText,
+          context: textToReplace,
         }),
       });
 
@@ -182,13 +175,11 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       const data = await res.json();
       const result = data.result?.trim();
 
-      if (result && quillEditorRef.current) {
-        // Replace selected text with AI result
-        quillEditorRef.current.deleteText(selectionRange.index, selectionRange.length);
-        quillEditorRef.current.insertText(selectionRange.index, result);
-        
-        // Update content state
-        setContent(quillEditorRef.current.root.innerHTML);
+      if (result) {
+        // Replace in content using string replacement
+        // This is simpler and works without needing Quill's internal state
+        const newContent = content.replace(textToReplace, result);
+        setContent(newContent);
       }
 
       hideAiToolbar();
@@ -520,16 +511,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
         <ReactQuill
           theme="snow"
           value={content}
-          onChange={(value, delta, source, editor) => {
-            setContent(value);
-            // Store editor reference on first change
-            if (!quillEditorRef.current && editor) {
-              const quill = (editor as any).getEditor?.() || (editor as any);
-              if (quill && quill.deleteText) {
-                quillEditorRef.current = quill;
-              }
-            }
-          }}
+          onChange={setContent}
           modules={modules}
           formats={formats}
           placeholder="Start writing your post... Select any text to use AI assistance."
