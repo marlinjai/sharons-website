@@ -3,7 +3,7 @@
 
 'use client';
 
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 
@@ -62,9 +62,12 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
   const [selectionRange, setSelectionRange] = useState<{ index: number; length: number } | null>(null);
   const [aiToolbarPos, setAiToolbarPos] = useState<{ top: number; left: number } | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
-  const [quillInstance, setQuillInstance] = useState<any>(null);
+  
+  // Store Quill editor reference
+  const editorContainerRef = useRef<HTMLDivElement>(null);
+  const quillEditorRef = useRef<any>(null);
 
-  // Quill modules - enhanced toolbar
+  // Quill modules
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -89,31 +92,66 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
     'link', 'image', 'color', 'background', 'align',
   ];
 
-  // Handle text selection in Quill
-  const handleSelectionChange = useCallback((range: any, oldRange: any, source: string) => {
-    if (!quillInstance) return;
-
-    if (range && range.length > 0) {
-      const text = quillInstance.getText(range.index, range.length);
-      if (text.trim().length > 0) {
-        setSelectedText(text);
-        setSelectionRange(range);
-
-        // Calculate toolbar position
-        const bounds = quillInstance.getBounds(range.index, range.length);
-        const editorRect = quillInstance.root.getBoundingClientRect();
+  // Handle mouse up to detect text selection
+  useEffect(() => {
+    const handleMouseUp = () => {
+      // Small delay to let selection complete
+      setTimeout(() => {
+        const selection = window.getSelection();
+        const selectedStr = selection?.toString().trim() || '';
         
-        setAiToolbarPos({
-          top: editorRect.top + bounds.top - 50 + window.scrollY,
-          left: editorRect.left + bounds.left + (bounds.width / 2),
-        });
-      } else {
-        hideAiToolbar();
+        if (selectedStr.length > 2 && editorContainerRef.current) {
+          // Check if selection is within our editor
+          const editorEl = editorContainerRef.current.querySelector('.ql-editor');
+          if (selection && editorEl && editorEl.contains(selection.anchorNode)) {
+            setSelectedText(selectedStr);
+            
+            // Get selection bounds for positioning toolbar
+            const range = selection.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            
+            setAiToolbarPos({
+              top: rect.top + window.scrollY - 55,
+              left: rect.left + (rect.width / 2),
+            });
+            
+            // Store Quill selection range
+            if (quillEditorRef.current) {
+              const quillRange = quillEditorRef.current.getSelection();
+              if (quillRange) {
+                setSelectionRange(quillRange);
+              }
+            }
+          } else {
+            hideAiToolbar();
+          }
+        } else {
+          hideAiToolbar();
+        }
+      }, 10);
+    };
+
+    const handleMouseDown = (e: MouseEvent) => {
+      // Hide toolbar if clicking outside of it
+      const toolbar = document.getElementById('ai-toolbar');
+      if (toolbar && !toolbar.contains(e.target as Node)) {
+        // Don't hide immediately - let mouseup handle selection
       }
-    } else {
+    };
+
+    const handleKeyDown = () => {
+      // Hide on any key press
       hideAiToolbar();
-    }
-  }, [quillInstance]);
+    };
+
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('keydown', handleKeyDown);
+    
+    return () => {
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   const hideAiToolbar = () => {
     setSelectedText('');
@@ -123,7 +161,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
   // Apply AI transformation to selected text
   const applyAiAction = async (action: typeof AI_ACTIONS[0]) => {
-    if (!selectedText || !selectionRange || !quillInstance) return;
+    if (!selectedText || !selectionRange) return;
 
     setAiLoading(true);
     try {
@@ -144,13 +182,13 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       const data = await res.json();
       const result = data.result?.trim();
 
-      if (result) {
+      if (result && quillEditorRef.current) {
         // Replace selected text with AI result
-        quillInstance.deleteText(selectionRange.index, selectionRange.length);
-        quillInstance.insertText(selectionRange.index, result);
+        quillEditorRef.current.deleteText(selectionRange.index, selectionRange.length);
+        quillEditorRef.current.insertText(selectionRange.index, result);
         
         // Update content state
-        setContent(quillInstance.root.innerHTML);
+        setContent(quillEditorRef.current.root.innerHTML);
       }
 
       hideAiToolbar();
@@ -197,10 +235,11 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       {/* Floating AI Toolbar */}
       {aiToolbarPos && selectedText && (
         <div
-          className="fixed z-50 transform -translate-x-1/2 animate-in fade-in slide-in-from-bottom-2 duration-150"
+          id="ai-toolbar"
+          className="fixed z-50 transform -translate-x-1/2"
           style={{ top: aiToolbarPos.top, left: aiToolbarPos.left }}
         >
-          <div className="bg-gray-900 rounded-xl shadow-2xl p-1.5 flex items-center gap-1">
+          <div className="bg-gray-900 rounded-xl shadow-2xl p-1.5 flex items-center gap-1 animate-in fade-in zoom-in-95 duration-150">
             {aiLoading ? (
               <div className="px-4 py-2 text-white text-sm flex items-center gap-2">
                 <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -215,7 +254,11 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
                 {AI_ACTIONS.map(action => (
                   <button
                     key={action.id}
-                    onClick={() => applyAiAction(action)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      applyAiAction(action);
+                    }}
                     className="px-2.5 py-1.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors flex items-center gap-1.5"
                     title={action.label}
                   >
@@ -224,7 +267,11 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
                   </button>
                 ))}
                 <button
-                  onClick={hideAiToolbar}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    hideAiToolbar();
+                  }}
                   className="ml-1 p-1.5 text-gray-500 hover:text-gray-300 rounded-lg transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -412,7 +459,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       </div>
 
       {/* Content Editor */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div ref={editorContainerRef} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <style jsx global>{`
           .ql-container {
             font-family: inherit;
@@ -467,7 +514,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
           }
           .ql-editor::selection,
           .ql-editor *::selection {
-            background: rgba(163, 32, 21, 0.2);
+            background: rgba(139, 92, 246, 0.3);
           }
         `}</style>
         <ReactQuill
@@ -475,12 +522,11 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
           value={content}
           onChange={(value, delta, source, editor) => {
             setContent(value);
-            // Store quill instance for selection handling
-            if (!quillInstance) {
-              const quill = (editor as any).getEditor?.() || editor;
-              if (quill && quill.on) {
-                setQuillInstance(quill);
-                quill.on('selection-change', handleSelectionChange);
+            // Store editor reference on first change
+            if (!quillEditorRef.current && editor) {
+              const quill = (editor as any).getEditor?.() || (editor as any);
+              if (quill && quill.deleteText) {
+                quillEditorRef.current = quill;
               }
             }
           }}

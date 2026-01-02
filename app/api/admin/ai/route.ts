@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Build the message for OpenAI
-    const systemMessage = `You are a helpful writing assistant for a blog about hypnotherapy and mental wellness. 
+    const systemMessage = `You are a helpful writing assistant for a blog about hypnotherapy and mental wellness.
 Your task is to transform text as requested. The output should:
 - Be professional yet warm and approachable
 - Be clear and easy to understand
@@ -39,7 +39,7 @@ Your task is to transform text as requested. The output should:
 
 CRITICAL: Return ONLY the transformed text. No explanations, no quotes, no "Here is...", just the pure transformed content.`;
 
-    const userMessage = context 
+    const userMessage = context
       ? `${prompt}\n\n"${context}"`
       : prompt;
 
