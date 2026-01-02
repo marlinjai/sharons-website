@@ -45,11 +45,18 @@ export function NavigationProvider({ children, overlayAnimation = 'radial' }: Na
   const [isOnHero, setIsOnHero] = useState(true);
 
   // Hero section detection based on scroll position
+  // Accounts for nav link position from top of viewport for accurate color switching
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const heroHeight = window.innerHeight; // Hero is full viewport height
-      const isOnHeroSection = scrollY < heroHeight;
+
+      // Nav links are approximately 60-80px from top of viewport
+      // Add offset so color switches when nav text actually exits the hero
+      const navBottomOffset = 80; // Distance from top to bottom of nav links
+
+      // Switch colors when the bottom of nav links exits the hero section
+      const isOnHeroSection = scrollY + navBottomOffset < heroHeight;
       setIsOnHero(isOnHeroSection);
     };
 
