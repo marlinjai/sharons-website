@@ -95,7 +95,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
   // Get the actual Quill instance from the DOM
   const getQuillInstance = () => {
     if (quillEditorRef.current) return quillEditorRef.current;
-    
+
     // Find Quill instance via DOM - it's stored on the container element
     const container = editorContainerRef.current?.querySelector('.ql-container');
     if (container && (container as any).__quill) {
@@ -146,7 +146,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
   // Apply AI transformation using Quill's native API
   const applyAiAction = async (action: typeof AI_ACTIONS[0]) => {
     const quill = getQuillInstance();
-    
+
     if (!selectedText || !selectionRange || !quill) {
       console.log('Missing requirements:', { selectedText: !!selectedText, selectionRange: !!selectionRange, editor: !!quill });
       return;

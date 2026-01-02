@@ -48,7 +48,7 @@ export default function Hero() {
                 className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
                 duration={0.8}
                 filter={true}
-                delay={0.5}
+                delay={2}
               />
 
               {/* Line 4: This is more than a journey + Adventure of a Lifetime - animates faster */}
@@ -57,14 +57,14 @@ export default function Hero() {
                 className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
                 duration={0.7}
                 filter={true}
-                delay={1.5}
+                delay={3}
               />
               <TextGenerateEffect
                 words="it's the Adventure of a Lifetime."
                 className="text-md md:text-xl lg:text-2xl 2xl:text-3xl text-brand-off-black drop-shadow-md font-primary"
                 duration={0.7}
                 filter={true}
-                delay={2.5}
+                delay={4}
               />
             </div>
 
