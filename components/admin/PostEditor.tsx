@@ -1,9 +1,9 @@
 // components/admin/PostEditor.tsx
-// Modern rich text editor with inline AI assistance
+// Modern rich text editor with inline AI assistance using Quill's native API
 
 'use client';
 
-import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 
@@ -57,12 +57,14 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
   const [error, setError] = useState('');
   const [showMetadata, setShowMetadata] = useState(true);
 
-  // Inline AI state
+  // Inline AI state - using Quill's native selection
   const [selectedText, setSelectedText] = useState('');
+  const [selectionRange, setSelectionRange] = useState<{ index: number; length: number } | null>(null);
   const [aiToolbarPos, setAiToolbarPos] = useState<{ top: number; left: number } | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
 
-  // Editor container reference
+  // Store Quill editor instance
+  const quillEditorRef = useRef<any>(null);
   const editorContainerRef = useRef<HTMLDivElement>(null);
 
   // Quill modules
@@ -90,72 +92,60 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
     'link', 'image', 'color', 'background', 'align',
   ];
 
-  // Handle mouse up to detect text selection
-  useEffect(() => {
-    const handleMouseUp = () => {
-      // Small delay to let selection complete
-      setTimeout(() => {
-        const selection = window.getSelection();
-        const selectedStr = selection?.toString().trim() || '';
-
-        if (selectedStr.length > 2 && editorContainerRef.current) {
-          // Check if selection is within our editor
-          const editorEl = editorContainerRef.current.querySelector('.ql-editor');
-          if (selection && editorEl && editorEl.contains(selection.anchorNode)) {
-            setSelectedText(selectedStr);
-
-            // Get selection bounds for positioning toolbar
-            const range = selection.getRangeAt(0);
-            const rect = range.getBoundingClientRect();
-
-            setAiToolbarPos({
-              top: rect.top + window.scrollY - 55,
-              left: rect.left + (rect.width / 2),
-            });
-
-          } else {
-            hideAiToolbar();
-          }
-        } else {
-          hideAiToolbar();
-        }
-      }, 10);
-    };
-
-    const handleMouseDown = (e: MouseEvent) => {
-      // Hide toolbar if clicking outside of it
-      const toolbar = document.getElementById('ai-toolbar');
-      if (toolbar && !toolbar.contains(e.target as Node)) {
-        // Don't hide immediately - let mouseup handle selection
+  // Handle selection change from Quill
+  // react-quill-new signature: (selection: Range, source: EmitterSource, editor: UnprivilegedEditor)
+  const handleSelectionChange = (range: any, source: any, editor: any) => {
+    // Capture editor instance on first call
+    if (!quillEditorRef.current && editor) {
+      const quill = editor.getEditor ? editor.getEditor() : editor;
+      if (quill) {
+        quillEditorRef.current = quill;
       }
-    };
+    }
 
-    const handleKeyDown = () => {
-      // Hide on any key press
+    // Only process if there's a selection with length > 0
+    if (range && range.length > 0 && quillEditorRef.current) {
+      const quill = quillEditorRef.current;
+      const text = quill.getText(range.index, range.length).trim();
+
+      if (text.length > 2) {
+        setSelectedText(text);
+        setSelectionRange({ index: range.index, length: range.length });
+
+        // Get bounds for toolbar positioning
+        const bounds = quill.getBounds(range.index, range.length);
+        const containerRect = editorContainerRef.current?.getBoundingClientRect();
+
+        if (containerRect) {
+          setAiToolbarPos({
+            top: containerRect.top + bounds.top + window.scrollY - 55,
+            left: containerRect.left + bounds.left + (bounds.width / 2),
+          });
+        }
+      } else {
+        hideAiToolbar();
+      }
+    } else {
       hideAiToolbar();
-    };
-
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+    }
+  };
 
   const hideAiToolbar = () => {
     setSelectedText('');
+    setSelectionRange(null);
     setAiToolbarPos(null);
   };
 
-  // Apply AI transformation to selected text
+  // Apply AI transformation using Quill's native API
   const applyAiAction = async (action: typeof AI_ACTIONS[0]) => {
-    if (!selectedText) return;
+    if (!selectedText || !selectionRange || !quillEditorRef.current) {
+      console.log('Missing requirements:', { selectedText: !!selectedText, selectionRange: !!selectionRange, editor: !!quillEditorRef.current });
+      return;
+    }
 
-    // Store the current selection before async operation
-    const textToReplace = selectedText;
-    
+    const textToTransform = selectedText;
+    const rangeToReplace = { ...selectionRange };
+
     setAiLoading(true);
     try {
       const res = await fetch('/api/admin/ai', {
@@ -163,7 +153,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           prompt: action.prompt,
-          context: textToReplace,
+          context: textToTransform,
         }),
       });
 
@@ -176,28 +166,14 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       const result = data.result?.trim();
 
       if (result) {
-        // Create a regex that matches the text even if split across HTML tags
-        // Escape special regex characters and allow optional HTML tags between words
-        const escapedText = textToReplace
-          .replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // Escape regex special chars
-          .split(/\s+/) // Split by whitespace
-          .join('(?:</[^>]+>)?\\s*(?:<[^>]+>)?'); // Allow tags between words
-        
-        const regex = new RegExp(escapedText, 'i');
-        
-        if (regex.test(content)) {
-          const newContent = content.replace(regex, result);
-          setContent(newContent);
-        } else {
-          // Fallback: simple replacement
-          const newContent = content.replace(textToReplace, result);
-          if (newContent !== content) {
-            setContent(newContent);
-          } else {
-            // Last resort: append result with note
-            alert(`AI result: ${result}\n\n(Could not auto-replace - please paste manually)`);
-          }
-        }
+        const quill = quillEditorRef.current;
+
+        // Use Quill's native API to replace text
+        quill.deleteText(rangeToReplace.index, rangeToReplace.length, 'user');
+        quill.insertText(rangeToReplace.index, result, 'user');
+
+        // Update React state with new content
+        setContent(quill.root.innerHTML);
       }
 
       hideAiToolbar();
@@ -263,6 +239,10 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
                 {AI_ACTIONS.map(action => (
                   <button
                     key={action.id}
+                    onMouseDown={(e) => {
+                      // Prevent losing selection
+                      e.preventDefault();
+                    }}
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -276,6 +256,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
                   </button>
                 ))}
                 <button
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -530,6 +511,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
           theme="snow"
           value={content}
           onChange={setContent}
+          onChangeSelection={handleSelectionChange}
           modules={modules}
           formats={formats}
           placeholder="Start writing your post... Select any text to use AI assistance."
