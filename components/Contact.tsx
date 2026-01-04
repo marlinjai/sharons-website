@@ -1,3 +1,6 @@
+// components/Contact.tsx
+// Contact form with Resend email integration
+
 'use client';
 import { useState } from 'react';
 
@@ -8,22 +11,39 @@ export default function Contact() {
     phone: '',
     message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Contact form submitted:', formData);
-    // Here you would typically send the form data to your backend
-    // For now, we'll just log it to the console
-    alert("Thank you for your message! I'll get back to you soon.");
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    setStatus('loading');
+    setErrorMsg('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Something went wrong');
+      }
+
+      // Success - clear form and show success state
+      setStatus('success');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Failed to send message');
+    }
   };
 
   return (
@@ -114,11 +134,22 @@ export default function Contact() {
                 />
               </div>
 
+              {/* Status feedback */}
+              {status === 'success' && (
+                <p className="text-green-600 font-primary text-center">
+                  Thank you! Your message has been sent. I'll get back to you soon.
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="text-red-600 font-primary text-center">{errorMsg}</p>
+              )}
+
               <button
                 type="submit"
-                className=" bg-btn-primary-bg text-btn-primary-text px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg-hover mx-auto"
+                disabled={status === 'loading'}
+                className="bg-btn-primary-bg text-btn-primary-text px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg-hover mx-auto disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {status === 'loading' ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
