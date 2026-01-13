@@ -22,11 +22,22 @@ interface Post {
   created_at: string;
 }
 
+interface AdjacentPost {
+  slug: string;
+  title: string;
+}
+
+interface AdjacentPosts {
+  prev: AdjacentPost | null;
+  next: AdjacentPost | null;
+}
+
 export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;
   const [post, setPost] = useState<Post | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [adjacentPosts, setAdjacentPosts] = useState<AdjacentPosts>({ prev: null, next: null });
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
@@ -38,6 +49,7 @@ export default function BlogPostPage() {
           const data = await res.json();
           setPost(data.post || null);
           setIsAdmin(data.isAdmin || false);
+          setAdjacentPosts(data.adjacentPosts || { prev: null, next: null });
         } else if (res.status === 404) {
           setNotFound(true);
         }
@@ -155,6 +167,63 @@ export default function BlogPostPage() {
             className="prose prose-lg max-w-3xl mx-auto"
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
+
+          {/* Post Navigation */}
+          <div className="max-w-3xl mx-auto mt-16 pt-8 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              {/* Previous Post */}
+              <div className="flex-1 w-full sm:w-auto">
+                {adjacentPosts.prev ? (
+                  <Link
+                    href={`/blog/${adjacentPosts.prev.slug}`}
+                    className="group flex items-center gap-2 text-gray-600 hover:text-[#A32015] transition-colors duration-200"
+                  >
+                    <svg
+                      className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform duration-200"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span className="text-sm font-medium line-clamp-1">{adjacentPosts.prev.title}</span>
+                  </Link>
+                ) : (
+                  <div className="w-full sm:w-auto" />
+                )}
+              </div>
+
+              {/* Back to Blog */}
+              <Link
+                href="/blog"
+                className="px-6 py-2 bg-[#A32015] text-white text-sm font-medium rounded-full hover:bg-[#C5441E] transition-colors duration-200"
+              >
+                All Posts
+              </Link>
+
+              {/* Next Post */}
+              <div className="flex-1 w-full sm:w-auto flex justify-end">
+                {adjacentPosts.next ? (
+                  <Link
+                    href={`/blog/${adjacentPosts.next.slug}`}
+                    className="group flex items-center gap-2 text-gray-600 hover:text-[#A32015] transition-colors duration-200"
+                  >
+                    <span className="text-sm font-medium line-clamp-1">{adjacentPosts.next.title}</span>
+                    <svg
+                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-200"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                ) : (
+                  <div className="w-full sm:w-auto" />
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

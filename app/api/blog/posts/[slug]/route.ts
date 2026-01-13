@@ -2,7 +2,7 @@
 // Public API for fetching a blog post by slug (drafts visible to admins)
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getPostBySlug } from '@/lib/db';
+import { getPostBySlug, getAdjacentPosts } from '@/lib/db';
 import { isAuthenticated } from '@/lib/auth';
 
 interface RouteParams {
@@ -27,8 +27,11 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
+    // Get adjacent posts for navigation
+    const adjacentPosts = getAdjacentPosts(slug);
+
     // Include isAdmin flag for frontend to show draft indicator
-    return NextResponse.json({ post, isAdmin });
+    return NextResponse.json({ post, isAdmin, adjacentPosts });
   } catch (error) {
     console.error('Error fetching post:', error);
     return NextResponse.json({ error: 'Failed to fetch post' }, { status: 500 });

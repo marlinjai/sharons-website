@@ -275,6 +275,41 @@ export function isSlugUnique(slug: string, excludeId?: number): boolean {
   return result.count === 0;
 }
 
+// Get adjacent posts (previous and next) for navigation
+export function getAdjacentPosts(slug: string): { prev: Pick<Post, 'slug' | 'title'> | null; next: Pick<Post, 'slug' | 'title'> | null } {
+  const database = getDb();
+
+  // Get current post's id and created_at
+  const currentPost = database.prepare('SELECT id, created_at FROM posts WHERE slug = ? AND published = 1').get(slug) as { id: number; created_at: string } | undefined;
+
+  if (!currentPost) {
+    return { prev: null, next: null };
+  }
+
+  // Previous post: older than current, using created_at DESC then id DESC for consistent ordering
+  const prevRow = database.prepare(`
+    SELECT slug, title FROM posts
+    WHERE published = 1
+      AND (created_at < ? OR (created_at = ? AND id < ?))
+    ORDER BY created_at DESC, id DESC
+    LIMIT 1
+  `).get(currentPost.created_at, currentPost.created_at, currentPost.id) as { slug: string; title: string } | undefined;
+
+  // Next post: newer than current, using created_at ASC then id ASC for consistent ordering
+  const nextRow = database.prepare(`
+    SELECT slug, title FROM posts
+    WHERE published = 1
+      AND (created_at > ? OR (created_at = ? AND id > ?))
+    ORDER BY created_at ASC, id ASC
+    LIMIT 1
+  `).get(currentPost.created_at, currentPost.created_at, currentPost.id) as { slug: string; title: string } | undefined;
+
+  return {
+    prev: prevRow ? { slug: prevRow.slug, title: prevRow.title } : null,
+    next: nextRow ? { slug: nextRow.slug, title: nextRow.title } : null,
+  };
+}
+
 // ============================================================================
 // EMAIL SETTINGS
 // ============================================================================
