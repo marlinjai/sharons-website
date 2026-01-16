@@ -186,12 +186,12 @@ export function getPostById(id: number): Post | null {
   return row ? rowToPost(row) : null;
 }
 
-// Create a new post
-export function createPost(post: Omit<Post, 'id' | 'created_at' | 'updated_at'>): Post {
+// Create a new post (likes defaults to 0)
+export function createPost(post: Omit<Post, 'id' | 'likes' | 'created_at' | 'updated_at'>): Post {
   const database = getDb();
   const stmt = database.prepare(`
-    INSERT INTO posts (slug, title, subtitle, category, read_time, featured_image, content, published)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO posts (slug, title, subtitle, category, read_time, featured_image, content, published, likes)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)
   `);
   const result = stmt.run(
     post.slug,
