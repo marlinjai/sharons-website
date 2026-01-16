@@ -1,6 +1,5 @@
 // app/api/blog/posts/[slug]/like/route.ts
 // API endpoint for liking/unliking blog posts
-// Updated: force rebuild
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getPostLikes, likePost, unlikePost, getPostBySlug } from '@/lib/db';

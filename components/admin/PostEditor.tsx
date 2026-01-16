@@ -327,10 +327,8 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
   // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      console.log('[DEBUG Global Click] Handler fired, target:', (event.target as HTMLElement)?.tagName);
       // Check if click is inside the color menu - if so, don't close
       if (bubbleColorMenuRef.current && bubbleColorMenuRef.current.contains(event.target as Node)) {
-        console.log('[DEBUG Global Click] Click inside color menu, ignoring');
         return;
       }
       setShowColorMenu(false);
@@ -338,20 +336,6 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
-
-  // Debug: Log showColorMenu state changes
-  useEffect(() => {
-    console.log('[DEBUG State] showColorMenu changed to:', showColorMenu);
-  }, [showColorMenu]);
-
-  // Debug: Log BubbleMenu dimensions when selection changes
-  useEffect(() => {
-    const bubbleMenu = document.querySelector('.bg-white.rounded-xl.shadow-xl');
-    if (bubbleMenu) {
-      const rect = bubbleMenu.getBoundingClientRect();
-      console.log('[DEBUG BubbleMenu] Dimensions:', { width: rect.width, height: rect.height });
-    }
-  }, [editor?.state.selection]);
 
   const handleSave = async (publish: boolean = published) => {
     if (!title.trim()) {
@@ -702,12 +686,9 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
                 <button
                   type="button"
                   onClick={(e) => {
-                    console.log('[DEBUG Color Button] Clicked');
-                    console.log('[DEBUG Color Button] showColorMenu before:', showColorMenu);
                     e.preventDefault();
                     e.stopPropagation();
                     setShowColorMenu(!showColorMenu);
-                    console.log('[DEBUG Color Button] showColorMenu after toggle:', !showColorMenu);
                   }}
                   className="px-2 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg flex items-center gap-1"
                   title="Text Color"
@@ -722,7 +703,6 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
                 </button>
                 {showColorMenu && (
                   <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 p-4 z-50 min-w-[160px]">
-                    {console.log('[DEBUG Color Menu] Rendering color picker dropdown')}
                     <div className="text-xs font-medium text-gray-500 mb-3 text-center">Text Color</div>
                     <div className="grid grid-cols-4 gap-3">
                       {PRESET_COLORS.map((preset) => (
@@ -730,11 +710,9 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
                           key={preset.color}
                           type="button"
                           onClick={(e) => {
-                            console.log('[DEBUG Color Select] Color selected:', preset.color);
                             e.preventDefault();
                             e.stopPropagation();
-                            const result = editor.chain().focus().setColor(preset.color).run();
-                            console.log('[DEBUG Color Select] setColor result:', result);
+                            editor.chain().focus().setColor(preset.color).run();
                             setShowColorMenu(false);
                           }}
                           title={preset.name}
