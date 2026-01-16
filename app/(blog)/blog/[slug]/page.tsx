@@ -164,7 +164,7 @@ export default function BlogPostPage() {
             </div>
           )}
           <div
-            className="prose prose-lg max-w-3xl mx-auto"
+            className="blog-content max-w-3xl mx-auto"
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
 

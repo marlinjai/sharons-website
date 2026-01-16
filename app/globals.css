@@ -375,3 +375,140 @@ html {
   border-radius: 24px 24px 0 0;
   pointer-events: none;
 }
+
+/* Shared Blog Content Styles - Used by both editor and published posts */
+.blog-content {
+  font-size: 1.125rem;
+  line-height: 1.778;
+  color: #374151;
+}
+
+/* Headings */
+.blog-content h1 {
+  font-size: 2.25em;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 0;
+  margin-bottom: 0.889em;
+  color: #111827;
+}
+.blog-content h2 {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1.333;
+  margin-top: 1.778em;
+  margin-bottom: 0.889em;
+  color: #111827;
+}
+.blog-content h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  line-height: 1.556;
+  margin-top: 1.556em;
+  margin-bottom: 0.444em;
+  color: #111827;
+}
+.blog-content h4 {
+  font-weight: 600;
+  line-height: 1.556;
+  margin-top: 1.333em;
+  margin-bottom: 0.444em;
+  color: #111827;
+}
+
+/* Paragraphs */
+.blog-content p {
+  margin-top: 1.333em;
+  margin-bottom: 1.333em;
+}
+.blog-content p:first-child {
+  margin-top: 0;
+}
+
+/* Lists */
+.blog-content ul,
+.blog-content ol {
+  margin-top: 1.333em;
+  margin-bottom: 1.333em;
+  padding-left: 1.556em;
+}
+.blog-content li {
+  margin-top: 0.444em;
+  margin-bottom: 0.444em;
+}
+.blog-content ul {
+  list-style-type: disc;
+}
+.blog-content ol {
+  list-style-type: decimal;
+}
+.blog-content li > p {
+  margin: 0;
+}
+
+/* Blockquote */
+.blog-content blockquote {
+  font-style: italic;
+  font-weight: 500;
+  color: #111827;
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1em;
+  margin: 1.778em 0;
+}
+.blog-content blockquote p {
+  margin: 0;
+}
+
+/* Code blocks */
+.blog-content pre {
+  background-color: #1f2937;
+  color: #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 1em;
+  margin: 1.778em 0;
+  overflow-x: auto;
+  font-size: 0.889em;
+  line-height: 1.75;
+  font-family: ui-monospace, monospace;
+}
+.blog-content code {
+  font-size: 0.889em;
+  font-family: ui-monospace, monospace;
+}
+.blog-content :not(pre) > code {
+  background-color: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  color: #111827;
+}
+
+/* Links */
+.blog-content a {
+  color: #a32015;
+  text-decoration: underline;
+  font-weight: 500;
+}
+.blog-content a:hover {
+  color: #7f1810;
+}
+
+/* Images */
+.blog-content img {
+  margin: 1.778em 0;
+  border-radius: 0.375rem;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Strong/Bold */
+.blog-content strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Horizontal rule */
+.blog-content hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 3em 0;
+}

@@ -234,7 +234,7 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
     },
     editorProps: {
       attributes: {
-        class: 'inline-tiptap-editor outline-none',
+        class: 'blog-content outline-none',
       },
     },
   });
@@ -661,98 +661,16 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
         </div>
 
         {/* Rich Text Editor */}
-        <div ref={editorContainerRef} className="border border-gray-200 rounded-xl overflow-hidden">
+        <div ref={editorContainerRef} className="inline-editor-container border border-gray-200 rounded-xl overflow-hidden">
           <CompactToolbar editor={editor} />
 
           <style jsx global>{`
-            /* Editor content - matches Tailwind prose-lg */
-            .inline-tiptap-editor {
+            /* Editor-specific styles (layout & interactive elements) */
+            .inline-editor-container .blog-content {
               max-width: 768px;
               margin: 0 auto;
               padding: 32px 24px;
               min-height: 350px;
-              font-size: 1.125rem;
-              line-height: 1.778;
-              color: #374151;
-            }
-
-            /* Headings */
-            .inline-tiptap-editor h2 {
-              font-size: 1.5em;
-              font-weight: 700;
-              line-height: 1.333;
-              margin-top: 1.778em;
-              margin-bottom: 0.889em;
-              color: #111827;
-            }
-            .inline-tiptap-editor h3 {
-              font-size: 1.25em;
-              font-weight: 600;
-              line-height: 1.556;
-              margin-top: 1.556em;
-              margin-bottom: 0.444em;
-              color: #111827;
-            }
-
-            /* Paragraphs */
-            .inline-tiptap-editor p {
-              margin-top: 1.333em;
-              margin-bottom: 1.333em;
-            }
-            .inline-tiptap-editor p:first-child {
-              margin-top: 0;
-            }
-
-            /* Lists */
-            .inline-tiptap-editor ul, .inline-tiptap-editor ol {
-              margin-top: 1.333em;
-              margin-bottom: 1.333em;
-              padding-left: 1.556em;
-            }
-            .inline-tiptap-editor li {
-              margin-top: 0.444em;
-              margin-bottom: 0.444em;
-            }
-            .inline-tiptap-editor ul { list-style-type: disc; }
-            .inline-tiptap-editor ol { list-style-type: decimal; }
-            .inline-tiptap-editor li > p { margin: 0; }
-
-            /* Blockquote */
-            .inline-tiptap-editor blockquote {
-              font-style: italic;
-              font-weight: 500;
-              color: #111827;
-              border-left: 4px solid #e5e7eb;
-              padding-left: 1em;
-              margin: 1.778em 0;
-            }
-            .inline-tiptap-editor blockquote p { margin: 0; }
-
-            /* Links */
-            .inline-tiptap-editor a {
-              color: #A32015;
-              text-decoration: underline;
-              font-weight: 500;
-            }
-
-            /* Strong */
-            .inline-tiptap-editor strong {
-              font-weight: 600;
-              color: #111827;
-            }
-
-            /* Placeholder */
-            .inline-tiptap-editor p.is-editor-empty:first-child::before {
-              content: attr(data-placeholder);
-              float: left;
-              color: #9ca3af;
-              pointer-events: none;
-              height: 0;
-            }
-
-            /* Selection highlight */
-            .inline-tiptap-editor ::selection {
-              background: rgba(139, 92, 246, 0.3);
             }
           `}</style>
 

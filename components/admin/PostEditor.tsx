@@ -79,8 +79,34 @@ function ToolbarButton({
   );
 }
 
+// Preset colors for the color picker
+const PRESET_COLORS = [
+  { name: 'Brand Red', color: '#A32015' },
+  { name: 'Dark Gray', color: '#374151' },
+  { name: 'Black', color: '#111827' },
+  { name: 'Blue', color: '#2563eb' },
+  { name: 'Green', color: '#16a34a' },
+  { name: 'Purple', color: '#7c3aed' },
+  { name: 'Orange', color: '#ea580c' },
+  { name: 'Teal', color: '#0d9488' },
+];
+
 // Editor toolbar component
 function EditorToolbar({ editor }: { editor: Editor }) {
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const colorPickerRef = useRef<HTMLDivElement>(null);
+
+  // Close color picker when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (colorPickerRef.current && !colorPickerRef.current.contains(event.target as Node)) {
+        setShowColorPicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const addImage = useCallback(() => {
     const url = window.prompt('Enter image URL:');
     if (url) {
@@ -98,6 +124,8 @@ function EditorToolbar({ editor }: { editor: Editor }) {
     }
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   }, [editor]);
+
+  const currentColor = editor.getAttributes('textStyle').color || '#374151';
 
   return (
     <div className="flex flex-wrap items-center gap-1 p-3 border-b border-gray-200 bg-gray-50">
@@ -141,6 +169,53 @@ function EditorToolbar({ editor }: { editor: Editor }) {
       <ToolbarButton onClick={() => editor.chain().focus().toggleStrike().run()} isActive={editor.isActive('strike')} title="Strikethrough">
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M10 19h4v-3h-4v3zM5 4v3h5v3h4V7h5V4H5zM3 14h18v-2H3v2z"/></svg>
       </ToolbarButton>
+
+      {/* Text Color */}
+      <div className="relative" ref={colorPickerRef}>
+        <button
+          type="button"
+          onClick={() => setShowColorPicker(!showColorPicker)}
+          title="Text Color"
+          className="p-2 rounded hover:bg-gray-200 transition-colors text-gray-600 flex items-center gap-1"
+        >
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M11 2L5.5 16h2.25l1.12-3h6.25l1.12 3h2.25L13 2h-2zm-1.38 9L12 4.67 14.38 11H9.62z"/>
+          </svg>
+          <div
+            className="w-4 h-1 rounded-sm"
+            style={{ backgroundColor: currentColor }}
+          />
+        </button>
+        {showColorPicker && (
+          <div className="absolute top-full left-0 mt-1 p-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+            <div className="grid grid-cols-4 gap-1 mb-2">
+              {PRESET_COLORS.map((preset) => (
+                <button
+                  key={preset.color}
+                  type="button"
+                  onClick={() => {
+                    editor.chain().focus().setColor(preset.color).run();
+                    setShowColorPicker(false);
+                  }}
+                  title={preset.name}
+                  className="w-6 h-6 rounded border border-gray-300 hover:scale-110 transition-transform"
+                  style={{ backgroundColor: preset.color }}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                editor.chain().focus().unsetColor().run();
+                setShowColorPicker(false);
+              }}
+              className="w-full text-xs text-gray-500 hover:text-gray-700 py-1"
+            >
+              Remove color
+            </button>
+          </div>
+        )}
+      </div>
 
       <div className="w-px h-6 bg-gray-300 mx-1" />
 
@@ -297,7 +372,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
     },
     editorProps: {
       attributes: {
-        class: 'tiptap-editor outline-none',
+        class: 'blog-content outline-none',
       },
     },
   });
@@ -741,144 +816,20 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
       {/* Content Editor - shown in edit mode */}
       {viewMode === 'edit' && (
         <>
-          <div ref={editorContainerRef} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div ref={editorContainerRef} className="post-editor-container bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <EditorToolbar editor={editor} />
 
             <style jsx global>{`
-              /* Editor container */
-              .tiptap-editor {
+              /* Editor-specific styles (layout & interactive elements) */
+              .post-editor-container .blog-content {
                 max-width: 768px;
                 margin: 0 auto;
                 padding: 48px 24px;
                 min-height: 500px;
-                font-size: 1.125rem;
-                line-height: 1.778;
-                color: #374151;
-              }
-
-              /* Headings */
-              .tiptap-editor h1 {
-                font-size: 2.25em;
-                font-weight: 700;
-                line-height: 1.1;
-                margin-top: 0;
-                margin-bottom: 0.889em;
-                color: #111827;
-              }
-              .tiptap-editor h2 {
-                font-size: 1.5em;
-                font-weight: 700;
-                line-height: 1.333;
-                margin-top: 1.778em;
-                margin-bottom: 0.889em;
-                color: #111827;
-              }
-              .tiptap-editor h3 {
-                font-size: 1.25em;
-                font-weight: 600;
-                line-height: 1.556;
-                margin-top: 1.556em;
-                margin-bottom: 0.444em;
-                color: #111827;
-              }
-              .tiptap-editor h4 {
-                font-weight: 600;
-                line-height: 1.556;
-                margin-top: 1.333em;
-                margin-bottom: 0.444em;
-                color: #111827;
-              }
-
-              /* Paragraphs */
-              .tiptap-editor p {
-                margin-top: 1.333em;
-                margin-bottom: 1.333em;
-              }
-              .tiptap-editor p:first-child {
-                margin-top: 0;
-              }
-
-              /* Lists */
-              .tiptap-editor ul, .tiptap-editor ol {
-                margin-top: 1.333em;
-                margin-bottom: 1.333em;
-                padding-left: 1.556em;
-              }
-              .tiptap-editor li {
-                margin-top: 0.444em;
-                margin-bottom: 0.444em;
-              }
-              .tiptap-editor ul { list-style-type: disc; }
-              .tiptap-editor ol { list-style-type: decimal; }
-              .tiptap-editor li > p { margin: 0; }
-
-              /* Blockquote */
-              .tiptap-editor blockquote {
-                font-style: italic;
-                font-weight: 500;
-                color: #111827;
-                border-left: 4px solid #e5e7eb;
-                padding-left: 1em;
-                margin: 1.778em 0;
-              }
-              .tiptap-editor blockquote p { margin: 0; }
-
-              /* Code blocks */
-              .tiptap-editor pre {
-                background-color: #1f2937;
-                color: #e5e7eb;
-                border-radius: 0.375rem;
-                padding: 1em;
-                margin: 1.778em 0;
-                overflow-x: auto;
-                font-size: 0.889em;
-                line-height: 1.75;
-                font-family: ui-monospace, monospace;
-              }
-              .tiptap-editor code {
-                font-size: 0.889em;
-                font-family: ui-monospace, monospace;
-              }
-              .tiptap-editor :not(pre) > code {
-                background-color: #f3f4f6;
-                padding: 0.2em 0.4em;
-                border-radius: 0.25rem;
-                color: #111827;
-              }
-
-              /* Links */
-              .tiptap-editor a {
-                color: #A32015;
-                text-decoration: underline;
-                font-weight: 500;
-              }
-              .tiptap-editor a:hover {
-                color: #7f1810;
-              }
-
-              /* Images */
-              .tiptap-editor img {
-                margin: 1.778em 0;
-                border-radius: 0.375rem;
-                max-width: 100%;
-                height: auto;
-              }
-
-              /* Strong/Bold */
-              .tiptap-editor strong {
-                font-weight: 600;
-                color: #111827;
-              }
-
-              /* Horizontal rule */
-              .tiptap-editor hr {
-                border: none;
-                border-top: 1px solid #e5e7eb;
-                margin: 3em 0;
               }
 
               /* Placeholder */
-              .tiptap-editor p.is-editor-empty:first-child::before {
+              .blog-content p.is-editor-empty:first-child::before {
                 content: attr(data-placeholder);
                 float: left;
                 color: #9ca3af;
@@ -887,7 +838,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
               }
 
               /* Selection highlight */
-              .tiptap-editor ::selection {
+              .blog-content ::selection {
                 background: rgba(139, 92, 246, 0.3);
               }
             `}</style>
@@ -942,7 +893,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
           <div className="py-20">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <div
-                className="prose prose-lg max-w-3xl mx-auto"
+                className="blog-content max-w-3xl mx-auto"
                 dangerouslySetInnerHTML={{ __html: content || '<p class="text-gray-400 text-center">No content yet. Switch to Edit mode to start writing.</p>' }}
               />
             </div>
