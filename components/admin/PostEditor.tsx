@@ -177,8 +177,9 @@ function EditorToolbar({ editor }: { editor: Editor }) {
           />
         </button>
         {showColorPicker && (
-          <div className="absolute top-full left-0 mt-1 p-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-            <div className="grid grid-cols-4 gap-1 mb-2">
+          <div className="absolute top-full left-0 mt-2 p-4 bg-white rounded-xl shadow-xl border border-gray-200 z-50 min-w-[160px]">
+            <div className="text-xs font-medium text-gray-500 mb-3 text-center">Text Color</div>
+            <div className="grid grid-cols-4 gap-3">
               {PRESET_COLORS.map((preset) => (
                 <button
                   key={preset.color}
@@ -188,21 +189,23 @@ function EditorToolbar({ editor }: { editor: Editor }) {
                     setShowColorPicker(false);
                   }}
                   title={preset.name}
-                  className="w-6 h-6 rounded border border-gray-300 hover:scale-110 transition-transform"
+                  className="w-8 h-8 rounded-md border-2 border-gray-200 hover:border-gray-400 hover:scale-110 transition-all shadow-sm"
                   style={{ backgroundColor: preset.color }}
                 />
               ))}
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                editor.chain().focus().unsetColor().run();
-                setShowColorPicker(false);
-              }}
-              className="w-full text-xs text-gray-500 hover:text-gray-700 py-1"
-            >
-              Remove color
-            </button>
+            <div className="border-t border-gray-100 mt-4 pt-3">
+              <button
+                type="button"
+                onClick={() => {
+                  editor.chain().focus().unsetColor().run();
+                  setShowColorPicker(false);
+                }}
+                className="w-full text-xs text-gray-500 hover:text-gray-700 hover:bg-gray-50 py-1.5 rounded-md transition-colors"
+              >
+                Remove color
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -286,6 +289,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
   // Refs
   const editorContainerRef = useRef<HTMLDivElement>(null);
+  const bubbleColorMenuRef = useRef<HTMLDivElement>(null);
 
   // Tiptap editor instance
   const editor = useEditor({
@@ -322,12 +326,32 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
   // Close menus when clicking outside
   useEffect(() => {
-    const handleClickOutside = () => {
+    const handleClickOutside = (event: MouseEvent) => {
+      console.log('[DEBUG Global Click] Handler fired, target:', (event.target as HTMLElement)?.tagName);
+      // Check if click is inside the color menu - if so, don't close
+      if (bubbleColorMenuRef.current && bubbleColorMenuRef.current.contains(event.target as Node)) {
+        console.log('[DEBUG Global Click] Click inside color menu, ignoring');
+        return;
+      }
       setShowColorMenu(false);
     };
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
+
+  // Debug: Log showColorMenu state changes
+  useEffect(() => {
+    console.log('[DEBUG State] showColorMenu changed to:', showColorMenu);
+  }, [showColorMenu]);
+
+  // Debug: Log BubbleMenu dimensions when selection changes
+  useEffect(() => {
+    const bubbleMenu = document.querySelector('.bg-white.rounded-xl.shadow-xl');
+    if (bubbleMenu) {
+      const rect = bubbleMenu.getBoundingClientRect();
+      console.log('[DEBUG BubbleMenu] Dimensions:', { width: rect.width, height: rect.height });
+    }
+  }, [editor?.state.selection]);
 
   const handleSave = async (publish: boolean = published) => {
     if (!title.trim()) {
@@ -604,8 +628,13 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
             {/* Bubble Menu for inline formatting */}
             <BubbleMenu
               editor={editor}
-              tippyOptions={{ duration: 100, placement: 'top' }}
-              className="bg-white rounded-xl shadow-xl border border-gray-200 p-1.5 flex items-center gap-1"
+              tippyOptions={{
+                duration: 100,
+                placement: 'top',
+                maxWidth: 'none',
+                appendTo: () => document.body,
+              }}
+              className="bg-white rounded-xl shadow-xl border border-gray-200 p-1.5 flex items-center gap-1 min-w-max"
             >
               {/* Heading/Paragraph dropdown */}
               <select
@@ -669,13 +698,16 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
               <div className="w-px h-5 bg-gray-200" />
 
               {/* Text Color Dropdown */}
-              <div className="relative">
+              <div className="relative" ref={bubbleColorMenuRef}>
                 <button
                   type="button"
                   onClick={(e) => {
+                    console.log('[DEBUG Color Button] Clicked');
+                    console.log('[DEBUG Color Button] showColorMenu before:', showColorMenu);
                     e.preventDefault();
                     e.stopPropagation();
                     setShowColorMenu(!showColorMenu);
+                    console.log('[DEBUG Color Button] showColorMenu after toggle:', !showColorMenu);
                   }}
                   className="px-2 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg flex items-center gap-1"
                   title="Text Color"
@@ -689,36 +721,42 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
                   />
                 </button>
                 {showColorMenu && (
-                  <div className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 p-2 z-50">
-                    <div className="grid grid-cols-4 gap-1 mb-2">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 p-4 z-50 min-w-[160px]">
+                    {console.log('[DEBUG Color Menu] Rendering color picker dropdown')}
+                    <div className="text-xs font-medium text-gray-500 mb-3 text-center">Text Color</div>
+                    <div className="grid grid-cols-4 gap-3">
                       {PRESET_COLORS.map((preset) => (
                         <button
                           key={preset.color}
                           type="button"
                           onClick={(e) => {
+                            console.log('[DEBUG Color Select] Color selected:', preset.color);
                             e.preventDefault();
                             e.stopPropagation();
-                            editor.chain().focus().setColor(preset.color).run();
+                            const result = editor.chain().focus().setColor(preset.color).run();
+                            console.log('[DEBUG Color Select] setColor result:', result);
                             setShowColorMenu(false);
                           }}
                           title={preset.name}
-                          className="w-6 h-6 rounded border border-gray-300 hover:scale-110 transition-transform"
+                          className="w-8 h-8 rounded-md border-2 border-gray-200 hover:border-gray-400 hover:scale-110 transition-all shadow-sm"
                           style={{ backgroundColor: preset.color }}
                         />
                       ))}
                     </div>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        editor.chain().focus().unsetColor().run();
-                        setShowColorMenu(false);
-                      }}
-                      className="w-full text-xs text-gray-500 hover:text-gray-700 py-1"
-                    >
-                      Remove color
-                    </button>
+                    <div className="border-t border-gray-100 mt-4 pt-3">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          editor.chain().focus().unsetColor().run();
+                          setShowColorMenu(false);
+                        }}
+                        className="w-full text-xs text-gray-500 hover:text-gray-700 hover:bg-gray-50 py-1.5 rounded-md transition-colors"
+                      >
+                        Remove color
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>

@@ -58,6 +58,13 @@ function initializeSchema() {
     CREATE INDEX IF NOT EXISTS idx_posts_published ON posts(published)
   `);
 
+  // Add likes column if it doesn't exist (migration for existing databases)
+  try {
+    database.exec(`ALTER TABLE posts ADD COLUMN likes INTEGER DEFAULT 0`);
+  } catch {
+    // Column already exists, ignore error
+  }
+
   // Create email_settings table for configurable email templates
   // Supports: welcome, newsletter, booking_confirmation, booking_reminder
   database.exec(`
@@ -125,6 +132,7 @@ export interface Post {
   featured_image: string | null;
   content: string;
   published: boolean;
+  likes: number;
   created_at: string;
   updated_at: string;
 }
@@ -140,6 +148,7 @@ interface PostRow {
   featured_image: string | null;
   content: string;
   published: number;
+  likes: number;
   created_at: string;
   updated_at: string;
 }
@@ -149,6 +158,7 @@ function rowToPost(row: PostRow): Post {
   return {
     ...row,
     published: row.published === 1,
+    likes: row.likes || 0,
   };
 }
 
@@ -308,6 +318,31 @@ export function getAdjacentPosts(slug: string): { prev: Pick<Post, 'slug' | 'tit
     prev: prevRow ? { slug: prevRow.slug, title: prevRow.title } : null,
     next: nextRow ? { slug: nextRow.slug, title: nextRow.title } : null,
   };
+}
+
+// ============================================================================
+// POST LIKES
+// ============================================================================
+
+// Get likes count for a post by slug
+export function getPostLikes(slug: string): number {
+  const database = getDb();
+  const row = database.prepare('SELECT likes FROM posts WHERE slug = ?').get(slug) as { likes: number } | undefined;
+  return row?.likes ?? 0;
+}
+
+// Increment likes for a post and return new count
+export function likePost(slug: string): number {
+  const database = getDb();
+  database.prepare('UPDATE posts SET likes = COALESCE(likes, 0) + 1 WHERE slug = ?').run(slug);
+  return getPostLikes(slug);
+}
+
+// Decrement likes for a post (minimum 0) and return new count
+export function unlikePost(slug: string): number {
+  const database = getDb();
+  database.prepare('UPDATE posts SET likes = CASE WHEN COALESCE(likes, 0) > 0 THEN likes - 1 ELSE 0 END WHERE slug = ?').run(slug);
+  return getPostLikes(slug);
 }
 
 // ============================================================================
