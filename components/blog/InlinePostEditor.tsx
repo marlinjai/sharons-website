@@ -4,11 +4,14 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { useEditor, EditorContent, Editor } from '@tiptap/react';
+import { useEditor, EditorContent, Editor, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
+import TextStyle from '@tiptap/extension-text-style';
+import Color from '@tiptap/extension-color';
 
 interface PostData {
   id: number;
@@ -30,12 +33,16 @@ interface InlinePostEditorProps {
 
 const CATEGORIES = ['Education', 'Guide', 'Personal', 'News', 'General'];
 
-// Inline AI actions for selected text
-const AI_ACTIONS = [
-  { id: 'improve', label: 'Improve', icon: '✨', prompt: 'Improve this text, making it more engaging and professional. Return only the improved text:' },
-  { id: 'shorter', label: 'Shorter', icon: '📝', prompt: 'Make this text more concise while keeping the key message. Return only the shortened text:' },
-  { id: 'longer', label: 'Expand', icon: '📖', prompt: 'Expand this text with more detail and depth. Return only the expanded text:' },
-  { id: 'grammar', label: 'Fix', icon: '🔧', prompt: 'Fix any grammar, spelling, and punctuation errors. Return only the corrected text:' },
+// Preset colors for the color picker
+const PRESET_COLORS = [
+  { name: 'Brand Red', color: '#A32015' },
+  { name: 'Dark Gray', color: '#374151' },
+  { name: 'Black', color: '#111827' },
+  { name: 'Blue', color: '#2563eb' },
+  { name: 'Green', color: '#16a34a' },
+  { name: 'Purple', color: '#7c3aed' },
+  { name: 'Orange', color: '#ea580c' },
+  { name: 'Teal', color: '#0d9488' },
 ];
 
 // Compact toolbar button
@@ -162,30 +169,12 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
   const [error, setError] = useState('');
   const [showMetadata, setShowMetadata] = useState(false);
 
-  // AI toolbar state
-  const [selectedText, setSelectedText] = useState('');
-  const [selectionRange, setSelectionRange] = useState<{ from: number; to: number } | null>(null);
-  const [aiToolbarPos, setAiToolbarPos] = useState<{ top: number; left: number } | null>(null);
-  const [aiLoading, setAiLoading] = useState(false);
-  const [showCustomPrompt, setShowCustomPrompt] = useState(false);
-  const [customPrompt, setCustomPrompt] = useState('');
+  // Bubble menu state
+  const [showColorMenu, setShowColorMenu] = useState(false);
 
   // Refs
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const savedSelectionRef = useRef<{ text: string; from: number; to: number } | null>(null);
-  const toolbarInteractingRef = useRef(false);
-
-  // Hide AI toolbar
-  const hideAiToolbar = useCallback(() => {
-    setSelectedText('');
-    setSelectionRange(null);
-    setAiToolbarPos(null);
-    setShowCustomPrompt(false);
-    setCustomPrompt('');
-    toolbarInteractingRef.current = false;
-    savedSelectionRef.current = null;
-  }, []);
 
   // Tiptap editor
   const editor = useEditor({
@@ -201,36 +190,13 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
         placeholder: 'Write your post content...',
       }),
       Underline,
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      TextStyle,
+      Color,
     ],
     content: '',
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
-    },
-    onSelectionUpdate: ({ editor }) => {
-      if (toolbarInteractingRef.current || aiLoading) return;
-
-      const { from, to } = editor.state.selection;
-      const text = editor.state.doc.textBetween(from, to, ' ').trim();
-
-      if (text.length > 2) {
-        setSelectedText(text);
-        setSelectionRange({ from, to });
-        savedSelectionRef.current = { text, from, to };
-
-        const containerRect = editorContainerRef.current?.getBoundingClientRect();
-        if (containerRect) {
-          const coords = editor.view.coordsAtPos(from);
-          const endCoords = editor.view.coordsAtPos(to);
-          const centerX = (coords.left + endCoords.left) / 2;
-
-          setAiToolbarPos({
-            top: coords.top + window.scrollY - 55,
-            left: centerX,
-          });
-        }
-      } else if (!showCustomPrompt) {
-        hideAiToolbar();
-      }
     },
     editorProps: {
       attributes: {
@@ -238,6 +204,15 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
       },
     },
   });
+
+  // Close menus when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setShowColorMenu(false);
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   // Fetch full post data on mount
   useEffect(() => {
@@ -275,74 +250,6 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
       containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [loading]);
-
-  // Apply AI transformation using Tiptap's chain API
-  const applyAiAction = async (action: { prompt: string }) => {
-    const saved = savedSelectionRef.current;
-
-    if (!saved || !editor) {
-      alert('Please select some text first');
-      toolbarInteractingRef.current = false;
-      return;
-    }
-
-    const textToTransform = saved.text;
-    const { from, to } = saved;
-
-    setAiLoading(true);
-    setShowCustomPrompt(false);
-
-    try {
-      const res = await fetch('/api/admin/ai', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: action.prompt,
-          selectedText: textToTransform,
-          articleContext: {
-            title,
-            subtitle,
-            category,
-            fullContent: content,
-          },
-        }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'AI request failed');
-      }
-
-      const data = await res.json();
-      const result = data.result?.trim();
-
-      if (result) {
-        // Use Tiptap's chain API - this works reliably!
-        editor.chain()
-          .focus()
-          .deleteRange({ from, to })
-          .insertContentAt(from, result)
-          .run();
-
-        setContent(editor.getHTML());
-      }
-
-      savedSelectionRef.current = null;
-      hideAiToolbar();
-    } catch (err: any) {
-      console.error('AI error:', err);
-      alert(err.message || 'AI transformation failed');
-    } finally {
-      setAiLoading(false);
-      toolbarInteractingRef.current = false;
-    }
-  };
-
-  const handleCustomPrompt = () => {
-    if (!customPrompt.trim()) return;
-    applyAiAction({ prompt: `${customPrompt.trim()} Return only the transformed text:` });
-    setCustomPrompt('');
-  };
 
   // Save handler
   const handleSave = async () => {
@@ -422,115 +329,6 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
 
   return (
     <div ref={containerRef} className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden transition-all duration-300">
-      {/* Floating AI Toolbar */}
-      {aiToolbarPos && (selectedText || showCustomPrompt || aiLoading) && (
-        <div
-          className="fixed z-[9999] transform -translate-x-1/2"
-          style={{ top: aiToolbarPos.top, left: aiToolbarPos.left }}
-        >
-          <div className="bg-gray-900 rounded-xl shadow-2xl p-1.5 animate-in fade-in zoom-in-95 duration-150">
-            {aiLoading ? (
-              <div className="px-4 py-2 text-white text-sm flex items-center gap-2">
-                <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Transforming...
-              </div>
-            ) : showCustomPrompt ? (
-              <div
-                className="flex items-center gap-2 p-1"
-                onMouseEnter={() => { toolbarInteractingRef.current = true; }}
-              >
-                <input
-                  type="text"
-                  value={customPrompt}
-                  onChange={(e) => setCustomPrompt(e.target.value)}
-                  onFocus={() => { toolbarInteractingRef.current = true; }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      handleCustomPrompt();
-                    } else if (e.key === 'Escape') {
-                      setShowCustomPrompt(false);
-                      setCustomPrompt('');
-                    }
-                  }}
-                  placeholder="What should AI do?"
-                  className="w-52 px-3 py-1.5 bg-gray-800 text-white text-sm rounded-lg border border-gray-700 focus:border-purple-500 focus:outline-none"
-                  autoFocus
-                />
-                <button
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    toolbarInteractingRef.current = true;
-                  }}
-                  onClick={handleCustomPrompt}
-                  className="px-3 py-1.5 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700"
-                >
-                  Apply
-                </button>
-                <button
-                  onClick={() => hideAiToolbar()}
-                  className="p-1.5 text-gray-500 hover:text-gray-300 rounded-lg"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            ) : (
-              <div
-                className="flex items-center gap-1"
-                onMouseEnter={() => { toolbarInteractingRef.current = true; }}
-              >
-                <span className="px-2 text-gray-400 text-xs font-medium">AI:</span>
-                {AI_ACTIONS.map(action => (
-                  <button
-                    key={action.id}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      toolbarInteractingRef.current = true;
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      applyAiAction(action);
-                    }}
-                    className="px-2 py-1.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors flex items-center gap-1"
-                    title={action.label}
-                  >
-                    <span>{action.icon}</span>
-                    <span className="hidden sm:inline text-xs">{action.label}</span>
-                  </button>
-                ))}
-                <button
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    toolbarInteractingRef.current = true;
-                  }}
-                  onClick={() => setShowCustomPrompt(true)}
-                  className="px-2 py-1.5 text-sm text-purple-400 hover:text-purple-300 hover:bg-gray-800 rounded-lg border-l border-gray-700 ml-1 pl-2"
-                  title="Custom"
-                >
-                  <span>💬</span>
-                </button>
-                <button
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => hideAiToolbar()}
-                  className="ml-1 p-1.5 text-gray-500 hover:text-gray-300 rounded-lg"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            )}
-          </div>
-          <div className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-gray-900 rotate-45" />
-        </div>
-      )}
-
       {/* Header */}
       <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -674,12 +472,189 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
             }
           `}</style>
 
+          {/* Bubble Menu for inline formatting */}
+          <BubbleMenu
+            editor={editor}
+            tippyOptions={{ duration: 100, placement: 'top' }}
+            className="bg-white rounded-xl shadow-xl border border-gray-200 p-1.5 flex items-center gap-1"
+          >
+            {/* Heading/Paragraph dropdown */}
+            <select
+              value={
+                editor.isActive('heading', { level: 2 }) ? '2' :
+                editor.isActive('heading', { level: 3 }) ? '3' : '0'
+              }
+              onChange={(e) => {
+                const level = parseInt(e.target.value);
+                if (level === 0) {
+                  editor.chain().focus().setParagraph().run();
+                } else {
+                  editor.chain().focus().toggleHeading({ level: level as 2 | 3 }).run();
+                }
+              }}
+              className="px-1.5 py-1 text-xs border border-gray-200 rounded bg-white text-gray-600 focus:outline-none hover:bg-gray-100"
+            >
+              <option value="0">Normal</option>
+              <option value="2">Heading 2</option>
+              <option value="3">Heading 3</option>
+            </select>
+
+            <div className="w-px h-5 bg-gray-200" />
+
+            {/* Basic formatting */}
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive('bold') ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Bold"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"/></svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive('italic') ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Italic"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4z"/></svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleUnderline().run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive('underline') ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Underline"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17c3.31 0 6-2.69 6-6V3h-2.5v8c0 1.93-1.57 3.5-3.5 3.5S8.5 12.93 8.5 11V3H6v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2H5z"/></svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleStrike().run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive('strike') ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Strikethrough"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M10 19h4v-3h-4v3zM5 4v3h5v3h4V7h5V4H5zM3 14h18v-2H3v2z"/></svg>
+            </button>
+
+            <div className="w-px h-5 bg-gray-200" />
+
+            {/* Text Color Dropdown */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setShowColorMenu(!showColorMenu);
+                }}
+                className="px-2 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg flex items-center gap-1"
+                title="Text Color"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11 2L5.5 16h2.25l1.12-3h6.25l1.12 3h2.25L13 2h-2zm-1.38 9L12 4.67 14.38 11H9.62z"/>
+                </svg>
+                <div
+                  className="w-3 h-3 rounded-sm border border-gray-300"
+                  style={{ backgroundColor: editor.getAttributes('textStyle').color || '#374151' }}
+                />
+              </button>
+              {showColorMenu && (
+                <div className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 p-2 z-50">
+                  <div className="grid grid-cols-4 gap-1 mb-2">
+                    {PRESET_COLORS.map((preset) => (
+                      <button
+                        key={preset.color}
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          editor.chain().focus().setColor(preset.color).run();
+                          setShowColorMenu(false);
+                        }}
+                        title={preset.name}
+                        className="w-6 h-6 rounded border border-gray-300 hover:scale-110 transition-transform"
+                        style={{ backgroundColor: preset.color }}
+                      />
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      editor.chain().focus().unsetColor().run();
+                      setShowColorMenu(false);
+                    }}
+                    className="w-full text-xs text-gray-500 hover:text-gray-700 py-1"
+                  >
+                    Remove color
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="w-px h-5 bg-gray-200" />
+
+            {/* Lists and Quote */}
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleBulletList().run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive('bulletList') ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Bullet List"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"/></svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleOrderedList().run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive('orderedList') ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Numbered List"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z"/></svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().toggleBlockquote().run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive('blockquote') ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Quote"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+            </button>
+
+            <div className="w-px h-5 bg-gray-200" />
+
+            {/* Alignment */}
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().setTextAlign('left').run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive({ textAlign: 'left' }) ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Align Left"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M15 15H3v2h12v-2zm0-8H3v2h12V7zM3 13h18v-2H3v2zm0 8h18v-2H3v2zM3 3v2h18V3H3z"/></svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().setTextAlign('center').run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive({ textAlign: 'center' }) ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Align Center"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7 15v2h10v-2H7zm-4 6h18v-2H3v2zm0-8h18v-2H3v2zm4-6v2h10V7H7zM3 3v2h18V3H3z"/></svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => editor.chain().focus().setTextAlign('right').run()}
+              className={`p-1.5 rounded hover:bg-gray-100 ${editor.isActive({ textAlign: 'right' }) ? 'bg-gray-200 text-[#A32015]' : 'text-gray-600'}`}
+              title="Align Right"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12V7H9v2zM3 3v2h18V3H3z"/></svg>
+            </button>
+          </BubbleMenu>
+
           <EditorContent editor={editor} />
         </div>
 
-        {/* AI Hint */}
+        {/* Formatting Tip */}
         <div className="mt-3 text-center text-xs text-gray-400">
-          Select text for AI assistance
+          Select text to see formatting options
         </div>
       </div>
     </div>
