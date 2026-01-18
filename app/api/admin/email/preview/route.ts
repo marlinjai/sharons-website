@@ -7,6 +7,12 @@ import { render } from '@react-email/render';
 import { WelcomeEmail } from '@/emails/WelcomeEmail';
 import { NewsletterTemplate } from '@/emails/NewsletterTemplate';
 import { getPostById } from '@/lib/db';
+import { createMockBookingPayload } from '@/lib/calcom-mock';
+import {
+  buildBookingConfirmationEmail,
+  buildBookingCancelledEmail,
+  buildBookingRescheduledEmail,
+} from '@/lib/booking-emails';
 
 // Type for welcome email preview data
 interface WelcomeEmailPreviewData {
@@ -40,7 +46,13 @@ interface OneTimeEmailPreviewData {
   content?: string;
 }
 
-type PreviewData = WelcomeEmailPreviewData | NewsletterPreviewData | OneTimeEmailPreviewData;
+// Type for booking email preview data
+interface BookingEmailPreviewData {
+  type: 'booking-confirmation' | 'booking-cancelled' | 'booking-rescheduled';
+  clientName?: string;
+}
+
+type PreviewData = WelcomeEmailPreviewData | NewsletterPreviewData | OneTimeEmailPreviewData | BookingEmailPreviewData;
 
 // POST /api/admin/email/preview - Render email HTML for preview
 export async function POST(request: NextRequest) {
@@ -134,6 +146,39 @@ export async function POST(request: NextRequest) {
               : [],
           })
         );
+        break;
+      }
+
+      case 'booking-confirmation': {
+        const bookingData = body as BookingEmailPreviewData;
+        const mockPayload = createMockBookingPayload(
+          'preview@example.com',
+          bookingData.clientName || 'Test Client'
+        );
+        const result = await buildBookingConfirmationEmail(mockPayload);
+        html = result.html;
+        break;
+      }
+
+      case 'booking-cancelled': {
+        const bookingData = body as BookingEmailPreviewData;
+        const mockPayload = createMockBookingPayload(
+          'preview@example.com',
+          bookingData.clientName || 'Test Client'
+        );
+        const result = await buildBookingCancelledEmail(mockPayload);
+        html = result.html;
+        break;
+      }
+
+      case 'booking-rescheduled': {
+        const bookingData = body as BookingEmailPreviewData;
+        const mockPayload = createMockBookingPayload(
+          'preview@example.com',
+          bookingData.clientName || 'Test Client'
+        );
+        const result = await buildBookingRescheduledEmail(mockPayload);
+        html = result.html;
         break;
       }
 

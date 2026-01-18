@@ -7,7 +7,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface EmailPreviewProps {
   // Type of email to preview
-  type: 'welcome' | 'newsletter' | 'one-time';
+  type: 'welcome' | 'newsletter' | 'one-time' | 'booking-confirmation' | 'booking-cancelled' | 'booking-rescheduled';
   // Data to pass to the preview endpoint
   previewData: Record<string, unknown>;
   // Optional custom class name

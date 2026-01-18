@@ -9,14 +9,15 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { render } from '@react-email/render';
-import { NewsletterTemplate } from '@/emails/NewsletterTemplate';
 import {
   CalcomWebhookPayload,
-  formatBookingDateTime,
-  getSessionDuration,
   getWebhookSecret
 } from '@/lib/calcom';
+import {
+  buildBookingConfirmationEmail,
+  buildBookingCancelledEmail,
+  buildBookingRescheduledEmail,
+} from '@/lib/booking-emails';
 import { getEmailSettingsByType } from '@/lib/db';
 import crypto from 'crypto';
 
@@ -117,43 +118,18 @@ async function handleBookingCreated(payload: CalcomWebhookPayload['payload']) {
   }
 
   const resend = getResend();
-  const formattedDate = formatBookingDateTime(payload.startTime, attendee.timeZone);
-  const duration = getSessionDuration(payload.startTime, payload.endTime);
-
-  // Render email using newsletter template with booking details
-  const emailHtml = await render(
-    NewsletterTemplate({
-      subject: `Your ${payload.title} Session is Confirmed`,
-      previewText: `Your session with Sharon Di Salvo is scheduled for ${formattedDate}`,
-      sections: [
-        {
-          type: 'text',
-          title: `Hello ${attendee.name},`,
-          content: `Thank you for booking a session with me! I'm looking forward to our time together.\n\nHere are your session details:`,
-        },
-        {
-          type: 'text',
-          content: `📅 **Date & Time:** ${formattedDate}\n⏱️ **Duration:** ${duration}\n📍 **Location:** ${payload.location || 'To be confirmed'}`,
-        },
-        {
-          type: 'text',
-          title: 'Before Your Session',
-          content: `To make the most of our time together:\n\n• Find a quiet, comfortable space where you won't be disturbed\n• Have a glass of water nearby\n• Set an intention for what you'd like to explore or heal\n• Come with an open mind and heart`,
-        },
-      ],
-    })
-  );
+  const { html, subject } = await buildBookingConfirmationEmail(payload);
 
   // Send confirmation email
   await resend.emails.send({
-    from: 'Sharon Di Salvo <hello@returnhypnosis.com>',
+    from: 'ReTurn Hypnosis <hello@returnhypnosis.com>',
     to: [attendee.email],
-    subject: `✨ Your ${payload.title} Session is Confirmed`,
+    subject,
     replyTo: 'hello@returnhypnosis.com',
     headers: {
       'X-Entity-Ref-ID': `booking-confirmation-${payload.uid}`,
     },
-    html: emailHtml,
+    html,
   });
 
   console.log('Booking confirmation email sent to:', attendee.email);
@@ -168,31 +144,17 @@ async function handleBookingCancelled(payload: CalcomWebhookPayload['payload']) 
   if (!attendee) return;
 
   const resend = getResend();
-  const formattedDate = formatBookingDateTime(payload.startTime, attendee.timeZone);
-
-  const emailHtml = await render(
-    NewsletterTemplate({
-      subject: 'Your Session Has Been Cancelled',
-      previewText: 'Your session with Sharon Di Salvo has been cancelled',
-      sections: [
-        {
-          type: 'text',
-          title: `Hello ${attendee.name},`,
-          content: `Your ${payload.title} session originally scheduled for ${formattedDate} has been cancelled.\n\nIf you'd like to reschedule, please visit my booking page at any time.\n\nI hope to see you soon on your healing journey.`,
-        },
-      ],
-    })
-  );
+  const { html, subject } = await buildBookingCancelledEmail(payload);
 
   await resend.emails.send({
-    from: 'Sharon Di Salvo <hello@returnhypnosis.com>',
+    from: 'ReTurn Hypnosis <hello@returnhypnosis.com>',
     to: [attendee.email],
-    subject: 'Your Session Has Been Cancelled',
+    subject,
     replyTo: 'hello@returnhypnosis.com',
     headers: {
       'X-Entity-Ref-ID': `booking-cancelled-${payload.uid}`,
     },
-    html: emailHtml,
+    html,
   });
 
   console.log('Cancellation email sent to:', attendee.email);
@@ -204,40 +166,17 @@ async function handleBookingRescheduled(payload: CalcomWebhookPayload['payload']
   if (!attendee) return;
 
   const resend = getResend();
-  const formattedDate = formatBookingDateTime(payload.startTime, attendee.timeZone);
-  const duration = getSessionDuration(payload.startTime, payload.endTime);
-
-  const emailHtml = await render(
-    NewsletterTemplate({
-      subject: 'Your Session Has Been Rescheduled',
-      previewText: `Your session has been rescheduled to ${formattedDate}`,
-      sections: [
-        {
-          type: 'text',
-          title: `Hello ${attendee.name},`,
-          content: `Your session has been rescheduled. Here are the updated details:`,
-        },
-        {
-          type: 'text',
-          content: `📅 **New Date & Time:** ${formattedDate}\n⏱️ **Duration:** ${duration}\n📍 **Location:** ${payload.location || 'To be confirmed'}`,
-        },
-        {
-          type: 'text',
-          content: `If you have any questions or need to make further changes, please don't hesitate to reach out.\n\nI look forward to our session together.`,
-        },
-      ],
-    })
-  );
+  const { html, subject } = await buildBookingRescheduledEmail(payload);
 
   await resend.emails.send({
-    from: 'Sharon Di Salvo <hello@returnhypnosis.com>',
+    from: 'ReTurn Hypnosis <hello@returnhypnosis.com>',
     to: [attendee.email],
-    subject: '📅 Your Session Has Been Rescheduled',
+    subject,
     replyTo: 'hello@returnhypnosis.com',
     headers: {
       'X-Entity-Ref-ID': `booking-rescheduled-${payload.uid}`,
     },
-    html: emailHtml,
+    html,
   });
 
   console.log('Reschedule email sent to:', attendee.email);

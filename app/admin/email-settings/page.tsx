@@ -9,9 +9,13 @@ import Link from 'next/link';
 import EmailPreview from '@/components/admin/EmailPreview';
 import WelcomeEmailForm from '@/components/admin/WelcomeEmailForm';
 import OneTimeEmailForm from '@/components/admin/OneTimeEmailForm';
+import BookingEmailTestForm from '@/components/admin/BookingEmailTestForm';
 
 // Tab types
-type TabType = 'welcome' | 'one-time';
+type TabType = 'welcome' | 'one-time' | 'booking';
+
+// Booking email preview types
+type BookingEmailType = 'booking-confirmation' | 'booking-cancelled' | 'booking-rescheduled';
 
 // Welcome email settings interface
 interface WelcomeEmailSettings {
@@ -62,6 +66,9 @@ export default function EmailSettingsPage() {
     content: '',
   });
 
+  const [bookingPreviewType, setBookingPreviewType] = useState<BookingEmailType>('booking-confirmation');
+  const [bookingClientName, setBookingClientName] = useState('Test Client');
+
   // Check authentication and load settings
   useEffect(() => {
     async function init() {
@@ -99,6 +106,12 @@ export default function EmailSettingsPage() {
     setOneTimePreviewData(data);
   }, []);
 
+  // Memoized callback for booking form data changes
+  const handleBookingPreviewChange = useCallback((type: BookingEmailType, clientName: string) => {
+    setBookingPreviewType(type);
+    setBookingClientName(clientName);
+  }, []);
+
   // Get preview data based on active tab
   const getPreviewData = () => {
     switch (activeTab) {
@@ -113,9 +126,21 @@ export default function EmailSettingsPage() {
           subject: oneTimePreviewData.subject,
           content: oneTimePreviewData.content,
         };
+      case 'booking':
+        return {
+          clientName: bookingClientName,
+        };
       default:
         return {};
     }
+  };
+
+  // Get the email preview type based on active tab
+  const getPreviewType = (): 'welcome' | 'newsletter' | 'one-time' | 'booking-confirmation' | 'booking-cancelled' | 'booking-rescheduled' => {
+    if (activeTab === 'booking') {
+      return bookingPreviewType;
+    }
+    return activeTab;
   };
 
   if (loading) {
@@ -182,6 +207,16 @@ export default function EmailSettingsPage() {
             >
               One-Time Email
             </button>
+            <button
+              onClick={() => setActiveTab('booking')}
+              className={`pb-3 px-1 text-sm font-medium transition-colors ${
+                activeTab === 'booking'
+                  ? 'border-b-2 border-[#A32015] text-[#A32015]'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Booking Emails
+            </button>
           </nav>
         </div>
 
@@ -201,13 +236,18 @@ export default function EmailSettingsPage() {
                   onDataChange={handleOneTimeDataChange}
                 />
               )}
+              {activeTab === 'booking' && (
+                <BookingEmailTestForm
+                  onPreviewChange={handleBookingPreviewChange}
+                />
+              )}
             </div>
           </div>
 
           {/* Preview Panel */}
           <div className="bg-white rounded-lg shadow overflow-hidden h-[800px]">
             <EmailPreview
-              type={activeTab}
+              type={getPreviewType()}
               previewData={getPreviewData()}
             />
           </div>

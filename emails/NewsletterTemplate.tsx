@@ -19,7 +19,7 @@ import * as React from 'react';
 
 // Content section types for flexible newsletter structure
 interface ContentSection {
-  type: 'text' | 'quote' | 'story' | 'tips' | 'cta' | 'image';
+  type: 'text' | 'quote' | 'story' | 'tips' | 'cta' | 'image' | 'signature';
   title?: string;
   content: string;
   author?: string;
@@ -61,6 +61,7 @@ interface NewsletterTemplateProps {
     facebook?: string;
     linkedin?: string;
   };
+
 }
 
 export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
@@ -109,8 +110,7 @@ export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
               </Text>
             )}
 
-            <Heading style={heading}>ReTurn Newsletter</Heading>
-            <Text style={subheading}>Personal transformation through regression hypnosis</Text>
+            <Heading style={heading}>ReTurn Hypnosis</Heading>
           </Section>
 
           {/* Featured Story Section (Optional) */}
@@ -155,36 +155,6 @@ export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
               </Text>
             </Section>
           )}
-
-          {/* Quote of the Week Section */}
-          <Section style={quoteSection}>
-            <div style={quoteBox}>
-              <Text style={quoteText}>"The only journey is the one within."</Text>
-              <Text style={quoteAuthor}>— Rainer Maria Rilke</Text>
-            </div>
-          </Section>
-
-          {/* CTA Section */}
-          <Section style={ctaSection}>
-            <Text style={ctaText}>Ready to begin your own transformation journey?</Text>
-            <div style={ctaButtonContainer}>
-              <Link href={bookingUrl} style={ctaButton}>
-                Book Your Session
-              </Link>
-            </div>
-            <Text style={ctaSubtext}>Or reply to this email with any questions about regression hypnosis.</Text>
-          </Section>
-
-          {/* Signature */}
-          <Section style={signatureSection}>
-            <Text style={signatureText}>
-              With warmth and gratitude,
-              <br />
-              <strong style={signatureName}>{fromName}</strong>
-              <br />
-              <span style={signatureTitle}>Certified Regression Hypnotherapist</span>
-            </Text>
-          </Section>
 
           {/* Footer */}
           <Hr style={hr} />
@@ -245,7 +215,16 @@ const renderContentSection = (section: ContentSection) => {
       return (
         <>
           {section.title && <Heading style={sectionHeading}>{section.title}</Heading>}
-          <Text style={paragraph}>{section.content}</Text>
+          {section.content.split('\n\n').map((para, index) => (
+            <Text key={index} style={paragraph}>
+              {para.split('\n').map((line, lineIndex) => (
+                <React.Fragment key={lineIndex}>
+                  {line}
+                  {lineIndex < para.split('\n').length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </Text>
+          ))}
         </>
       );
 
@@ -274,10 +253,7 @@ const renderContentSection = (section: ContentSection) => {
           {section.title && <Heading style={sectionHeading}>{section.title}</Heading>}
           <div style={tipsContainer}>
             {section.content.split('\n').map((tip, index) => (
-              <div key={index} style={tipItem}>
-                <div style={tipIcon}>💡</div>
-                <Text style={tipText}>{tip}</Text>
-              </div>
+              <Text key={index} style={bulletText}>• {tip}</Text>
             ))}
           </div>
         </>
@@ -302,6 +278,16 @@ const renderContentSection = (section: ContentSection) => {
         <div style={imageContainer}>
           <img src={section.imageUrl!} alt={section.imageAlt || 'Newsletter image'} style={newsletterImage} />
           {section.content && <Text style={imageCaption}>{section.content}</Text>}
+        </div>
+      );
+
+    case 'signature':
+      return (
+        <div style={signatureBlock}>
+          <Text style={signatureNameStyle}>{section.content}</Text>
+          {section.author && <Text style={signatureRole}>{section.author}</Text>}
+          {section.ctaText && <Text style={signatureTagline}>{section.ctaText}</Text>}
+          {section.ctaUrl && <Text style={signatureEmail}>{section.ctaUrl}</Text>}
         </div>
       );
 
@@ -494,7 +480,8 @@ const quoteAuthor = {
 const tipsContainer = {
   display: 'flex',
   flexDirection: 'column' as const,
-  gap: '16px',
+  gap: '4px',
+  marginBottom: '16px',
 };
 
 const tipItem = {
@@ -511,6 +498,27 @@ const tipIcon = {
   fontSize: '20px',
   flexShrink: 0,
   marginTop: '2px',
+};
+
+const bulletItem = {
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '8px',
+  marginBottom: '8px',
+};
+
+const bulletIcon = {
+  fontSize: '16px',
+  flexShrink: 0,
+  color: '#944923',
+  lineHeight: '1.7',
+};
+
+const bulletText = {
+  fontSize: '16px',
+  lineHeight: 1.7,
+  color: '#2f2e2c',
+  margin: '0 0 8px 0',
 };
 
 const tipText = {
@@ -673,6 +681,37 @@ const link = {
 const defaultSection = {
   padding: '0 30px 30px',
   textAlign: 'center' as const,
+};
+
+const signatureBlock = {
+  textAlign: 'left' as const,
+  marginTop: '8px',
+};
+
+const signatureNameStyle = {
+  fontSize: '18px',
+  fontWeight: '700',
+  color: '#944923',
+  margin: '0 0 4px 0',
+};
+
+const signatureTagline = {
+  fontSize: '14px',
+  fontStyle: 'italic',
+  color: '#713c1e',
+  margin: '0 0 4px 0',
+};
+
+const signatureRole = {
+  fontSize: '14px',
+  color: '#713c1e',
+  margin: '0 0 4px 0',
+};
+
+const signatureEmail = {
+  fontSize: '14px',
+  color: '#944923',
+  margin: '0',
 };
 
 export default NewsletterTemplate;

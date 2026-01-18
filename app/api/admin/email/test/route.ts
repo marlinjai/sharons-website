@@ -8,6 +8,12 @@ import { render } from '@react-email/render';
 import { WelcomeEmail } from '@/emails/WelcomeEmail';
 import { NewsletterTemplate } from '@/emails/NewsletterTemplate';
 import { getPostById } from '@/lib/db';
+import { createMockBookingPayload } from '@/lib/calcom-mock';
+import {
+  buildBookingConfirmationEmail,
+  buildBookingCancelledEmail,
+  buildBookingRescheduledEmail,
+} from '@/lib/booking-emails';
 
 // Initialize Resend
 function getResend() {
@@ -114,13 +120,46 @@ export async function POST(request: NextRequest) {
         break;
       }
 
+      case 'booking-confirmation': {
+        const mockPayload = createMockBookingPayload(
+          testEmail,
+          emailData.clientName || 'Test Client'
+        );
+        const result = await buildBookingConfirmationEmail(mockPayload);
+        html = result.html;
+        subject = `[TEST] ${result.subject}`;
+        break;
+      }
+
+      case 'booking-cancelled': {
+        const mockPayload = createMockBookingPayload(
+          testEmail,
+          emailData.clientName || 'Test Client'
+        );
+        const result = await buildBookingCancelledEmail(mockPayload);
+        html = result.html;
+        subject = `[TEST] ${result.subject}`;
+        break;
+      }
+
+      case 'booking-rescheduled': {
+        const mockPayload = createMockBookingPayload(
+          testEmail,
+          emailData.clientName || 'Test Client'
+        );
+        const result = await buildBookingRescheduledEmail(mockPayload);
+        html = result.html;
+        subject = `[TEST] ${result.subject}`;
+        break;
+      }
+
       default:
         return NextResponse.json({ error: 'Invalid email type' }, { status: 400 });
     }
 
     // Send test email
     const result = await resend.emails.send({
-      from: 'Sharon Di Salvo <hello@returnhypnosis.com>',
+      from: 'ReTurn Hypnosis <hello@returnhypnosis.com>',
       to: [testEmail],
       subject,
       replyTo: 'hello@returnhypnosis.com',
