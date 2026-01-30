@@ -70,7 +70,7 @@ export default function EmailPreview({ type, previewData, className = '' }: Emai
   };
 
   return (
-    <div className={`flex flex-col h-full ${className}`}>
+    <div className={`flex flex-col ${className}`}>
       {/* Header with viewport toggle */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
         <h3 className="text-sm font-medium text-gray-700">Preview</h3>
@@ -101,9 +101,9 @@ export default function EmailPreview({ type, previewData, className = '' }: Emai
       </div>
 
       {/* Preview area */}
-      <div className="flex-1 overflow-auto bg-gray-100 p-4">
+      <div className="bg-gray-100 p-4">
         <div
-          className="mx-auto bg-white shadow-lg rounded-lg overflow-hidden transition-all duration-300"
+          className="mx-auto bg-white shadow-lg rounded-lg transition-all duration-300"
           style={viewportStyles[viewport]}
         >
           {loading && (
@@ -144,14 +144,14 @@ export default function EmailPreview({ type, previewData, className = '' }: Emai
               srcDoc={html}
               title="Email Preview"
               className="w-full border-0"
-              style={{ minHeight: '600px', height: 'auto' }}
+              style={{ minHeight: '1200px', height: 'auto' }}
               sandbox="allow-same-origin"
               onLoad={(e) => {
                 // Auto-adjust iframe height to content
                 const iframe = e.target as HTMLIFrameElement;
                 if (iframe.contentWindow?.document.body) {
                   const height = iframe.contentWindow.document.body.scrollHeight;
-                  iframe.style.height = `${height + 20}px`;
+                  iframe.style.height = `${Math.max(height + 40, 1200)}px`;
                 }
               }}
             />

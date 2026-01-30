@@ -245,7 +245,7 @@ export default function EmailSettingsPage() {
           </div>
 
           {/* Preview Panel */}
-          <div className="bg-white rounded-lg shadow overflow-hidden h-[800px]">
+          <div className="bg-white rounded-lg shadow overflow-auto" style={{ maxHeight: '90vh' }}>
             <EmailPreview
               type={getPreviewType()}
               previewData={getPreviewData()}

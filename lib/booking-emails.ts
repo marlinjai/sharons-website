@@ -37,6 +37,7 @@ export async function buildBookingConfirmationEmail(
     NewsletterTemplate({
       subject: `Your Session is Confirmed`,
       previewText: `Welcome! Your session is scheduled for ${formattedDate}`,
+      showUnsubscribe: false,
       sections: [
         {
           type: 'text',
@@ -80,7 +81,7 @@ export async function buildBookingConfirmationEmail(
         },
         {
           type: 'text',
-          content: `Sessions last up to five hours. I recommend keeping the rest of your day clear to allow time for rest, reflection, and integration. Some insights can be powerful, and quiet time afterward helps them settle naturally.\n\nI look forward to a deep and focused exploration, and to working together.`,
+          content: `Sessions last up to five hours. I recommend keeping the rest of your day clear to allow time for rest, reflection, and integration. Some insights can be powerful, and quiet time afterward helps them settle naturally.\n\nIf any questions come up before your session, feel free to reach out to me directly at this email address.\n\nI look forward to a deep and focused exploration and to working together.`,
         },
         {
           type: 'signature',
@@ -114,11 +115,19 @@ export async function buildBookingCancelledEmail(
     NewsletterTemplate({
       subject: 'Your Session Has Been Cancelled',
       previewText: 'Your session with Sharon Di Salvo has been cancelled',
+      showUnsubscribe: false,
       sections: [
         {
           type: 'text',
           title: `Hello ${attendee.name},`,
-          content: `Your ${payload.title} session originally scheduled for ${formattedDate} has been cancelled.\n\nIf you'd like to reschedule, please visit my booking page at any time.\n\nI hope to see you soon on your healing journey.`,
+          content: `Your ${payload.title} session originally scheduled for ${formattedDate} has been cancelled.\n\nIf you'd like to reschedule, please visit my booking page at any time.\n\nI hope to see you soon on your incredible journey.\n\nHave a beautiful day.\n\nBest wishes,`,
+        },
+        {
+          type: 'signature',
+          content: `Sharon`,
+          author: `Founder, ReTurn Hypnosis`,
+          ctaText: `For the curious, the brave, and the ready`,
+          ctaUrl: `hello@returnhypnosis.com`,
         },
       ],
     })
@@ -146,6 +155,7 @@ export async function buildBookingRescheduledEmail(
     NewsletterTemplate({
       subject: 'Your Session Has Been Rescheduled',
       previewText: `Your session has been rescheduled to ${formattedDate}`,
+      showUnsubscribe: false,
       sections: [
         {
           type: 'text',
@@ -159,6 +169,13 @@ export async function buildBookingRescheduledEmail(
         {
           type: 'text',
           content: `If you have any questions or need to make further changes, please don't hesitate to reach out.\n\nI look forward to our session together.`,
+        },
+        {
+          type: 'signature',
+          content: `Sharon`,
+          author: `Founder, ReTurn Hypnosis`,
+          ctaText: `For the curious, the brave, and the ready`,
+          ctaUrl: `hello@returnhypnosis.com`,
         },
       ],
     })

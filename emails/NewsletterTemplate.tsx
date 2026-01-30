@@ -62,6 +62,8 @@ interface NewsletterTemplateProps {
     linkedin?: string;
   };
 
+  // Whether to show the newsletter unsubscribe footer (hide for booking emails)
+  showUnsubscribe?: boolean;
 }
 
 export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
@@ -77,6 +79,7 @@ export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
   websiteUrl = 'https://returnhypnosis.com',
   bookingUrl = 'https://returnhypnosis.com/booking',
   socialLinks = {},
+  showUnsubscribe = true,
 }) => {
   const currentDate =
     date ||
@@ -191,16 +194,20 @@ export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
               </div>
             )}
 
-            <Text style={footerText}>
-              You received this email because you subscribed to Sharon Di Salvo's newsletter.
-            </Text>
-            <Text style={footerText}>
-              If you no longer wish to receive these emails, you can{' '}
-              <Link href={`mailto:${replyTo}?subject=unsubscribe`} style={link}>
-                unsubscribe here
-              </Link>
-              .
-            </Text>
+            {showUnsubscribe && (
+              <>
+                <Text style={footerText}>
+                  You received this email because you subscribed to Sharon Di Salvo's newsletter.
+                </Text>
+                <Text style={footerText}>
+                  If you no longer wish to receive these emails, you can{' '}
+                  <Link href={`mailto:${replyTo}?subject=unsubscribe`} style={link}>
+                    unsubscribe here
+                  </Link>
+                  .
+                </Text>
+              </>
+            )}
           </Section>
         </Container>
       </Body>
