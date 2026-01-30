@@ -249,7 +249,7 @@ export function Navigation() {
                   onMouseEnter={() => openDropdown('session')}
                 >
                   <Link
-                    href="#session"
+                    href="#the-session"
                     className={`transition-colors duration-200 flex items-center gap-1 font-primary cursor-pointer ${navLinkBaseClass} ${navLinkHoverClass}`}
                     aria-expanded={isSessionDropdownOpen}
                     aria-haspopup="true"
