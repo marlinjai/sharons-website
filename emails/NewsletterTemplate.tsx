@@ -56,6 +56,7 @@ interface NewsletterTemplateProps {
   // Footer links
   websiteUrl?: string;
   bookingUrl?: string;
+  bookingLabel?: string;
   socialLinks?: {
     instagram?: string;
     facebook?: string;
@@ -77,7 +78,8 @@ export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
   fromEmail = 'hello@returnhypnosis.com',
   replyTo = 'hello@returnhypnosis.com',
   websiteUrl = 'https://returnhypnosis.com',
-  bookingUrl = 'https://returnhypnosis.com/booking',
+  bookingUrl = 'https://returnhypnosis.com',
+  bookingLabel = 'Book Session',
   socialLinks = {},
   showUnsubscribe = true,
 }) => {
@@ -167,7 +169,7 @@ export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
                 Website
               </Link>
               <Link href={bookingUrl} style={footerLink}>
-                Book Session
+                {bookingLabel}
               </Link>
               <Link href={`mailto:${replyTo}`} style={footerLink}>
                 Contact

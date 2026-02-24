@@ -38,6 +38,8 @@ export async function buildBookingConfirmationEmail(
       subject: `Your Session is Confirmed`,
       previewText: `Welcome! Your session is scheduled for ${formattedDate}`,
       showUnsubscribe: false,
+      bookingUrl: 'https://returnhypnosis.com/blog',
+      bookingLabel: 'Blog',
       sections: [
         {
           type: 'text',
@@ -116,6 +118,8 @@ export async function buildBookingCancelledEmail(
       subject: 'Your Session Has Been Cancelled',
       previewText: 'Your session with Sharon Di Salvo has been cancelled',
       showUnsubscribe: false,
+      bookingUrl: 'https://returnhypnosis.com/blog',
+      bookingLabel: 'Blog',
       sections: [
         {
           type: 'text',
@@ -156,6 +160,8 @@ export async function buildBookingRescheduledEmail(
       subject: 'Your Session Has Been Rescheduled',
       previewText: `Your session has been rescheduled to ${formattedDate}`,
       showUnsubscribe: false,
+      bookingUrl: 'https://returnhypnosis.com/blog',
+      bookingLabel: 'Blog',
       sections: [
         {
           type: 'text',
