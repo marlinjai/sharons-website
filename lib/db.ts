@@ -91,6 +91,59 @@ function initializeSchema() {
     CREATE INDEX IF NOT EXISTS idx_email_settings_type ON email_settings(type)
   `);
 
+  // Create media table for Instagram planner media library
+  database.exec(`
+    CREATE TABLE IF NOT EXISTS media (
+      id            INTEGER PRIMARY KEY AUTOINCREMENT,
+      filename      TEXT NOT NULL,
+      stored_path   TEXT NOT NULL UNIQUE,
+      thumbnail_path TEXT,
+      mime_type     TEXT NOT NULL,
+      file_size     INTEGER NOT NULL,
+      width         INTEGER,
+      height        INTEGER,
+      alt_text      TEXT DEFAULT '',
+      created_at    TEXT DEFAULT (datetime('now')),
+      updated_at    TEXT DEFAULT (datetime('now'))
+    )
+  `);
+
+  // Create index on media created_at for ordering
+  database.exec(`
+    CREATE INDEX IF NOT EXISTS idx_media_created_at ON media(created_at)
+  `);
+
+  // Create instagram_posts table for grid planner
+  database.exec(`
+    CREATE TABLE IF NOT EXISTS instagram_posts (
+      id              INTEGER PRIMARY KEY AUTOINCREMENT,
+      media_id        INTEGER NOT NULL,
+      grid_position   INTEGER NOT NULL,
+      caption         TEXT DEFAULT '',
+      hashtags        TEXT DEFAULT '',
+      status          TEXT DEFAULT 'draft' CHECK(status IN ('draft', 'planned', 'published')),
+      scheduled_date  TEXT,
+      created_at      TEXT DEFAULT (datetime('now')),
+      updated_at      TEXT DEFAULT (datetime('now')),
+      FOREIGN KEY (media_id) REFERENCES media(id) ON DELETE CASCADE
+    )
+  `);
+
+  // Create unique index on grid position
+  database.exec(`
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_instagram_posts_position ON instagram_posts(grid_position)
+  `);
+
+  // Create index on instagram post status
+  database.exec(`
+    CREATE INDEX IF NOT EXISTS idx_instagram_posts_status ON instagram_posts(status)
+  `);
+
+  // Create index on instagram post scheduled date
+  database.exec(`
+    CREATE INDEX IF NOT EXISTS idx_instagram_posts_scheduled ON instagram_posts(scheduled_date)
+  `);
+
   // Insert default welcome email settings if not exists
   const welcomeExists = database.prepare(
     "SELECT COUNT(*) as count FROM email_settings WHERE type = 'welcome'"

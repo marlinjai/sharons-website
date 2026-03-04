@@ -146,6 +146,12 @@ export default function AdminDashboardPage() {
             >
               Email Settings
             </Link>
+            <Link
+              href="/admin/instagram-planner"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              Instagram Planner
+            </Link>
             <a href="/" target="_blank" className="text-gray-600 hover:text-gray-900 transition-colors">
               View Site
             </a>
