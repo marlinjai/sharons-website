@@ -69,6 +69,7 @@ export default function EditPostPage() {
     featured_image: string | null;
     content: string;
     published: boolean;
+    created_at?: string;
   }) => {
     const res = await fetch(`/api/admin/posts/${postId}`, {
       method: 'PUT',

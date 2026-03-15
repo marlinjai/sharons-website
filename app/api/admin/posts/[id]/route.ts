@@ -70,6 +70,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     if (body.featured_image !== undefined) updates.featured_image = body.featured_image;
     if (body.content !== undefined) updates.content = body.content;
     if (body.published !== undefined) updates.published = body.published;
+    if (body.created_at !== undefined) updates.created_at = body.created_at;
 
     const post = updatePost(postId, updates);
     if (!post) {

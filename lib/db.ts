@@ -260,7 +260,7 @@ export function createPost(post: Omit<Post, 'id' | 'likes' | 'created_at' | 'upd
 }
 
 // Update an existing post
-export function updatePost(id: number, updates: Partial<Omit<Post, 'id' | 'created_at'>>): Post | null {
+export function updatePost(id: number, updates: Partial<Omit<Post, 'id'>>): Post | null {
   const database = getDb();
   const existing = getPostById(id);
   if (!existing) return null;
@@ -299,6 +299,10 @@ export function updatePost(id: number, updates: Partial<Omit<Post, 'id' | 'creat
   if (updates.published !== undefined) {
     fields.push('published = ?');
     values.push(updates.published ? 1 : 0);
+  }
+  if (updates.created_at !== undefined) {
+    fields.push('created_at = ?');
+    values.push(updates.created_at);
   }
 
   if (fields.length === 0) return existing;

@@ -25,6 +25,8 @@ interface PostEditorProps {
     featured_image: string | null;
     content: string;
     published: boolean;
+    created_at?: string;
+    updated_at?: string;
   };
   onSave: (data: {
     title: string;
@@ -34,6 +36,7 @@ interface PostEditorProps {
     featured_image: string | null;
     content: string;
     published: boolean;
+    created_at?: string;
   }) => Promise<void>;
   isNew?: boolean;
 }
@@ -277,9 +280,33 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
   const [featuredImage, setFeaturedImage] = useState(initialData?.featured_image || '');
   const [content, setContent] = useState(initialData?.content || '');
   const [published, setPublished] = useState(initialData?.published || false);
+  const [createdAt, setCreatedAt] = useState(initialData?.created_at || '');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [showMetadata, setShowMetadata] = useState(true);
+
+  // Format ISO date string to local datetime-local input value
+  const formatForDateInput = (dateStr: string) => {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return '';
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  };
+
+  // Format date for display
+  const formatDateDisplay = (dateStr: string) => {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+  };
 
   // View mode: 'edit' or 'preview'
   const [viewMode, setViewMode] = useState<'edit' | 'preview'>('edit');
@@ -351,7 +378,7 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
     setError('');
 
     try {
-      await onSave({
+      const saveData: Parameters<typeof onSave>[0] = {
         title: title.trim(),
         subtitle: subtitle.trim(),
         category,
@@ -359,7 +386,12 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
         featured_image: featuredImage || null,
         content,
         published: publish,
-      });
+      };
+      // Include created_at if it was changed from the original
+      if (createdAt && createdAt !== initialData?.created_at) {
+        saveData.created_at = createdAt;
+      }
+      await onSave(saveData);
     } catch (err) {
       setError('Failed to save post');
     } finally {
@@ -542,6 +574,36 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
                 </div>
               )}
             </div>
+
+            {/* Dates */}
+            {!isNew && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+                    Published Date
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={formatForDateInput(createdAt)}
+                    onChange={e => {
+                      if (e.target.value) {
+                        setCreatedAt(new Date(e.target.value).toISOString());
+                      }
+                    }}
+                    className="w-full px-3 py-2.5 bg-gray-50 border-0 rounded-xl text-gray-900 focus:ring-2 focus:ring-[#A32015]/20 focus:bg-white transition-all text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+                    Last Updated
+                  </label>
+                  <div className="px-3 py-2.5 bg-gray-50 rounded-xl text-sm text-gray-500">
+                    {formatDateDisplay(initialData?.updated_at || '')}
+                    <span className="block text-xs text-gray-400 mt-0.5">Auto-updated on save</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
