@@ -1,4 +1,5 @@
 # Dockerfile - Multi-stage Next.js production build
+FROM infisical/cli:0.43.69 AS infisical
 FROM node:20-alpine AS base
 
 # Install dependencies only when needed
@@ -25,8 +26,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Install curl for health checks
+# Install curl for health checks and copy Infisical CLI
 RUN apk add --no-cache curl
+COPY --from=infisical /bin/infisical /usr/local/bin/infisical
 
 # Create non-root user for security
 RUN addgroup --system --gid 1001 nodejs
@@ -51,4 +53,8 @@ ENV HOSTNAME="0.0.0.0"
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3000/api/health || exit 1
 
-CMD ["node", "server.js"]
+# Entrypoint handles Infisical secret injection
+COPY --chown=nextjs:nodejs entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+
+CMD ["./entrypoint.sh"]
