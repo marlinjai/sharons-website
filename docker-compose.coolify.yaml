@@ -8,7 +8,7 @@ services:
       - INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET=${INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET}
       - DATABASE_PATH=/app/data/blog.db
     volumes:
-      - blog-data:/app/data
+      - /data/sharons-website:/app/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
       interval: 30s
@@ -16,8 +16,3 @@ services:
       start_period: 30s
       retries: 3
     restart: unless-stopped
-
-volumes:
-  blog-data:
-    external: true
-    name: blog-data
