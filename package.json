@@ -7,7 +7,7 @@
     "npm": ">=10.0.0"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "INFISICAL_TOKEN=$($HOME/software-dev/infra/scripts/infisical-org-token.sh get 8fe7fa35-8d86-47a8-b7f1-c4bfced193e4) infisical run --projectId=12bf305e-0146-4128-9272-2a5286a79443 --env=dev --domain=https://infisical.lumitra.co -- next dev",
     "dev:email": "email dev --dir ./emails",
     "build": "next build",
     "start": "next start",
