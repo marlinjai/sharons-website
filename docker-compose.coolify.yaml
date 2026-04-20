@@ -1,6 +1,7 @@
 services:
   app:
     image: ghcr.io/marlinjai/sharons-website:latest
+    pull_policy: always
     environment:
       - INFISICAL_UNIVERSAL_AUTH_CLIENT_ID=${INFISICAL_UNIVERSAL_AUTH_CLIENT_ID}
       - INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET=${INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET}
