@@ -18,3 +18,5 @@ node_modules
 
 # SQLite database
 /data/
+
+.claude/
