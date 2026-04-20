@@ -27,18 +27,18 @@ export default function BlogPage() {
   const [editingPostId, setEditingPostId] = useState<number | null>(null);
 
   const fetchPosts = useCallback(async () => {
-      try {
-        const res = await fetch('/api/blog/posts');
-        if (res.ok) {
-          const data = await res.json();
+    try {
+      const res = await fetch('/api/blog/posts');
+      if (res.ok) {
+        const data = await res.json();
         setPosts(data.posts || []);
         setIsAdmin(data.isAdmin || false);
-        }
-      } catch (error) {
-        console.error('Failed to fetch posts:', error);
-      } finally {
-        setLoading(false);
       }
+    } catch (error) {
+      console.error('Failed to fetch posts:', error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export default function BlogPage() {
       <div className="min-h-screen bg-white overflow-x-hidden">
         <BlogHeader
           backgroundImage="/images/6.jpg"
-          title="Hypnotherapy, Explained."
+          title="Hypnosis, Explained."
           subtitle="Simple. Nerdy. Surprisingly Fun."
           backLink={{
             href: '/',

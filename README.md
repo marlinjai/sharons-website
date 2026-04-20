@@ -1,6 +1,6 @@
-# Sharon's Hypnotherapy Website
+# Sharon's Hypnosis Website
 
-Welcome! This is the source code for Sharon's Hypnotherapy website.  
+Welcome! This is the source code for Sharon's Hypnosis website.
 You are now viewing the project in Cursor, your code editor.
 
 This guide will help you run, view, and edit the website—even if you have never used JavaScript or Next.js before.
@@ -9,7 +9,7 @@ This guide will help you run, view, and edit the website—even if you have neve
 
 ## What is this project?
 
-This website presents information about Sharon's hypnotherapy services, including:
+This website presents information about Sharon's hypnosis services, including:
 
 - Services offered
 - Reviews
@@ -26,7 +26,7 @@ The site is designed to be easy to update and maintain.
 
 ### 1. Open a terminal in Cursor
 
-- In Cursor, open the built-in terminal.  
+- In Cursor, open the built-in terminal.
   (Look for a "Terminal" or "New Terminal" option, usually at the bottom or in the menu.)
 
 ### 2. Start the website

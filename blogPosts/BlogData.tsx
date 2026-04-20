@@ -73,15 +73,15 @@ export const blogPostsData: BlogPostType[] = [
 
           <div>
             <h4 className="font-secondary text-lg font-semibold mb-2">4. Hypnotherapist</h4>
-            <p className="mb-2"><strong>Training:</strong> Certified in hypnotherapy through recognized training programs</p>
+            <p className="mb-2"><strong>Training:</strong> Certified in hypnosis through recognized training programs</p>
             <p className="mb-2"><strong>Helps with:</strong> Accessing the subconscious, releasing blocks, shifting internal responses</p>
             <p className="mb-2"><strong>Best for:</strong> Fast, deep change on emotional or behavioral patterns</p>
             <p className="mb-2"><strong>Limitations:</strong> Not licensed to diagnose or treat clinical disorders. Effectiveness depends on depth of training and presence.</p>
           </div>
 
           <div>
-            <h4 className="font-secondary text-lg font-semibold mb-2">5. Hypnotherapy Practitioner</h4>
-            <p className="mb-2"><strong>Training:</strong> Varies by method, may include certified hypnotherapy, holistic modalities, regression work</p>
+            <h4 className="font-secondary text-lg font-semibold mb-2">5. Hypnosis Practitioner</h4>
+            <p className="mb-2"><strong>Training:</strong> Varies by method, may include certified hypnosis, holistic modalities, regression work</p>
             <p className="mb-2"><strong>Helps with:</strong> Subconscious root work, regression, reframing, emotional integration</p>
             <p className="mb-2"><strong>Best for:</strong> Those ready to shift what's no longer serving them, at the source</p>
             <p className="mb-2"><strong>Limitations:</strong> Not medically or clinically licensed. Certification is often obtained through private academies, but standards and scope of practice vary widely. Outcomes depend on the practitioner's training, approach, and alignment with the client.</p>
@@ -100,7 +100,7 @@ export const blogPostsData: BlogPostType[] = [
           <p>In a world full of titles, modalities, and acronyms, it's easy to get overwhelmed, or to assume that one path is automatically "better" than another.</p>
           <p className="font-semibold">But here's the truth:</p>
           <p>The best professional is the one who sees you, gets you, and can actually help you shift.</p>
-          <p>Whether they hold a medical degree, a hypnotherapy certificate, or years of lived experience paired with emotional intelligence - what matters most is the fit.</p>
+          <p>Whether they hold a medical degree, a hypnosis certificate, or years of lived experience paired with emotional intelligence - what matters most is the fit.</p>
           <p>Ask questions. Follow your gut.</p>
           <p className="mb-8">And remember: real transformation doesn't always follow a linear path, but it should always feel aligned.</p>
 
@@ -237,10 +237,10 @@ export const blogPostsData: BlogPostType[] = [
   },
   {
     id: 1,
-    slug: slugify("What Is hypnotherapy, Really?"),
+    slug: slugify("What Is hypnosis, Really?"),
     image: null,
-    title: "What Is Hypnotherapy, Really?",
-    subtitle: "Let's start from the top. Hypnotherapy is a natural state of deep relaxation...",
+    title: "What Is Hypnosis, Really?",
+    subtitle: "Let's start from the top. Hypnosis is a natural state of deep relaxation...",
     category: "Education",
     readTime: "3 min read",
     date: "August 15, 2025",
@@ -248,9 +248,9 @@ export const blogPostsData: BlogPostType[] = [
     content: (
       <>
         <div className="mb-8">
-          <h2 className="font-secondary text-3xl font-semibold mb-4" style={{ color: '#A32015' }}>What Is Hypnotherapy, Really?</h2>
+          <h2 className="font-secondary text-3xl font-semibold mb-4" style={{ color: '#A32015' }}>What Is Hypnosis, Really?</h2>
           <p className="mb-6">Let's start from the top.</p>
-          <p className="mb-6">Hypnotherapy is a natural state of deep relaxation where your mind focuses, your body softens, and your subconscious - the real boss - becomes open and responsive.</p>
+          <p className="mb-6">Hypnosis is a natural state of deep relaxation where your mind focuses, your body softens, and your subconscious - the real boss - becomes open and responsive.</p>
           <p className="mb-6">It's not mind control. It's not sleep. And no, it's not dangerous.</p>
           <p className="mb-6">You naturally drift into this state twice a day:</p>
           <ul className="list-none space-y-2 mb-6">

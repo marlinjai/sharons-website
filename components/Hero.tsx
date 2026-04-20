@@ -27,9 +27,9 @@ export default function Hero() {
         <div className="max-w-[--content-max-width] mx-auto px-[--content-padding] w-full flex flex-col lg:flex-row items-end gap-24 pl-8 min-[380px]:pl-0 md:pl-8">
           <div className="max-w-2xl 2xl:max-w-full text-left space-y-4 md:space-y-6">
             <div className="flex flex-col">
-              {/* Line 1: Hypnotherapy - immediately visible */}
+              {/* Line 1: Hypnosis - immediately visible */}
               <h1 className="text-3xl sm:text-5xl 2xl:text-7xl font-secondary font-semibold mb-[0.93rem] text-brand-off-black drop-shadow-lg">
-                Hypnotherapy
+                Hypnosis
               </h1>
 
               {/* Line 2: For the Curious, Brave & Ready - immediately visible */}

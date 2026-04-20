@@ -3,27 +3,27 @@ import Link from 'next/link';
 
 const faqs = [
   {
-    question: 'What is hypnotherapy?',
+    question: 'What is hypnosis?',
     answer:
-      'Hypnotherapy is a therapeutic technique that uses guided relaxation and focused attention to achieve a heightened state of awareness, helping you access your subconscious mind for positive change.',
+      'Hypnosis is a therapeutic technique that uses guided relaxation and focused attention to achieve a heightened state of awareness, helping you access your subconscious mind for positive change.',
   },
   {
-    question: 'Is hypnotherapy safe?',
+    question: 'Is hypnosis safe?',
     answer:
-      'Yes! Hypnotherapy is a natural state of mind and is completely safe when practiced by a certified professional. You are always in control during a session.',
+      'Yes! Hypnosis is a natural state of mind and is completely safe when practiced by a certified professional. You are always in control during a session.',
   },
   {
-    question: 'What can hypnotherapy help with?',
+    question: 'What can hypnosis help with?',
     answer:
-      'Hypnotherapy can help with stress, anxiety, breaking unwanted habits, improving confidence, exploring past experiences, and much more.',
+      'Hypnosis can help with stress, anxiety, breaking unwanted habits, improving confidence, exploring past experiences, and much more.',
   },
   {
     question: 'How do I book a session?',
     answer: 'You can contact me through the contact form to book a session or ask any questions you may have.',
   },
   {
-    question: 'Will I lose control during hypnotherapy?',
-    answer: 'No, you remain in control at all times. Hypnotherapy is a state of focused attention, not mind control.',
+    question: 'Will I lose control during hypnosis?',
+    answer: 'No, you remain in control at all times. Hypnosis is a state of focused attention, not mind control.',
   },
   {
     question: 'Can everyone be hypnotized?',
@@ -58,7 +58,7 @@ export default function NotFound() {
         </h1>
         <p className="text-center text-gray-700 mb-6 text-lg max-w-xl">
           We couldn't find the page you were looking for, but here are some answers to common questions about
-          hypnotherapy and sessions.
+          hypnosis and sessions.
         </p>
       </div>
       <div className="max-w-2xl w-full bg-white/90 rounded-3xl shadow-2xl p-8 md:p-12">

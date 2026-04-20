@@ -44,13 +44,13 @@ Some are great on stage.</p>
 <p><strong>Limitations:</strong> Not trained to offer talk therapy. Focus is medical, not therapeutic.</p>
 
 <h4>4. Hypnotherapist</h4>
-<p><strong>Training:</strong> Certified in hypnotherapy through recognized training programs</p>
+<p><strong>Training:</strong> Certified in hypnosis through recognized training programs</p>
 <p><strong>Helps with:</strong> Accessing the subconscious, releasing blocks, shifting internal responses</p>
 <p><strong>Best for:</strong> Fast, deep change on emotional or behavioral patterns</p>
 <p><strong>Limitations:</strong> Not licensed to diagnose or treat clinical disorders.</p>
 
-<h4>5. Hypnotherapy Practitioner</h4>
-<p><strong>Training:</strong> Varies by method, may include certified hypnotherapy, holistic modalities, regression work</p>
+<h4>5. Hypnosis Practitioner</h4>
+<p><strong>Training:</strong> Varies by method, may include certified hypnosis, holistic modalities, regression work</p>
 <p><strong>Helps with:</strong> Subconscious root work, regression, reframing, emotional integration</p>
 <p><strong>Best for:</strong> Those ready to shift what's no longer serving them, at the source</p>
 
@@ -131,15 +131,15 @@ Some are great on stage.</p>
 <p><em>Remember, there's no "right" way to experience regression. Every journey is unique and perfect for the individual taking it.</em></p>`,
   },
   {
-    title: 'What Is Hypnotherapy, Really?',
-    subtitle: "Let's start from the top. Hypnotherapy is a natural state of deep relaxation...",
+    title: 'What Is Hypnosis, Really?',
+    subtitle: "Let's start from the top. Hypnosis is a natural state of deep relaxation...",
     category: 'Education',
     readTime: '3 min read',
     image: '',
     published: false,
-    content: `<h2 style="color: #A32015;">What Is Hypnotherapy, Really?</h2>
+    content: `<h2 style="color: #A32015;">What Is Hypnosis, Really?</h2>
 <p>Let's start from the top.</p>
-<p>Hypnotherapy is a natural state of deep relaxation where your mind focuses, your body softens, and your subconscious - the real boss - becomes open and responsive.</p>
+<p>Hypnosis is a natural state of deep relaxation where your mind focuses, your body softens, and your subconscious - the real boss - becomes open and responsive.</p>
 <p>It's not mind control. It's not sleep. And no, it's not dangerous.</p>
 <p>You naturally drift into this state twice a day:</p>
 <ul>

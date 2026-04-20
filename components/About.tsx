@@ -19,7 +19,7 @@ const About = () => {
           </h4>
           <br />
           <p className="text-text-light text-base md:text-lg 2xl:text-xl mb-6 font-primary">
-            I'm Sharon - a certified Hypnotherapy Practitioner and full-time nerd when it comes to the mysteries of the human
+            I'm Sharon - a certified Hypnosis Practitioner and full-time nerd when it comes to the mysteries of the human
             mind (and everything in between, above, and beyond).
             <br />
             <br />

@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Build context-aware system message
-    let systemMessage = `You are an expert writing assistant for a blog about hypnotherapy, mental wellness, and personal transformation.
+    let systemMessage = `You are an expert writing assistant for a blog about hypnosis, mental wellness, and personal transformation.
 
 ## Your Role
 You help edit and improve text within blog articles. You have full context about the article being edited.
