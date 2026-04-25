@@ -35,11 +35,10 @@ jobs:
 
   deploy-verify:
     needs: build-and-push
-    if: github.ref == 'refs/heads/main'
     uses: marlinjai/infra/.github/workflows/coolify-deploy-verify.yml@v1
     with:
-      health_url:  https://returnhypnosis.com/api/health
+      health_url: https://returnhypnosis.com/api/health
       environment: production
     secrets:
       coolify_webhook: ${{ secrets.COOLIFY_WEBHOOK }}
-      coolify_token:   ${{ secrets.COOLIFY_TOKEN }}
+      coolify_token: ${{ secrets.COOLIFY_TOKEN }}
