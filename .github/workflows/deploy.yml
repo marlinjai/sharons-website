@@ -35,6 +35,9 @@ jobs:
 
   deploy-verify:
     needs: build-and-push
+    permissions:
+      contents: read
+      deployments: write
     uses: marlinjai/actions-shared/.github/workflows/coolify-deploy-verify.yml@v1
     with:
       health_url: https://returnhypnosis.com/api/health
