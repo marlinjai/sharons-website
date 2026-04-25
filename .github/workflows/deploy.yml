@@ -7,6 +7,6 @@ on:
 
 jobs:
   test-call:
-    uses: marlinjai/infra/.github/workflows/test-reusable.yml@main
+    uses: ./.github/workflows/local-reusable.yml
     with:
       msg: hello

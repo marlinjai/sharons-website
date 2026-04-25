@@ -1,0 +1,14 @@
+name: Local Reusable
+
+on:
+  workflow_call:
+    inputs:
+      msg:
+        required: true
+        type: string
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Local reusable msg=${{ inputs.msg }}"
