@@ -33,19 +33,13 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  deploy:
+  deploy-verify:
     needs: build-and-push
-    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Trigger Coolify deploy
-        run: |
-          HTTP_CODE=$(curl -s -o /tmp/coolify-response -w "%{http_code}" \
-            "${{ secrets.COOLIFY_WEBHOOK }}" \
-            -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}")
-          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
-            echo "::error::Coolify deploy webhook failed with HTTP $HTTP_CODE"
-            cat /tmp/coolify-response
-            exit 1
-          fi
-          echo "Coolify deploy triggered (HTTP $HTTP_CODE)"
+    uses: marlinjai/infra/.github/workflows/coolify-deploy-verify.yml@v1
+    with:
+      health_url:  https://returnhypnosis.com/api/health
+      environment: production
+    secrets:
+      coolify_webhook: ${{ secrets.COOLIFY_WEBHOOK }}
+      coolify_token:   ${{ secrets.COOLIFY_TOKEN }}
