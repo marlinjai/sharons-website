@@ -13,7 +13,7 @@ const reviews: Review[] = [
   },
   {
     name: 'Diana W.',
-    title: 'hypnotherapist',
+    title: 'Hypnotherapist',
     text: `I recently had the pleasure of working with Sharon for a regression hypnosis session, and it was truly transformative.\nFrom the moment I arrived, I felt welcomed and at ease. Sharon is kind, patient, and made me feel completely comfortable sharing my thoughts and emotions. She was an exceptional listener and guided me with genuine compassion and understanding.\nDuring the session, she offered deep and insightful guidance, making me feel safe and supported throughout. I left feeling relaxed and empowered.\nI would gladly work with her again and wholeheartedly recommend her to anyone seeking healing and transformation through QHHT.`,
   },
   {
