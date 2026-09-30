@@ -1,8 +1,9 @@
 // components/Contact.tsx
-// Contact form with Resend email integration
+// Contact form (demo only - nothing is sent or stored)
 
 'use client';
 import { useState } from 'react';
+import DemoNotice from './DemoNotice';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -11,39 +12,18 @@ export default function Contact() {
     phone: '',
     message: '',
   });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Demo only: nothing is sent or stored, the form is just cleared
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('loading');
-    setErrorMsg('');
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Something went wrong');
-      }
-
-      // Success - clear form and show success state
-      setStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
-    } catch (err) {
-      setStatus('error');
-      setErrorMsg(err instanceof Error ? err.message : 'Failed to send message');
-    }
+    setFormData({ name: '', email: '', phone: '', message: '' });
+    setSubmitted(true);
   };
 
   return (
@@ -134,22 +114,13 @@ export default function Contact() {
                 />
               </div>
 
-              {/* Status feedback */}
-              {status === 'success' && (
-                <p className="text-green-600 font-primary text-center">
-                  Thank you! Your message has been sent. I'll get back to you soon.
-                </p>
-              )}
-              {status === 'error' && (
-                <p className="text-red-600 font-primary text-center">{errorMsg}</p>
-              )}
+              {submitted && <DemoNotice />}
 
               <button
                 type="submit"
-                disabled={status === 'loading'}
                 className="bg-btn-primary-bg text-btn-primary-text px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 hover:bg-btn-primary-bg-hover mx-auto disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {status === 'loading' ? 'Sending...' : 'Send Message'}
+                Send Message
               </button>
             </form>
           </div>
@@ -157,31 +128,42 @@ export default function Contact() {
           {/* Location Section */}
           <div className="flex flex-col justify-between bg-white rounded-2xl shadow-xl p-8 lg:p-12">
             <h3 className="font-secondary text-2xl font-semibold mb-6 text-text-primary">
-              Visit the Studio
+              Visit the Studio - Demo
             </h3>
             <div className="space-y-6">
               <div>
                 <label className="block font-primary text-base sm:text-lg font-medium text-text-gray mb-2">Location</label>
                 <div className="px-4 py-3 border border-gray-300 rounded-lg bg-gray-50">
-                  <p className="font-primary text-text-gray mb-3">Here is where sessions take place:</p>
-                  <p className="font-primary text-lg font-semibold text-text-gray mb-2">Praxis am Zionskirchplatz</p>
-                  <p className="font-primary text-text-gray">10-11, 10117 Berlin</p>
+                  <p className="font-primary text-text-gray mb-3">Example location (demo only):</p>
+                  <p className="font-primary text-lg font-semibold text-text-gray mb-2">Example Studio</p>
+                  <p className="font-primary text-text-gray">Musterstraße 1, 10115 Berlin</p>
                 </div>
               </div>
 
               <div>
                 <label className="block font-primary text-base sm:text-lg font-medium text-text-gray mb-2">Map</label>
-                <div className="h-[350px] sm:h-[480px]">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4853.770537225342!2d13.401955876629824!3d52.535509972065256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851fb9a297cfd%3A0x5dfea125c03cacd1!2sPraxis%20am%20Zionskirchplatz!5e0!3m2!1sen!2sde!4v1753217975364!5m2!1sen!2sde"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Location Map"
-                  />
+                {/* Illustrative placeholder map - not a real location */}
+                <div className="relative h-[350px] sm:h-[480px] rounded-lg overflow-hidden border border-gray-200 bg-[#f3f1ec]">
+                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <rect x="250" y="40" width="110" height="90" rx="8" fill="#dcebd6" />
+                    <rect x="30" y="260" width="140" height="100" rx="8" fill="#dcebd6" />
+                    <g stroke="#ffffff" strokeLinecap="round" fill="none">
+                      <path d="M-20 120 L420 180" strokeWidth="18" />
+                      <path d="M140 -20 L220 420" strokeWidth="18" />
+                      <path d="M-20 320 L420 250" strokeWidth="12" />
+                      <path d="M300 -20 L340 420" strokeWidth="10" />
+                      <path d="M-20 40 L200 90" strokeWidth="8" />
+                    </g>
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <svg width="44" height="56" viewBox="0 0 24 30" aria-hidden="true">
+                      <path d="M12 0C5.4 0 0 5.2 0 11.7 0 20.3 12 30 12 30s12-9.7 12-18.3C24 5.2 18.6 0 12 0z" fill="#c5441f" />
+                      <circle cx="12" cy="11.5" r="4.5" fill="#ffffff" />
+                    </svg>
+                    <span className="mt-3 px-4 py-2 rounded-full bg-white/90 shadow font-primary text-sm text-text-gray">
+                      Demo map - not a real location
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

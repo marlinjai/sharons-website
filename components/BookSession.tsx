@@ -1,15 +1,8 @@
 "use client";
 
-/* First make sure that you have installed the package */
-
-/* If you are using yarn */
-// yarn add @calcom/embed-react
-
-/* If you are using npm */
-// npm install @calcom/embed-react
-
-import { getCalApi } from '@calcom/embed-react';
-import { useEffect } from 'react';
+// Opens the demo booking calendar (no connection to Cal.com)
+import { useState } from 'react';
+import DemoBookingModal from './DemoBookingModal';
 
 interface BookSessionProps {
   variant?: 'hero' | 'contact' | 'nav';
@@ -17,29 +10,7 @@ interface BookSessionProps {
 }
 
 export default function BookSession({ variant = 'hero', className }: BookSessionProps) {
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace: '5-hrs' });
-      cal('ui', {
-        theme: 'light',
-        cssVarsPerTheme: {
-          light: {
-            'cal-brand': '#c5441f',
-            'cal-bg-emphasis': '#fcd8b3',
-            'cal-brand-text': '#ffffff',
-            'cal-bg': '#ffffff',
-            'cal-bg-muted': '#f8f7f4',
-            'cal-text': '#374151',
-            'cal-text-emphasis': '#944923',
-            'border-radius': '0px',
-          },
-          dark: {},
-        },
-        hideEventTypeDetails: false,
-        layout: 'month_view',
-      });
-    })();
-  }, []);
+  const [open, setOpen] = useState(false);
 
   // Button styles based on Hero and Contact sections
   const getButtonStyles = () => {
@@ -56,13 +27,11 @@ export default function BookSession({ variant = 'hero', className }: BookSession
   };
 
   return (
-    <button
-      data-cal-namespace="5-hrs"
-      data-cal-link="sharondisalvo/5-hrs"
-      data-cal-config='{"layout":"month_view", "theme":"light"}'
-      className={`${getButtonStyles()} ${className || ''} `}
-    >
-      {variant === 'nav' ? 'Let\'s Talk' : 'Book a Session'}
-    </button>
+    <>
+      <button onClick={() => setOpen(true)} className={`${getButtonStyles()} ${className || ''} `}>
+        {variant === 'nav' ? 'Let\'s Talk' : 'Demo: Book a Session'}
+      </button>
+      {open && <DemoBookingModal onClose={() => setOpen(false)} />}
+    </>
   );
 }

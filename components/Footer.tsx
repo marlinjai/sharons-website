@@ -215,7 +215,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-300 mt-12 pt-8 text-center">
           <p className="text-text-gray-light mb-2 font-primary">© Copyright 2026 ReTurn Hypnosis</p>
-          <p className="text-text-gray-light text-sm font-primary">Designed with love by <a href="https://www.linkedin.com/in/marlin-pohl/" className="text-text-primary hover:text-brand-primary-light transition-colors duration-200 font-primary">Marlin Jai Pohl</a></p>
+          <p className="text-text-gray-light text-sm font-primary">Designed with love by <span className="text-text-primary font-primary">Sharon Di Salvo</span></p>
+          <p className="text-text-gray-light text-sm font-primary mt-2">This website is a live mockup, created to showcase functionality.</p>
         </div>
       </div>
     </footer>

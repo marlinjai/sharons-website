@@ -1,63 +1,19 @@
 'use client';
 import { useState } from 'react';
 import { FiMail } from "react-icons/fi";
-import Link from 'next/link';
+import DemoNotice from './DemoNotice';
 
 export default function Newsletter() {
   const [name, setName] = useState('');
   const [newsletter, setNewsletter] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [statusMessage, setStatusMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+  // Demo only: nothing is sent or stored, the form is just cleared
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!name.trim()) {
-      setSubmitStatus('error');
-      setStatusMessage('Please enter your name');
-      return;
-    }
-
-    if (!newsletter || !newsletter.includes('@')) {
-      setSubmitStatus('error');
-      setStatusMessage('Please enter a valid email address');
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-    setStatusMessage('');
-
-    try {
-      const response = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: newsletter,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        setStatusMessage('Successfully subscribed! Check your email for confirmation.');
-        setName(''); // Clear the name field
-        setNewsletter(''); // Clear the email field
-      } else {
-        setSubmitStatus('error');
-        setStatusMessage(data.error || 'Failed to subscribe. Please try again.');
-      }
-    } catch (error) {
-      setSubmitStatus('error');
-      setStatusMessage('Network error. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    setName('');
+    setNewsletter('');
+    setSubmitted(true);
   };
 
   return (
@@ -89,7 +45,6 @@ export default function Newsletter() {
               onChange={e => setName(e.target.value)}
               className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#c5441f] focus:border-[#c5441f] outline-none transition-all duration-200 font-primary text-lg placeholder-[#BCBCBC]"
               required
-              disabled={isSubmitting}
             />
             <input
               type="email"
@@ -98,31 +53,17 @@ export default function Newsletter() {
               onChange={e => setNewsletter(e.target.value)}
               className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#c5441f] focus:border-[#c5441f] outline-none transition-all duration-200 font-primary text-lg placeholder-[#BCBCBC]"
               required
-              disabled={isSubmitting}
             />
           </div>
 
           <button
             type="submit"
-            className={`px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#c5441f] hover:bg-[#e15023] md:mt-8'
-              } text-white`}
-            disabled={isSubmitting}
+            className="px-8 py-4 rounded-full text-lg font-primary font-medium shadow-lg transition-colors duration-200 bg-[#c5441f] hover:bg-[#e15023] md:mt-8 text-white"
           >
-            {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+            Subscribe
           </button>
 
-          {/* Status Messages */}
-          {submitStatus === 'success' && (
-            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-800 font-primary">{statusMessage}</p>
-            </div>
-          )}
-
-          {submitStatus === 'error' && (
-            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-800 font-primary">{statusMessage}</p>
-            </div>
-          )}
+          {submitted && <DemoNotice className="mt-4" />}
         </form>
       </div>
     </section>

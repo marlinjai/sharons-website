@@ -37,7 +37,7 @@ export default function PrivacyPolicy() {
           className={`fixed inset-0 bg-black bg-opacity-50 z-[70] flex items-center justify-center p-4 ${isClosing ? 'animate-fadeOut' : 'animate-fadeIn'}`}
         >
           <div
-            className={`bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto ${isClosing ? 'animate-slideOut' : 'animate-slideIn'}`}
+            className={`bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto ${isClosing ? 'animate-slideOut' : 'animate-slideIn'}`}
           >
             {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b border-gray-200">
@@ -52,123 +52,41 @@ export default function PrivacyPolicy() {
             {/* Modal Content */}
             <div className="p-6 space-y-6 font-primary text-gray-700 leading-relaxed">
               <div>
-                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-3">Data Controller</h3>
-                <p className="mb-4">
-                  Sharon Di Salvo
-                  <br />
-                  Sole proprietor
-                  <br />
-                  Praxis am Zionskirchplatz
-                  <br />
-                  10-11, 10117 Berlin
-                  <br />
-                  Germany
-                  <br />
-                  Email: hello@returnhypnosis.com
-                </p>
+                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-2">About this website</h3>
+                <p>ReTurn Hypnosis is a demonstration website and does not currently offer hypnosis services. The website remains publicly accessible as a portfolio example demonstrating website design and functionality.</p>
               </div>
-
               <div>
-                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-3">
-                  Types of Personal Data We Collect
-                </h3>
-                <p className="mb-4">We may collect the following types of personal data:</p>
-                <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Name and contact details (e.g., email, phone number)</li>
-                  <li>Appointment details and preferences</li>
-                  <li>Communication history and correspondence</li>
-                  <li>Newsletter preferences (if subscribed)</li>
-                  <li>Any personal insights voluntarily shared during session inquiries or bookings</li>
-                </ul>
+                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-2">Who is responsible</h3>
+                <p>Sharon Di Salvo, Scherenbergstraße 22, 10439 Berlin. E-Mail: <a href="mailto:sharondisalvo@icloud.com" className="text-[#c5441f] hover:text-[#A32015] transition-colors duration-200">sharondisalvo@icloud.com</a></p>
               </div>
-
               <div>
-                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-3">Legal Basis for Processing</h3>
-                <p className="mb-4">
-                  We process your data in accordance with Article 6(1)(a), (b), and (f) of the GDPR:
-                </p>
-                <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>To fulfill our contract with you (e.g. booked sessions)</li>
-                  <li>With your consent (e.g. newsletter)</li>
-                  <li>Based on our legitimate interest in providing and improving our services</li>
-                </ul>
+                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-2">Hosting, Cloudflare and server logs</h3>
+                <p>The website runs on a web server hosted by Hetzner Online GmbH in Germany. All traffic is routed through Cloudflare, Inc. (USA), which delivers the pages and protects the site against attacks.</p>
+                <p className="mt-3">When you open a page, technically necessary data is processed automatically: your IP address, date and time of the request, the page requested, browser type and operating system, and the referring page. This is needed to deliver the website and keep it secure (Art. 6(1)(f) GDPR). Log data is only kept for as long as needed for these purposes.</p>
               </div>
-
               <div>
-                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-3">Third-Party Services</h3>
-                <p className="mb-4">We may share limited data with third-party service providers who assist us in:</p>
-                <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Scheduling sessions (Cal.com)</li>
-                  <li>Sending newsletters (MailerLite)</li>
-                  <li>Hosting our website and contact forms (Render)</li>
-                </ul>
-                <p className="mt-4">
-                  These providers process data solely on our behalf and under data processing agreements in compliance
-                  with the GDPR.
-                </p>
+                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-2">Demo interactions</h3>
+                <p>The booking, contact and newsletter interfaces on this website are demonstration features only. Information entered into these interfaces is not transmitted, stored, analysed or used to create bookings, messages or subscriptions.</p>
               </div>
-
               <div>
-                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-3">Data Retention</h3>
-                <p>
-                  We retain your personal data only as long as necessary for the purposes set out in this policy, or as
-                  required by tax, legal, or regulatory obligations. Session-related information is kept for up to 10
-                  years unless deletion is requested earlier, subject to legal requirements.
-                </p>
+                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-2">Contacting by e-mail</h3>
+                <p>If you write to the e-mail address above, your e-mail address and the content of your message are used only to answer your enquiry and are deleted once they are no longer needed (Art. 6(1)(f) GDPR).</p>
               </div>
-
               <div>
-                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-3">Your Data Protection Rights</h3>
-                <p className="mb-4">Under the GDPR, you have the right to:</p>
-                <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Access your personal data</li>
-                  <li>Correct inaccurate data</li>
-                  <li>Request deletion of your data</li>
-                  <li>Restrict or object to processing</li>
-                  <li>Withdraw consent at any time (where consent is the legal basis)</li>
-                  <li>Receive your data in a portable format (data portability)</li>
-                  <li>Lodge a complaint with a supervisory authority</li>
-                </ul>
+                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-2">No analytics, cookies or maps</h3>
+                <p>This website does not use analytics or tracking tools, does not set cookies and does not embed maps (the map shown is an illustration). All fonts are served from this website itself, so no connection to Google Fonts is made. If you like a blog post, this is remembered only in your own browser (local storage); the like counter on the server stores no personal data.</p>
               </div>
-
               <div>
-                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-3">
-                  International Data Transfers
-                </h3>
-                <p>
-                  Some of our service providers are located outside the EU (e.g., in the USA). In such cases, we ensure
-                  appropriate safeguards are in place under GDPR, such as Standard Contractual Clauses.
-                </p>
+                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-2">Transfers to the USA</h3>
+                <p>Cloudflare may process data in the USA. Cloudflare is certified under the EU-US Data Privacy Framework, on which such transfers are based (Art. 45 GDPR).</p>
               </div>
-
               <div>
-                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-3">Supervisory Authority</h3>
-                <p className="mb-4">
-                  If you believe your data protection rights have been violated, you may lodge a complaint with your
-                  local supervisory authority. In Germany, this is the:
-                </p>
-                <p>
-                  Berliner Beauftragte für Datenschutz und Informationsfreiheit
-                  <br />
-                  <a
-                    href="https://www.datenschutz-berlin.de"
-                    className="text-[#C5441E] hover:text-[rgb(245,124,0)] underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    https://www.datenschutz-berlin.de
-                  </a>
-                </p>
+                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-2">Your rights</h3>
+                <p>You have the right to access, rectification, erasure, restriction of processing, data portability and objection. You also have the right to lodge a complaint with a data protection supervisory authority, for example the Berlin Commissioner for Data Protection and Freedom of Information (Berliner Beauftragte für Datenschutz und Informationsfreiheit).</p>
               </div>
-
-              <div>
-                <h3 className="text-lg font-secondary font-semibold text-gray-900 mb-3">Cookies and Tracking</h3>
-                <p>We do not use cookies or third-party tracking tools on this website.</p>
-              </div>
-
               <div className="text-sm text-gray-500 pt-4 border-t border-gray-200">
                 <p>
-                  <strong>Last updated:</strong> January 2026
+                  <strong>Last updated:</strong> September 2026
                 </p>
               </div>
             </div>
