@@ -1,6 +1,6 @@
 # Dockerfile - Multi-stage Next.js production build
 FROM infisical/cli:0.43.69 AS infisical
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
