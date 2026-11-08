@@ -4,14 +4,9 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { useEditor, EditorContent, Editor, BubbleMenu } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Link from '@tiptap/extension-link';
-import Placeholder from '@tiptap/extension-placeholder';
-import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
-import TextStyle from '@tiptap/extension-text-style';
-import Color from '@tiptap/extension-color';
+import { useEditor, EditorContent, Editor } from '@tiptap/react';
+import { BubbleMenu } from '@tiptap/react/menus';
+import { bubbleMenuOptions, editorRenderOptions, inlineEditorExtensions } from '@/lib/editorExtensions';
 
 interface PostData {
   id: number;
@@ -178,22 +173,8 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
 
   // Tiptap editor
   const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        heading: { levels: [2, 3] },
-      }),
-      Link.configure({
-        openOnClick: false,
-        HTMLAttributes: { class: 'text-[#A32015] underline font-medium hover:text-[#7f1810]' },
-      }),
-      Placeholder.configure({
-        placeholder: 'Write your post content...',
-      }),
-      Underline,
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
-      TextStyle,
-      Color,
-    ],
+    extensions: inlineEditorExtensions(),
+    ...editorRenderOptions,
     content: '',
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
@@ -233,7 +214,8 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
 
         // Set editor content after fetching
         if (editor) {
-          editor.commands.setContent(post.content || '');
+          // Tiptap 3 emits an update by default; keep Tiptap 2's silent load.
+          editor.commands.setContent(post.content || '', { emitUpdate: false });
         }
       } catch (err: any) {
         setLoadError(err.message || 'Failed to load post');
@@ -475,7 +457,7 @@ export default function InlinePostEditor({ postId, onSave, onCancel }: InlinePos
           {/* Bubble Menu for inline formatting */}
           <BubbleMenu
             editor={editor}
-            tippyOptions={{ duration: 100, placement: 'top' }}
+            options={bubbleMenuOptions}
             className="bg-white rounded-xl shadow-xl border border-gray-200 p-1.5 flex items-center gap-1"
           >
             {/* Heading/Paragraph dropdown */}

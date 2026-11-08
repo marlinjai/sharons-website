@@ -4,16 +4,9 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { useEditor, EditorContent, Editor, BubbleMenu } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Link from '@tiptap/extension-link';
-import Image from '@tiptap/extension-image';
-import Placeholder from '@tiptap/extension-placeholder';
-import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
-import TextStyle from '@tiptap/extension-text-style';
-import Color from '@tiptap/extension-color';
-import Highlight from '@tiptap/extension-highlight';
+import { useEditor, EditorContent, Editor } from '@tiptap/react';
+import { BubbleMenu } from '@tiptap/react/menus';
+import { appendBubbleMenuToBody, bubbleMenuOptions, editorRenderOptions, postEditorExtensions } from '@/lib/editorExtensions';
 
 interface PostEditorProps {
   initialData?: {
@@ -320,26 +313,8 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
 
   // Tiptap editor instance
   const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        heading: { levels: [1, 2, 3, 4] },
-      }),
-      Link.configure({
-        openOnClick: false,
-        HTMLAttributes: { class: 'text-[#A32015] underline font-medium hover:text-[#7f1810]' },
-      }),
-      Image.configure({
-        HTMLAttributes: { class: 'rounded-md my-8' },
-      }),
-      Placeholder.configure({
-        placeholder: 'Start writing your post... Select text to format.',
-      }),
-      Underline,
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
-      TextStyle,
-      Color,
-      Highlight.configure({ multicolor: true }),
-    ],
+    extensions: postEditorExtensions(),
+    ...editorRenderOptions,
     content: initialData?.content || '',
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
@@ -674,12 +649,8 @@ export default function PostEditor({ initialData, onSave, isNew = false }: PostE
             {/* Bubble Menu for inline formatting */}
             <BubbleMenu
               editor={editor}
-              tippyOptions={{
-                duration: 100,
-                placement: 'top',
-                maxWidth: 'none',
-                appendTo: () => document.body,
-              }}
+              options={bubbleMenuOptions}
+              appendTo={appendBubbleMenuToBody}
               className="bg-white rounded-xl shadow-xl border border-gray-200 p-1.5 flex items-center gap-1 min-w-max"
             >
               {/* Heading/Paragraph dropdown */}
