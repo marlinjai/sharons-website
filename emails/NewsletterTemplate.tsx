@@ -14,7 +14,7 @@ import {
   Text,
   Hr,
   Button,
-} from '@react-email/components';
+} from 'react-email';
 import * as React from 'react';
 
 // Content section types for flexible newsletter structure
@@ -96,7 +96,7 @@ export const NewsletterTemplate: React.FC<NewsletterTemplateProps> = ({
       <Head>
         <title>{subject}</title>
       </Head>
-      <Preview>{previewText}</Preview>
+      <Preview useTitleTag={false}>{previewText}</Preview>
       <Body style={main}>
         <Container style={container}>
           {/* Header with Logo and Issue Info */}
