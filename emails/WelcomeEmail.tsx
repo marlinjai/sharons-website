@@ -14,7 +14,7 @@ import {
   Text,
   Hr,
   Button,
-} from '@react-email/components';
+} from 'react-email';
 import * as React from 'react';
 
 interface WelcomeEmailProps {
@@ -35,7 +35,7 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({ name, latestBlogPost
       <Head>
         <title>Welcome to Sharon Di Salvo's Newsletter</title>
       </Head>
-      <Preview>Welcome {name}! Your ReTurn Newsletter Subscription</Preview>
+      <Preview useTitleTag={false}>Welcome {name}! Your ReTurn Newsletter Subscription</Preview>
       <Body style={main}>
         <Container style={container}>
           {/* Header with Logo */}
